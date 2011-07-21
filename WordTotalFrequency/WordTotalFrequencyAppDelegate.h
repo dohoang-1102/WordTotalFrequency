@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class WordTotalFrequencyViewController;
 
 @interface WordTotalFrequencyAppDelegate : NSObject <UIApplicationDelegate> {
 
@@ -16,6 +15,6 @@
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
-@property (nonatomic, retain) IBOutlet WordTotalFrequencyViewController *viewController;
+@property (nonatomic, retain) IBOutlet UINavigationController *navigationController;
 
 @end

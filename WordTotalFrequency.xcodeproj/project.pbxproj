@@ -14,8 +14,9 @@
 		0632420F13D87C7F00388D3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632420E13D87C7F00388D3E /* main.m */; };
 		0632421213D87C8000388D3E /* WordTotalFrequencyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */; };
 		0632421513D87C8000388D3E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421313D87C8000388D3E /* MainWindow.xib */; };
-		0632421813D87C8000388D3E /* WordTotalFrequencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632421713D87C8000388D3E /* WordTotalFrequencyViewController.m */; };
-		0632421B13D87C8000388D3E /* WordTotalFrequencyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421913D87C8000388D3E /* WordTotalFrequencyViewController.xib */; };
+		064B388C13D87F64006A5780 /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064B388B13D87F64006A5780 /* DashboardController.m */; };
+		064B389513D8820D006A5780 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 064B389413D8820D006A5780 /* Default.png */; };
+		064B389913D882D9006A5780 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 064B389813D882D9006A5780 /* README */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,16 +24,17 @@
 		0632420113D87C7F00388D3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0632420313D87C7F00388D3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0632420513D87C7F00388D3E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */ = {isa = PBXFileReference; path = "WordTotalFrequency-Info.plist"; sourceTree = "<group>"; };
+		0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WordTotalFrequency-Info.plist"; sourceTree = "<group>"; };
 		0632420B13D87C7F00388D3E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0632420D13D87C7F00388D3E /* WordTotalFrequency-Prefix.pch */ = {isa = PBXFileReference; path = "WordTotalFrequency-Prefix.pch"; sourceTree = "<group>"; };
+		0632420D13D87C7F00388D3E /* WordTotalFrequency-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WordTotalFrequency-Prefix.pch"; sourceTree = "<group>"; };
 		0632420E13D87C7F00388D3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		0632421013D87C7F00388D3E /* WordTotalFrequencyAppDelegate.h */ = {isa = PBXFileReference; path = WordTotalFrequencyAppDelegate.h; sourceTree = "<group>"; };
+		0632421013D87C7F00388D3E /* WordTotalFrequencyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WordTotalFrequencyAppDelegate.h; sourceTree = "<group>"; };
 		0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordTotalFrequencyAppDelegate.m; sourceTree = "<group>"; };
 		0632421413D87C8000388D3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		0632421613D87C8000388D3E /* WordTotalFrequencyViewController.h */ = {isa = PBXFileReference; path = WordTotalFrequencyViewController.h; sourceTree = "<group>"; };
-		0632421713D87C8000388D3E /* WordTotalFrequencyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordTotalFrequencyViewController.m; sourceTree = "<group>"; };
-		0632421A13D87C8000388D3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WordTotalFrequencyViewController.xib; sourceTree = "<group>"; };
+		064B388A13D87F64006A5780 /* DashboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardController.h; sourceTree = "<group>"; };
+		064B388B13D87F64006A5780 /* DashboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardController.m; sourceTree = "<group>"; };
+		064B389413D8820D006A5780 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		064B389813D882D9006A5780 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		063241F213D87C7F00388D3E = {
 			isa = PBXGroup;
 			children = (
+				064B389813D882D9006A5780 /* README */,
 				0632420713D87C7F00388D3E /* WordTotalFrequency */,
 				0632420013D87C7F00388D3E /* Frameworks */,
 				063241FE13D87C7F00388D3E /* Products */,
@@ -79,12 +82,13 @@
 		0632420713D87C7F00388D3E /* WordTotalFrequency */ = {
 			isa = PBXGroup;
 			children = (
+				064B38A613D883FD006A5780 /* Extentions */,
+				064B38A513D883E8006A5780 /* Classes */,
+				064B38A413D883E0006A5780 /* Views */,
+				064B38A213D883D4006A5780 /* Models */,
+				064B388813D87F46006A5780 /* Controllers */,
 				0632421013D87C7F00388D3E /* WordTotalFrequencyAppDelegate.h */,
 				0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */,
-				0632421313D87C8000388D3E /* MainWindow.xib */,
-				0632421613D87C8000388D3E /* WordTotalFrequencyViewController.h */,
-				0632421713D87C8000388D3E /* WordTotalFrequencyViewController.m */,
-				0632421913D87C8000388D3E /* WordTotalFrequencyViewController.xib */,
 				0632420813D87C7F00388D3E /* Supporting Files */,
 			);
 			path = WordTotalFrequency;
@@ -93,12 +97,59 @@
 		0632420813D87C7F00388D3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				064B389313D881F4006A5780 /* Images */,
 				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
 				0632420A13D87C7F00388D3E /* InfoPlist.strings */,
 				0632420D13D87C7F00388D3E /* WordTotalFrequency-Prefix.pch */,
 				0632420E13D87C7F00388D3E /* main.m */,
+				0632421313D87C8000388D3E /* MainWindow.xib */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		064B388813D87F46006A5780 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				064B388A13D87F64006A5780 /* DashboardController.h */,
+				064B388B13D87F64006A5780 /* DashboardController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		064B389313D881F4006A5780 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				064B389413D8820D006A5780 /* Default.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		064B38A213D883D4006A5780 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		064B38A413D883E0006A5780 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		064B38A513D883E8006A5780 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		064B38A613D883FD006A5780 /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extentions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,7 +201,8 @@
 			files = (
 				0632420C13D87C7F00388D3E /* InfoPlist.strings in Resources */,
 				0632421513D87C8000388D3E /* MainWindow.xib in Resources */,
-				0632421B13D87C8000388D3E /* WordTotalFrequencyViewController.xib in Resources */,
+				064B389513D8820D006A5780 /* Default.png in Resources */,
+				064B389913D882D9006A5780 /* README in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +215,7 @@
 			files = (
 				0632420F13D87C7F00388D3E /* main.m in Sources */,
 				0632421213D87C8000388D3E /* WordTotalFrequencyAppDelegate.m in Sources */,
-				0632421813D87C8000388D3E /* WordTotalFrequencyViewController.m in Sources */,
+				064B388C13D87F64006A5780 /* DashboardController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,14 +236,6 @@
 				0632421413D87C8000388D3E /* en */,
 			);
 			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		0632421913D87C8000388D3E /* WordTotalFrequencyViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0632421A13D87C8000388D3E /* en */,
-			);
-			name = WordTotalFrequencyViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -276,6 +320,7 @@
 				0632422013D87C8000388D3E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
