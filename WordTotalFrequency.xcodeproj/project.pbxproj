@@ -1,0 +1,283 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420113D87C7F00388D3E /* UIKit.framework */; };
+		0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420313D87C7F00388D3E /* Foundation.framework */; };
+		0632420613D87C7F00388D3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420513D87C7F00388D3E /* CoreGraphics.framework */; };
+		0632420C13D87C7F00388D3E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0632420A13D87C7F00388D3E /* InfoPlist.strings */; };
+		0632420F13D87C7F00388D3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632420E13D87C7F00388D3E /* main.m */; };
+		0632421213D87C8000388D3E /* WordTotalFrequencyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */; };
+		0632421513D87C8000388D3E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421313D87C8000388D3E /* MainWindow.xib */; };
+		0632421813D87C8000388D3E /* WordTotalFrequencyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632421713D87C8000388D3E /* WordTotalFrequencyViewController.m */; };
+		0632421B13D87C8000388D3E /* WordTotalFrequencyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421913D87C8000388D3E /* WordTotalFrequencyViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		063241FD13D87C7F00388D3E /* WordTotalFrequency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordTotalFrequency.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0632420113D87C7F00388D3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0632420313D87C7F00388D3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0632420513D87C7F00388D3E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */ = {isa = PBXFileReference; path = "WordTotalFrequency-Info.plist"; sourceTree = "<group>"; };
+		0632420B13D87C7F00388D3E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0632420D13D87C7F00388D3E /* WordTotalFrequency-Prefix.pch */ = {isa = PBXFileReference; path = "WordTotalFrequency-Prefix.pch"; sourceTree = "<group>"; };
+		0632420E13D87C7F00388D3E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		0632421013D87C7F00388D3E /* WordTotalFrequencyAppDelegate.h */ = {isa = PBXFileReference; path = WordTotalFrequencyAppDelegate.h; sourceTree = "<group>"; };
+		0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordTotalFrequencyAppDelegate.m; sourceTree = "<group>"; };
+		0632421413D87C8000388D3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		0632421613D87C8000388D3E /* WordTotalFrequencyViewController.h */ = {isa = PBXFileReference; path = WordTotalFrequencyViewController.h; sourceTree = "<group>"; };
+		0632421713D87C8000388D3E /* WordTotalFrequencyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordTotalFrequencyViewController.m; sourceTree = "<group>"; };
+		0632421A13D87C8000388D3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/WordTotalFrequencyViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		063241FA13D87C7F00388D3E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */,
+				0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */,
+				0632420613D87C7F00388D3E /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		063241F213D87C7F00388D3E = {
+			isa = PBXGroup;
+			children = (
+				0632420713D87C7F00388D3E /* WordTotalFrequency */,
+				0632420013D87C7F00388D3E /* Frameworks */,
+				063241FE13D87C7F00388D3E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		063241FE13D87C7F00388D3E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				063241FD13D87C7F00388D3E /* WordTotalFrequency.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0632420013D87C7F00388D3E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0632420113D87C7F00388D3E /* UIKit.framework */,
+				0632420313D87C7F00388D3E /* Foundation.framework */,
+				0632420513D87C7F00388D3E /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0632420713D87C7F00388D3E /* WordTotalFrequency */ = {
+			isa = PBXGroup;
+			children = (
+				0632421013D87C7F00388D3E /* WordTotalFrequencyAppDelegate.h */,
+				0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */,
+				0632421313D87C8000388D3E /* MainWindow.xib */,
+				0632421613D87C8000388D3E /* WordTotalFrequencyViewController.h */,
+				0632421713D87C8000388D3E /* WordTotalFrequencyViewController.m */,
+				0632421913D87C8000388D3E /* WordTotalFrequencyViewController.xib */,
+				0632420813D87C7F00388D3E /* Supporting Files */,
+			);
+			path = WordTotalFrequency;
+			sourceTree = "<group>";
+		};
+		0632420813D87C7F00388D3E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
+				0632420A13D87C7F00388D3E /* InfoPlist.strings */,
+				0632420D13D87C7F00388D3E /* WordTotalFrequency-Prefix.pch */,
+				0632420E13D87C7F00388D3E /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		063241FC13D87C7F00388D3E /* WordTotalFrequency */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0632421E13D87C8000388D3E /* Build configuration list for PBXNativeTarget "WordTotalFrequency" */;
+			buildPhases = (
+				063241F913D87C7F00388D3E /* Sources */,
+				063241FA13D87C7F00388D3E /* Frameworks */,
+				063241FB13D87C7F00388D3E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WordTotalFrequency;
+			productName = WordTotalFrequency;
+			productReference = 063241FD13D87C7F00388D3E /* WordTotalFrequency.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		063241F413D87C7F00388D3E /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 063241F713D87C7F00388D3E /* Build configuration list for PBXProject "WordTotalFrequency" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 063241F213D87C7F00388D3E;
+			productRefGroup = 063241FE13D87C7F00388D3E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				063241FC13D87C7F00388D3E /* WordTotalFrequency */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		063241FB13D87C7F00388D3E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0632420C13D87C7F00388D3E /* InfoPlist.strings in Resources */,
+				0632421513D87C8000388D3E /* MainWindow.xib in Resources */,
+				0632421B13D87C8000388D3E /* WordTotalFrequencyViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		063241F913D87C7F00388D3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0632420F13D87C7F00388D3E /* main.m in Sources */,
+				0632421213D87C8000388D3E /* WordTotalFrequencyAppDelegate.m in Sources */,
+				0632421813D87C8000388D3E /* WordTotalFrequencyViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		0632420A13D87C7F00388D3E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0632420B13D87C7F00388D3E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		0632421313D87C8000388D3E /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0632421413D87C8000388D3E /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		0632421913D87C8000388D3E /* WordTotalFrequencyViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0632421A13D87C8000388D3E /* en */,
+			);
+			name = WordTotalFrequencyViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0632421C13D87C8000388D3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		0632421D13D87C8000388D3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		0632421F13D87C8000388D3E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WordTotalFrequency/WordTotalFrequency-Prefix.pch";
+				INFOPLIST_FILE = "WordTotalFrequency/WordTotalFrequency-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		0632422013D87C8000388D3E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WordTotalFrequency/WordTotalFrequency-Prefix.pch";
+				INFOPLIST_FILE = "WordTotalFrequency/WordTotalFrequency-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		063241F713D87C7F00388D3E /* Build configuration list for PBXProject "WordTotalFrequency" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0632421C13D87C8000388D3E /* Debug */,
+				0632421D13D87C8000388D3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0632421E13D87C8000388D3E /* Build configuration list for PBXNativeTarget "WordTotalFrequency" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0632421F13D87C8000388D3E /* Debug */,
+				0632422013D87C8000388D3E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 063241F413D87C7F00388D3E /* Project object */;
+}
