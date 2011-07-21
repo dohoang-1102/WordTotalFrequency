@@ -15,8 +15,9 @@
 		0632421213D87C8000388D3E /* WordTotalFrequencyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */; };
 		0632421513D87C8000388D3E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421313D87C8000388D3E /* MainWindow.xib */; };
 		064B388C13D87F64006A5780 /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064B388B13D87F64006A5780 /* DashboardController.m */; };
-		064B389513D8820D006A5780 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 064B389413D8820D006A5780 /* Default.png */; };
 		064B389913D882D9006A5780 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 064B389813D882D9006A5780 /* README */; };
+		067A0DEE13D88965003589DA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 067A0DED13D88965003589DA /* Default.png */; };
+		067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 067A0DEF13D88991003589DA /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +34,9 @@
 		0632421413D87C8000388D3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		064B388A13D87F64006A5780 /* DashboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardController.h; sourceTree = "<group>"; };
 		064B388B13D87F64006A5780 /* DashboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardController.m; sourceTree = "<group>"; };
-		064B389413D8820D006A5780 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		064B389813D882D9006A5780 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		067A0DED13D88965003589DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		067A0DEF13D88991003589DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */,
 				0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */,
 				0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */,
 				0632420613D87C7F00388D3E /* CoreGraphics.framework in Frameworks */,
@@ -72,6 +75,7 @@
 		0632420013D87C7F00388D3E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				067A0DEF13D88991003589DA /* QuartzCore.framework */,
 				0632420113D87C7F00388D3E /* UIKit.framework */,
 				0632420313D87C7F00388D3E /* Foundation.framework */,
 				0632420513D87C7F00388D3E /* CoreGraphics.framework */,
@@ -97,7 +101,7 @@
 		0632420813D87C7F00388D3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				064B389313D881F4006A5780 /* Images */,
+				067A0DEC13D88959003589DA /* Images */,
 				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
 				0632420A13D87C7F00388D3E /* InfoPlist.strings */,
 				0632420D13D87C7F00388D3E /* WordTotalFrequency-Prefix.pch */,
@@ -114,14 +118,6 @@
 				064B388B13D87F64006A5780 /* DashboardController.m */,
 			);
 			name = Controllers;
-			sourceTree = "<group>";
-		};
-		064B389313D881F4006A5780 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				064B389413D8820D006A5780 /* Default.png */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		064B38A213D883D4006A5780 /* Models */ = {
@@ -150,6 +146,14 @@
 			children = (
 			);
 			name = Extentions;
+			sourceTree = "<group>";
+		};
+		067A0DEC13D88959003589DA /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				067A0DED13D88965003589DA /* Default.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,8 +205,8 @@
 			files = (
 				0632420C13D87C7F00388D3E /* InfoPlist.strings in Resources */,
 				0632421513D87C8000388D3E /* MainWindow.xib in Resources */,
-				064B389513D8820D006A5780 /* Default.png in Resources */,
 				064B389913D882D9006A5780 /* README in Resources */,
+				067A0DEE13D88965003589DA /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

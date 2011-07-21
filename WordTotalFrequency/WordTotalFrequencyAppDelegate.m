@@ -19,8 +19,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     DashboardController *dc = [[DashboardController alloc] init];
     _navigationController = [[UINavigationController alloc] initWithRootViewController:dc];
+    _navigationController.navigationBar.tintColor = [UIColor blueColor];
     [dc release];
     self.window.rootViewController = self.navigationController;
     
