@@ -14,10 +14,14 @@
 		0632420F13D87C7F00388D3E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632420E13D87C7F00388D3E /* main.m */; };
 		0632421213D87C8000388D3E /* WordTotalFrequencyAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */; };
 		0632421513D87C8000388D3E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421313D87C8000388D3E /* MainWindow.xib */; };
-		064B388C13D87F64006A5780 /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064B388B13D87F64006A5780 /* DashboardController.m */; };
+		064A681813D905FB001B6828 /* WordSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064A681713D905FB001B6828 /* WordSetController.m */; };
 		064B389913D882D9006A5780 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 064B389813D882D9006A5780 /* README */; };
 		067A0DEE13D88965003589DA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 067A0DED13D88965003589DA /* Default.png */; };
 		067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 067A0DEF13D88991003589DA /* QuartzCore.framework */; };
+		067A0DFA13D890D2003589DA /* WordSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0DF913D890D2003589DA /* WordSet.m */; };
+		067A0E0813D891AC003589DA /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E0713D891AC003589DA /* DashboardController.m */; };
+		067A0E1613D8E8D3003589DA /* UIColor+WTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E1513D8E8D3003589DA /* UIColor+WTF.m */; };
+		067A0E1913D8EBBE003589DA /* DashboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E1813D8EBBE003589DA /* DashboardView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,11 +36,20 @@
 		0632421013D87C7F00388D3E /* WordTotalFrequencyAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WordTotalFrequencyAppDelegate.h; sourceTree = "<group>"; };
 		0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WordTotalFrequencyAppDelegate.m; sourceTree = "<group>"; };
 		0632421413D87C8000388D3E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		064B388A13D87F64006A5780 /* DashboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardController.h; sourceTree = "<group>"; };
-		064B388B13D87F64006A5780 /* DashboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardController.m; sourceTree = "<group>"; };
+		064A681613D905FB001B6828 /* WordSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSetController.h; sourceTree = "<group>"; };
+		064A681713D905FB001B6828 /* WordSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSetController.m; sourceTree = "<group>"; };
 		064B389813D882D9006A5780 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		067A0DED13D88965003589DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		067A0DEF13D88991003589DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		067A0DF813D890D2003589DA /* WordSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSet.h; sourceTree = "<group>"; };
+		067A0DF913D890D2003589DA /* WordSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSet.m; sourceTree = "<group>"; };
+		067A0E0613D891AC003589DA /* DashboardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardController.h; sourceTree = "<group>"; };
+		067A0E0713D891AC003589DA /* DashboardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardController.m; sourceTree = "<group>"; };
+		067A0E1113D8E469003589DA /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		067A0E1413D8E8D3003589DA /* UIColor+WTF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WTF.h"; sourceTree = "<group>"; };
+		067A0E1513D8E8D3003589DA /* UIColor+WTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WTF.m"; sourceTree = "<group>"; };
+		067A0E1713D8EBBE003589DA /* DashboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardView.h; sourceTree = "<group>"; };
+		067A0E1813D8EBBE003589DA /* DashboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,11 +99,12 @@
 		0632420713D87C7F00388D3E /* WordTotalFrequency */ = {
 			isa = PBXGroup;
 			children = (
-				064B38A613D883FD006A5780 /* Extentions */,
-				064B38A513D883E8006A5780 /* Classes */,
-				064B38A413D883E0006A5780 /* Views */,
-				064B38A213D883D4006A5780 /* Models */,
-				064B388813D87F46006A5780 /* Controllers */,
+				067A0DFB13D8918A003589DA /* Classes */,
+				067A0DFC13D8918B003589DA /* Common */,
+				067A0E0113D8918B003589DA /* Controllers */,
+				067A0E0213D8918B003589DA /* Extentions */,
+				067A0E0313D8918B003589DA /* Views */,
+				067A0DF713D890BA003589DA /* Models */,
 				0632421013D87C7F00388D3E /* WordTotalFrequencyAppDelegate.h */,
 				0632421113D87C8000388D3E /* WordTotalFrequencyAppDelegate.m */,
 				0632420813D87C7F00388D3E /* Supporting Files */,
@@ -111,49 +125,65 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		064B388813D87F46006A5780 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				064B388A13D87F64006A5780 /* DashboardController.h */,
-				064B388B13D87F64006A5780 /* DashboardController.m */,
-			);
-			name = Controllers;
-			sourceTree = "<group>";
-		};
-		064B38A213D883D4006A5780 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Models;
-			sourceTree = "<group>";
-		};
-		064B38A413D883E0006A5780 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Views;
-			sourceTree = "<group>";
-		};
-		064B38A513D883E8006A5780 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
-		064B38A613D883FD006A5780 /* Extentions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Extentions;
-			sourceTree = "<group>";
-		};
 		067A0DEC13D88959003589DA /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				067A0DED13D88965003589DA /* Default.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		067A0DF713D890BA003589DA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				067A0DF813D890D2003589DA /* WordSet.h */,
+				067A0DF913D890D2003589DA /* WordSet.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		067A0DFB13D8918A003589DA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		067A0DFC13D8918B003589DA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				067A0E1113D8E469003589DA /* Common.h */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		067A0E0113D8918B003589DA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				067A0E0613D891AC003589DA /* DashboardController.h */,
+				067A0E0713D891AC003589DA /* DashboardController.m */,
+				064A681613D905FB001B6828 /* WordSetController.h */,
+				064A681713D905FB001B6828 /* WordSetController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		067A0E0213D8918B003589DA /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				067A0E1413D8E8D3003589DA /* UIColor+WTF.h */,
+				067A0E1513D8E8D3003589DA /* UIColor+WTF.m */,
+			);
+			path = Extentions;
+			sourceTree = "<group>";
+		};
+		067A0E0313D8918B003589DA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				067A0E1713D8EBBE003589DA /* DashboardView.h */,
+				067A0E1813D8EBBE003589DA /* DashboardView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,7 +249,11 @@
 			files = (
 				0632420F13D87C7F00388D3E /* main.m in Sources */,
 				0632421213D87C8000388D3E /* WordTotalFrequencyAppDelegate.m in Sources */,
-				064B388C13D87F64006A5780 /* DashboardController.m in Sources */,
+				067A0DFA13D890D2003589DA /* WordSet.m in Sources */,
+				067A0E0813D891AC003589DA /* DashboardController.m in Sources */,
+				067A0E1613D8E8D3003589DA /* UIColor+WTF.m in Sources */,
+				067A0E1913D8EBBE003589DA /* DashboardView.m in Sources */,
+				064A681813D905FB001B6828 /* WordSetController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

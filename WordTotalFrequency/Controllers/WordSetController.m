@@ -1,15 +1,15 @@
 //
-//  DashboardController.m
+//  WordSetController.m
 //  WordTotalFrequency
 //
-//  Created by OCS on 11-7-21.
+//  Created by OCS on 11-7-22.
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import "DashboardController.h"
+#import "WordSetController.h"
 
 
-@implementation DashboardController
+@implementation WordSetController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,20 +37,18 @@
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
-{
-    self.title = @"Word Total Frequency";
-    self.view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+{    
+    CGRect rect = [UIScreen mainScreen].bounds;
+    rect = CGRectMake(0, 64, rect.size.width, rect.size.height-64);
+    
+    self.view = [[UIView alloc] initWithFrame:rect];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = @"Word Set";
 }
 
 - (void)viewDidUnload

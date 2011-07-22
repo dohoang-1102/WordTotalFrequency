@@ -7,8 +7,9 @@
 //
 
 #import "WordTotalFrequencyAppDelegate.h"
-
 #import "DashboardController.h"
+#import "Common.h"
+#import "UIColor+WTF.h"
 
 @implementation WordTotalFrequencyAppDelegate
 
@@ -22,7 +23,7 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     DashboardController *dc = [[DashboardController alloc] init];
     _navigationController = [[UINavigationController alloc] initWithRootViewController:dc];
-    _navigationController.navigationBar.tintColor = [UIColor blueColor];
+    _navigationController.navigationBar.tintColor = [UIColor colorWithHex:0x3A3A65];
     [dc release];
     self.window.rootViewController = self.navigationController;
     
