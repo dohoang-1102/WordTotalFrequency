@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+@class WordSetBriefView;
 
 @interface DashboardController : UIViewController<UISearchBarDelegate>
 
-@property (nonatomic, retain)NSArray *wordSets;
+@property (nonatomic, retain)NSMutableArray *wordSets;
 @property (nonatomic, retain)NSMutableArray *unitIcons;
 @property (nonatomic)NSInteger selectedIconIndex;
+
+@property (nonatomic, retain)WordSetBriefView *wordSetBrief;
 
 @end

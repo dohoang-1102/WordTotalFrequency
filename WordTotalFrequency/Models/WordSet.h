@@ -13,11 +13,12 @@
     
 }
 
-@property (nonatomic, copy) NSString *name;
-@property (nonatomic) NSInteger wordCount;
-@property (nonatomic) NSInteger completePercent;
+@property (nonatomic) NSInteger totalWordCount;
+@property (nonatomic) NSInteger markedWordCount;
+@property (nonatomic, copy)NSString *description;
 @property (nonatomic, retain)UIColor *color;
+@property (nonatomic, readonly)NSInteger completePercentage;
 
-- (id)initWithName:(NSString *)name count:(NSInteger)count color:(UIColor *)color;
+- (id)initWithTotal:(NSInteger)total marked:(NSInteger)marked color:(UIColor *)color;
 
 @end

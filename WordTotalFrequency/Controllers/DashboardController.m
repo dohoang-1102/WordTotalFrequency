@@ -12,12 +12,14 @@
 #import "WordSet.h"
 #import "WordSetController.h"
 #import "UnitIconView.h"
+#import "WordSetBriefView.h"
 
 @implementation DashboardController
 
 @synthesize wordSets = _wordSets;
 @synthesize unitIcons = _unitIcons;
 @synthesize selectedIconIndex = _selectedIconIndex;
+@synthesize wordSetBrief = _wordSetBrief;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -32,6 +34,7 @@
 {
     [_wordSets release];
     [_unitIcons release];
+    [_wordSetBrief release];
     [super dealloc];
 }
 
@@ -43,13 +46,24 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)setSelectedIconIndex:(NSInteger)selectedIconIndex
+{
+    _selectedIconIndex = selectedIconIndex;
+    
+    if (selectedIconIndex > -1)
+    {
+        _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
+        _wordSetBrief.hidden = NO;
+    }
+}
+
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
     CGRect rect = [UIScreen mainScreen].bounds;
-    rect = CGRectMake(0, 64, rect.size.width, rect.size.height-64);
+    rect = CGRectMake(0, 20, rect.size.width, rect.size.height-20);
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
@@ -102,21 +116,53 @@
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
     [icon release];
+    
+    // word set brief
+    _wordSetBrief = [[WordSetBriefView alloc] initWithFrame:CGRectZero];
+    _wordSetBrief.frame = CGRectMake(10, 100, CGRectGetWidth(rect)-20, 200);
+    _wordSetBrief.hidden = YES;
+    _wordSetBrief.dashboardController = self;
+    [self.view addSubview:_wordSetBrief];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     
-    _selectedIconIndex = -1;
     // prepare data
-    self.wordSets = [NSArray arrayWithObjects:
-                     [[[WordSet alloc] initWithName:@"1." count:5765 color:[UIColor redColor]] autorelease],
-                     [[[WordSet alloc] initWithName:@"2." count:9233 color:[UIColor orangeColor]] autorelease],
-                     [[[WordSet alloc] initWithName:@"3." count:12457 color:[UIColor lightGrayColor]] autorelease],
-                     [[[WordSet alloc] initWithName:@"4." count:23219 color:[UIColor purpleColor]] autorelease],
-                     [[[WordSet alloc] initWithName:@"5." count:49346 color:[UIColor yellowColor]] autorelease],
-                     nil];
+    _wordSets = [[NSMutableArray alloc] init];
+    WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:2328 color:[UIColor redColor]] autorelease];
+    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    [_wordSets addObject:set];
+    
+    set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor orangeColor]] autorelease];
+    set.description = @"Master this word set you can understand basic conversations.";
+    [_wordSets addObject:set];
+    
+    set = [[[WordSet alloc] initWithTotal:12457 marked:0 color:[UIColor lightGrayColor]] autorelease];
+    set.description = @"Master this word set you can adfasf asdfasdf werwer asfasdf.";
+    [_wordSets addObject:set];
+    
+    set = [[[WordSet alloc] initWithTotal:23219 marked:0 color:[UIColor purpleColor]] autorelease];
+    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    [_wordSets addObject:set];
+    
+    set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor yellowColor]] autorelease];
+    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    [_wordSets addObject:set];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if (_selectedIconIndex > -1)
+    {
+        [_wordSetBrief.tableView
+            deselectRowAtIndexPath:[_wordSetBrief.tableView indexPathForSelectedRow]
+                          animated:YES];
+    }
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -124,6 +170,7 @@
 {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    _selectedIconIndex = -1;
 }
 
 - (void)viewDidUnload

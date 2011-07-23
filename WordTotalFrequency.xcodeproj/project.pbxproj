@@ -14,6 +14,9 @@
 		06066C9413D9D97E0019D945 /* Unit-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066C8F13D9D97E0019D945 /* Unit-4.png */; };
 		06066C9513D9D97E0019D945 /* Unit-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066C9013D9D97E0019D945 /* Unit-5.png */; };
 		06066CA813DA3A7A0019D945 /* UnitIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06066CA713DA3A7A0019D945 /* UnitIconView.m */; };
+		06066CE413DA804C0019D945 /* WordSetBriefView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06066CE313DA804B0019D945 /* WordSetBriefView.m */; };
+		06066CE713DA95A00019D945 /* MTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06066CE613DA95A00019D945 /* MTLabel.m */; };
+		06066CF113DA97710019D945 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06066CF013DA97710019D945 /* CoreText.framework */; };
 		0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420113D87C7F00388D3E /* UIKit.framework */; };
 		0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420313D87C7F00388D3E /* Foundation.framework */; };
 		0632420613D87C7F00388D3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420513D87C7F00388D3E /* CoreGraphics.framework */; };
@@ -39,6 +42,11 @@
 		06066C9013D9D97E0019D945 /* Unit-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-5.png"; sourceTree = "<group>"; };
 		06066CA613DA3A7A0019D945 /* UnitIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitIconView.h; sourceTree = "<group>"; };
 		06066CA713DA3A7A0019D945 /* UnitIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitIconView.m; sourceTree = "<group>"; };
+		06066CE213DA804B0019D945 /* WordSetBriefView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSetBriefView.h; sourceTree = "<group>"; };
+		06066CE313DA804B0019D945 /* WordSetBriefView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSetBriefView.m; sourceTree = "<group>"; };
+		06066CE513DA95A00019D945 /* MTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLabel.h; sourceTree = "<group>"; };
+		06066CE613DA95A00019D945 /* MTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLabel.m; sourceTree = "<group>"; };
+		06066CF013DA97710019D945 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		063241FD13D87C7F00388D3E /* WordTotalFrequency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordTotalFrequency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0632420113D87C7F00388D3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0632420313D87C7F00388D3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -70,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06066CF113DA97710019D945 /* CoreText.framework in Frameworks */,
 				067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */,
 				0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */,
 				0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */,
@@ -114,6 +123,7 @@
 		0632420013D87C7F00388D3E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06066CF013DA97710019D945 /* CoreText.framework */,
 				067A0DEF13D88991003589DA /* QuartzCore.framework */,
 				0632420113D87C7F00388D3E /* UIKit.framework */,
 				0632420313D87C7F00388D3E /* Foundation.framework */,
@@ -163,6 +173,8 @@
 		067A0DFB13D8918A003589DA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				06066CE513DA95A00019D945 /* MTLabel.h */,
+				06066CE613DA95A00019D945 /* MTLabel.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -202,6 +214,8 @@
 				067A0E1813D8EBBE003589DA /* DashboardView.m */,
 				06066CA613DA3A7A0019D945 /* UnitIconView.h */,
 				06066CA713DA3A7A0019D945 /* UnitIconView.m */,
+				06066CE213DA804B0019D945 /* WordSetBriefView.h */,
+				06066CE313DA804B0019D945 /* WordSetBriefView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -280,6 +294,8 @@
 				067A0E1913D8EBBE003589DA /* DashboardView.m in Sources */,
 				064A681813D905FB001B6828 /* WordSetController.m in Sources */,
 				06066CA813DA3A7A0019D945 /* UnitIconView.m in Sources */,
+				06066CE413DA804C0019D945 /* WordSetBriefView.m in Sources */,
+				06066CE713DA95A00019D945 /* MTLabel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

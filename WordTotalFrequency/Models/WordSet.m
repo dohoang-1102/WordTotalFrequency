@@ -11,18 +11,18 @@
 
 @implementation WordSet
 
-@synthesize name = _name;
-@synthesize wordCount = _wordCount;
-@synthesize completePercent = _completePercent;
+@synthesize totalWordCount = _totalWordCount;
+@synthesize markedWordCount = _markedWordCount;
+@synthesize description = _description;
 @synthesize color = _color;
+@synthesize completePercentage = _completePercentage;
 
-- (id)initWithName:(NSString *)name count:(NSInteger)count color:(UIColor *)color
+- (id)initWithTotal:(NSInteger)total marked:(NSInteger)marked color:(UIColor *)color
 {
     if ((self = [super init]))
     {
-        self.name           = name;
-        self.wordCount      = count;
-        self.completePercent= 0;
+        self.totalWordCount = total;
+        self.markedWordCount= marked;
         self.color          = color;
     }
     return self;
@@ -30,9 +30,17 @@
 
 - (void)dealloc
 {
-    [_name release];
+    [_description release];
     [_color release];
     [super dealloc];
+}
+
+- (NSInteger)completePercentage
+{
+    if (_totalWordCount <= 0)
+        return 0;
+    else
+        return lround(_markedWordCount * 100.f / _totalWordCount);
 }
 
 @end

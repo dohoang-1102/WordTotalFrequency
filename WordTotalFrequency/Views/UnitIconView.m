@@ -48,7 +48,7 @@
         _percentLayer = [[CAShapeLayer alloc] init];
         _percentLayer.bounds = rect;
         _percentLayer.position = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
-        _percentLayer.strokeColor = [UIColor colorWithHex:0x93b8d0].CGColor;
+        _percentLayer.strokeColor = [UIColor colorWithHex:0x45738e].CGColor;
         _percentLayer.fillColor = [UIColor clearColor].CGColor;
         _percentLayer.lineWidth = 4.f;
         [self.layer addSublayer:_percentLayer];
