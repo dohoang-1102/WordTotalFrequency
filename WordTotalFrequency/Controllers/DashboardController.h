@@ -9,11 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-@interface DashboardController : UIViewController<UITableViewDataSource, UITableViewDelegate> {
-    
-}
+@interface DashboardController : UIViewController<UISearchBarDelegate>
 
 @property (nonatomic, retain)NSArray *wordSets;
-@property (nonatomic, retain)UITableView *tableView;
+@property (nonatomic, retain)NSMutableArray *unitIcons;
+@property (nonatomic)NSInteger selectedIconIndex;
 
 @end

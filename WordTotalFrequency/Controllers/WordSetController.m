@@ -41,7 +41,7 @@
     CGRect rect = [UIScreen mainScreen].bounds;
     rect = CGRectMake(0, 64, rect.size.width, rect.size.height-64);
     
-    self.view = [[UIView alloc] initWithFrame:rect];
+    self.view = [[[UIView alloc] initWithFrame:rect] autorelease];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

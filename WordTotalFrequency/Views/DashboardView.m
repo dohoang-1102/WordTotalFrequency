@@ -25,8 +25,8 @@
 - (void)drawRect:(CGRect)rect
 {
     CGFloat colors [] = { 
-        58.0/255, 58.0/255, 101.0/255, 1.0,
-        52.0/255, 101.0/255, 203.0/255, 1.0
+        208.0/255, 237.0/255, 1, 1.0,
+        157.0/255, 217.0/255, 254.0/255, 1.0
     };
     
     CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
@@ -37,10 +37,11 @@
     CGContextAddRect(context, rect);
     CGContextClip(context);
     
-    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMinY(rect));
+    CGPoint startPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMidY(rect));
     CGPoint endPoint = CGPointMake(CGRectGetMidX(rect), CGRectGetMaxY(rect));
     
     CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0);
+    CGContextDrawRadialGradient(context, gradient, startPoint, 0, startPoint, 490, kCGGradientDrawsAfterEndLocation);
     CGGradientRelease(gradient);
 }
 

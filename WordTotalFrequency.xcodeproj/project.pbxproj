@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06066C7F13D9C9850019D945 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066C7E13D9C9850019D945 /* Default.png */; };
+		06066C9113D9D97E0019D945 /* Unit-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066C8C13D9D97E0019D945 /* Unit-1.png */; };
+		06066C9213D9D97E0019D945 /* Unit-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066C8D13D9D97E0019D945 /* Unit-2.png */; };
+		06066C9313D9D97E0019D945 /* Unit-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066C8E13D9D97E0019D945 /* Unit-3.png */; };
+		06066C9413D9D97E0019D945 /* Unit-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066C8F13D9D97E0019D945 /* Unit-4.png */; };
+		06066C9513D9D97E0019D945 /* Unit-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066C9013D9D97E0019D945 /* Unit-5.png */; };
+		06066CA813DA3A7A0019D945 /* UnitIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06066CA713DA3A7A0019D945 /* UnitIconView.m */; };
 		0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420113D87C7F00388D3E /* UIKit.framework */; };
 		0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420313D87C7F00388D3E /* Foundation.framework */; };
 		0632420613D87C7F00388D3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420513D87C7F00388D3E /* CoreGraphics.framework */; };
@@ -16,7 +23,6 @@
 		0632421513D87C8000388D3E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421313D87C8000388D3E /* MainWindow.xib */; };
 		064A681813D905FB001B6828 /* WordSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064A681713D905FB001B6828 /* WordSetController.m */; };
 		064B389913D882D9006A5780 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 064B389813D882D9006A5780 /* README */; };
-		067A0DEE13D88965003589DA /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 067A0DED13D88965003589DA /* Default.png */; };
 		067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 067A0DEF13D88991003589DA /* QuartzCore.framework */; };
 		067A0DFA13D890D2003589DA /* WordSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0DF913D890D2003589DA /* WordSet.m */; };
 		067A0E0813D891AC003589DA /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E0713D891AC003589DA /* DashboardController.m */; };
@@ -25,6 +31,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06066C7E13D9C9850019D945 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		06066C8C13D9D97E0019D945 /* Unit-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-1.png"; sourceTree = "<group>"; };
+		06066C8D13D9D97E0019D945 /* Unit-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-2.png"; sourceTree = "<group>"; };
+		06066C8E13D9D97E0019D945 /* Unit-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-3.png"; sourceTree = "<group>"; };
+		06066C8F13D9D97E0019D945 /* Unit-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-4.png"; sourceTree = "<group>"; };
+		06066C9013D9D97E0019D945 /* Unit-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-5.png"; sourceTree = "<group>"; };
+		06066CA613DA3A7A0019D945 /* UnitIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitIconView.h; sourceTree = "<group>"; };
+		06066CA713DA3A7A0019D945 /* UnitIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitIconView.m; sourceTree = "<group>"; };
 		063241FD13D87C7F00388D3E /* WordTotalFrequency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordTotalFrequency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0632420113D87C7F00388D3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0632420313D87C7F00388D3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -39,7 +53,6 @@
 		064A681613D905FB001B6828 /* WordSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSetController.h; sourceTree = "<group>"; };
 		064A681713D905FB001B6828 /* WordSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSetController.m; sourceTree = "<group>"; };
 		064B389813D882D9006A5780 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
-		067A0DED13D88965003589DA /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		067A0DEF13D88991003589DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		067A0DF813D890D2003589DA /* WordSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSet.h; sourceTree = "<group>"; };
 		067A0DF913D890D2003589DA /* WordSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSet.m; sourceTree = "<group>"; };
@@ -67,6 +80,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06066C7D13D9C97A0019D945 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				06066C8C13D9D97E0019D945 /* Unit-1.png */,
+				06066C8D13D9D97E0019D945 /* Unit-2.png */,
+				06066C8E13D9D97E0019D945 /* Unit-3.png */,
+				06066C8F13D9D97E0019D945 /* Unit-4.png */,
+				06066C9013D9D97E0019D945 /* Unit-5.png */,
+				06066C7E13D9C9850019D945 /* Default.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		063241F213D87C7F00388D3E = {
 			isa = PBXGroup;
 			children = (
@@ -115,7 +141,7 @@
 		0632420813D87C7F00388D3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				067A0DEC13D88959003589DA /* Images */,
+				06066C7D13D9C97A0019D945 /* Images */,
 				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
 				0632420A13D87C7F00388D3E /* InfoPlist.strings */,
 				0632420D13D87C7F00388D3E /* WordTotalFrequency-Prefix.pch */,
@@ -123,14 +149,6 @@
 				0632421313D87C8000388D3E /* MainWindow.xib */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		067A0DEC13D88959003589DA /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				067A0DED13D88965003589DA /* Default.png */,
-			);
-			path = Images;
 			sourceTree = "<group>";
 		};
 		067A0DF713D890BA003589DA /* Models */ = {
@@ -182,6 +200,8 @@
 			children = (
 				067A0E1713D8EBBE003589DA /* DashboardView.h */,
 				067A0E1813D8EBBE003589DA /* DashboardView.m */,
+				06066CA613DA3A7A0019D945 /* UnitIconView.h */,
+				06066CA713DA3A7A0019D945 /* UnitIconView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,7 +256,12 @@
 				0632420C13D87C7F00388D3E /* InfoPlist.strings in Resources */,
 				0632421513D87C8000388D3E /* MainWindow.xib in Resources */,
 				064B389913D882D9006A5780 /* README in Resources */,
-				067A0DEE13D88965003589DA /* Default.png in Resources */,
+				06066C7F13D9C9850019D945 /* Default.png in Resources */,
+				06066C9113D9D97E0019D945 /* Unit-1.png in Resources */,
+				06066C9213D9D97E0019D945 /* Unit-2.png in Resources */,
+				06066C9313D9D97E0019D945 /* Unit-3.png in Resources */,
+				06066C9413D9D97E0019D945 /* Unit-4.png in Resources */,
+				06066C9513D9D97E0019D945 /* Unit-5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +279,7 @@
 				067A0E1613D8E8D3003589DA /* UIColor+WTF.m in Sources */,
 				067A0E1913D8EBBE003589DA /* DashboardView.m in Sources */,
 				064A681813D905FB001B6828 /* WordSetController.m in Sources */,
+				06066CA813DA3A7A0019D945 /* UnitIconView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

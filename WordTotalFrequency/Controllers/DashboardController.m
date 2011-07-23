@@ -11,11 +11,13 @@
 #import "DashboardView.h"
 #import "WordSet.h"
 #import "WordSetController.h"
+#import "UnitIconView.h"
 
 @implementation DashboardController
 
 @synthesize wordSets = _wordSets;
-@synthesize tableView = _tableView;
+@synthesize unitIcons = _unitIcons;
+@synthesize selectedIconIndex = _selectedIconIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,6 +31,7 @@
 - (void)dealloc
 {
     [_wordSets release];
+    [_unitIcons release];
     [super dealloc];
 }
 
@@ -48,22 +51,64 @@
     CGRect rect = [UIScreen mainScreen].bounds;
     rect = CGRectMake(0, 64, rect.size.width, rect.size.height-64);
     
-    self.view = [[DashboardView alloc] initWithFrame:rect];
+    self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
-    // tableview
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    _tableView.backgroundColor = [UIColor clearColor];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.frame = CGRectMake(0, 0, CGRectGetWidth(rect), 220);
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.view addSubview:_tableView];
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    searchBar.delegate = self;
+    [searchBar sizeToFit];
+    [[[searchBar subviews] objectAtIndex:0] setAlpha:0.0];
+    
+    [self.view addSubview:searchBar];
+    [searchBar release];
+    
+    // unit icons
+    _unitIcons = [[NSMutableArray alloc] init];
+    UnitIconView *icon = [[UnitIconView alloc]
+                          initWithFrame:CGRectMake(20, 50, 36, 36)
+                          image:@"Unit-1.png" percent:87];
+    icon.dashboard = self;
+    [self.view addSubview:icon];
+    [_unitIcons addObject:icon];
+    [icon release];
+    
+    icon = [[UnitIconView alloc]
+                          initWithFrame:CGRectMake(81, 50, 36, 36)
+                          image:@"Unit-2.png" percent:57];
+    icon.dashboard = self;
+    [self.view addSubview:icon];
+    [_unitIcons addObject:icon];
+    [icon release];
+    
+    icon = [[UnitIconView alloc]
+            initWithFrame:CGRectMake(142, 50, 36, 36)
+            image:@"Unit-3.png" percent:32];
+    icon.dashboard = self;
+    [self.view addSubview:icon];
+    [_unitIcons addObject:icon];
+    [icon release];
+    
+    icon = [[UnitIconView alloc]
+            initWithFrame:CGRectMake(203, 50, 36, 36)
+            image:@"Unit-4.png" percent:13];
+    icon.dashboard = self;
+    [self.view addSubview:icon];
+    [_unitIcons addObject:icon];
+    [icon release];
+    
+    icon = [[UnitIconView alloc]
+            initWithFrame:CGRectMake(264, 50, 36, 36)
+            image:@"Unit-5.png" percent:0];
+    icon.dashboard = self;
+    [self.view addSubview:icon];
+    [_unitIcons addObject:icon];
+    [icon release];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
+    _selectedIconIndex = -1;
     // prepare data
     self.wordSets = [NSArray arrayWithObjects:
                      [[[WordSet alloc] initWithName:@"1." count:5765 color:[UIColor redColor]] autorelease],
@@ -72,14 +117,13 @@
                      [[[WordSet alloc] initWithName:@"4." count:23219 color:[UIColor purpleColor]] autorelease],
                      [[[WordSet alloc] initWithName:@"5." count:49346 color:[UIColor yellowColor]] autorelease],
                      nil];
-    [_tableView reloadData];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Word Total Frequency";
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)viewDidUnload
@@ -95,38 +139,12 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark - TableView source and delegate
+#pragma mark - UISearchBarDelegate
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    return [_wordSets count];
+	[searchBar resignFirstResponder];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return 44.0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-	WordSet *wordSet = [self.wordSets objectAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%d words", wordSet.wordCount];
-    cell.textLabel.textColor = [UIColor whiteColor];
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	WordSetController *wsc = [[WordSetController alloc] init];
-	[self.navigationController pushViewController:wsc animated:YES];
-	[wsc release];
-}
 
 @end
