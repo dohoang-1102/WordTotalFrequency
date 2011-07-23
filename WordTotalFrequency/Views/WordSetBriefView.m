@@ -20,9 +20,18 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        CGFloat top = 15.f;
+        
+        // separator layer
+        _arrowLayer = [[CAArrowShapeLayer alloc] init];
+        _arrowLayer.bounds = CGRectMake(0, 0, 600, 70);
+        _arrowLayer.position = CGPointMake(150, 35);
+        self.layer.masksToBounds = YES;
+        [self.layer addSublayer:_arrowLayer];
+        
         _countlabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _countlabel.backgroundColor = [UIColor clearColor];
-        _countlabel.frame = CGRectMake(0, 0, 80, 44);
+        _countlabel.frame = CGRectMake(0, top, 80, 44);
         _countlabel.font = [UIFont systemFontOfSize:36];
         _countlabel.adjustsFontSizeToFitWidth = YES;
         _countlabel.textColor = [UIColor colorForNormalText];
@@ -34,7 +43,7 @@
         
         _countNoteLabel = [[MTLabel alloc] initWithFrame:CGRectZero];
         _countNoteLabel.backgroundColor = [UIColor clearColor];
-        _countNoteLabel.frame = CGRectMake(80, 0, 80, 60);
+        _countNoteLabel.frame = CGRectMake(80, top, 80, 60);
         _countNoteLabel.font = [UIFont systemFontOfSize:12];
         _countNoteLabel.numberOfLines = 0;
         _countNoteLabel.text = @"words\nmarkedas\nremembered";
@@ -45,7 +54,7 @@
         
         _percentLabel = [[MTLabel alloc] initWithFrame:CGRectZero];
         _percentLabel.backgroundColor = [UIColor clearColor];
-        _percentLabel.frame = CGRectMake(160, 0, 140, 22);
+        _percentLabel.frame = CGRectMake(160, top, 140, 22);
         _percentLabel.font = [UIFont systemFontOfSize:20];
         _percentLabel.text = @"";
         [_percentLabel setFontColor:[UIColor colorForNormalText]];
@@ -53,10 +62,10 @@
         [self addSubview:_percentLabel];
         
         _progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-        _progress.frame = CGRectMake(160, 24, 140, 24);
+        _progress.frame = CGRectMake(160, top+24, 140, 24);
         [self addSubview:_progress];
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, 300, 70) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, top+50, 300, 70) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
@@ -86,7 +95,16 @@
         [_percentLabel setText:[NSString stringWithFormat:@"%d%% completed", _wordSet.completePercentage]];
         _progress.progress = _wordSet.completePercentage / 100.f;
         [_tableView reloadData];
+        
+        [_arrowLayer setNeedsDisplay];
     }
+}
+
+- (void)centerArrowToX:(CGFloat)x
+{
+    CGPoint point = _arrowLayer.position;
+    point.x = x;
+    _arrowLayer.position = point;
 }
 
 - (void)dealloc
@@ -96,6 +114,7 @@
     [_percentLabel release];
     [_progress release];
     [_tableView release];
+    [_arrowLayer release];
     
     [_wordSet release];
     [super dealloc];

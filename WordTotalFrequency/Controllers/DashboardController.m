@@ -54,6 +54,11 @@
     {
         _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
         _wordSetBrief.hidden = NO;
+        
+        UnitIconView *icon = [_unitIcons objectAtIndex:selectedIconIndex];
+        CGPoint point = icon.center;
+        point = [_wordSetBrief convertPoint:point fromView:icon.superview];
+        [_wordSetBrief centerArrowToX:point.x];
     }
 }
 
@@ -118,8 +123,7 @@
     [icon release];
     
     // word set brief
-    _wordSetBrief = [[WordSetBriefView alloc] initWithFrame:CGRectZero];
-    _wordSetBrief.frame = CGRectMake(10, 100, CGRectGetWidth(rect)-20, 200);
+    _wordSetBrief = [[WordSetBriefView alloc] initWithFrame:CGRectMake(10, 92, CGRectGetWidth(rect)-20, 200)];
     _wordSetBrief.hidden = YES;
     _wordSetBrief.dashboardController = self;
     [self.view addSubview:_wordSetBrief];
