@@ -18,6 +18,8 @@
 		06066CE713DA95A00019D945 /* MTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 06066CE613DA95A00019D945 /* MTLabel.m */; };
 		06066CF113DA97710019D945 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06066CF013DA97710019D945 /* CoreText.framework */; };
 		06066D0C13DB17E70019D945 /* CAArrowShapeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 06066D0B13DB17E70019D945 /* CAArrowShapeLayer.m */; };
+		06066D0F13DBC7600019D945 /* search-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066D0E13DBC7600019D945 /* search-bg.png */; };
+		06066D1213DBC7A10019D945 /* CustomSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 06066D1113DBC7A10019D945 /* CustomSearchBar.m */; };
 		0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420113D87C7F00388D3E /* UIKit.framework */; };
 		0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420313D87C7F00388D3E /* Foundation.framework */; };
 		0632420613D87C7F00388D3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420513D87C7F00388D3E /* CoreGraphics.framework */; };
@@ -48,8 +50,11 @@
 		06066CE513DA95A00019D945 /* MTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTLabel.h; sourceTree = "<group>"; };
 		06066CE613DA95A00019D945 /* MTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTLabel.m; sourceTree = "<group>"; };
 		06066CF013DA97710019D945 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		06066D0A13DB17E70019D945 /* CAArrowShapeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CAArrowShapeLayer.h; sourceTree = "<group>"; };
+		06066D0A13DB17E70019D945 /* CAArrowShapeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAArrowShapeLayer.h; sourceTree = "<group>"; };
 		06066D0B13DB17E70019D945 /* CAArrowShapeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAArrowShapeLayer.m; sourceTree = "<group>"; };
+		06066D0E13DBC7600019D945 /* search-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg.png"; sourceTree = "<group>"; };
+		06066D1013DBC7A10019D945 /* CustomSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSearchBar.h; sourceTree = "<group>"; };
+		06066D1113DBC7A10019D945 /* CustomSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSearchBar.m; sourceTree = "<group>"; };
 		063241FD13D87C7F00388D3E /* WordTotalFrequency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordTotalFrequency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0632420113D87C7F00388D3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0632420313D87C7F00388D3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,6 +100,7 @@
 		06066C7D13D9C97A0019D945 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				06066D0E13DBC7600019D945 /* search-bg.png */,
 				06066C8C13D9D97E0019D945 /* Unit-1.png */,
 				06066C8D13D9D97E0019D945 /* Unit-2.png */,
 				06066C8E13D9D97E0019D945 /* Unit-3.png */,
@@ -180,6 +186,8 @@
 				06066CE613DA95A00019D945 /* MTLabel.m */,
 				06066D0A13DB17E70019D945 /* CAArrowShapeLayer.h */,
 				06066D0B13DB17E70019D945 /* CAArrowShapeLayer.m */,
+				06066D1013DBC7A10019D945 /* CustomSearchBar.h */,
+				06066D1113DBC7A10019D945 /* CustomSearchBar.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -281,6 +289,7 @@
 				06066C9313D9D97E0019D945 /* Unit-3.png in Resources */,
 				06066C9413D9D97E0019D945 /* Unit-4.png in Resources */,
 				06066C9513D9D97E0019D945 /* Unit-5.png in Resources */,
+				06066D0F13DBC7600019D945 /* search-bg.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +311,7 @@
 				06066CE413DA804C0019D945 /* WordSetBriefView.m in Sources */,
 				06066CE713DA95A00019D945 /* MTLabel.m in Sources */,
 				06066D0C13DB17E70019D945 /* CAArrowShapeLayer.m in Sources */,
+				06066D1213DBC7A10019D945 /* CustomSearchBar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

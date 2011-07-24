@@ -13,6 +13,8 @@
 #import "WordSetController.h"
 #import "UnitIconView.h"
 #import "WordSetBriefView.h"
+#import "UIColor+WTF.h"
+#import "CustomSearchBar.h"
 
 @implementation DashboardController
 
@@ -72,11 +74,9 @@
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectZero];
+    CustomSearchBar *searchBar = [[CustomSearchBar alloc] initWithFrame:CGRectZero];
     searchBar.delegate = self;
-    [searchBar sizeToFit];
-    [[[searchBar subviews] objectAtIndex:0] setAlpha:0.0];
-    
+    [searchBar sizeToFit];    
     [self.view addSubview:searchBar];
     [searchBar release];
     
@@ -84,7 +84,7 @@
     _unitIcons = [[NSMutableArray alloc] init];
     UnitIconView *icon = [[UnitIconView alloc]
                           initWithFrame:CGRectMake(20, 50, 36, 36)
-                          image:@"Unit-1.png" percent:87];
+                          image:@"Unit-1.png" percent:87 color:[UIColor colorWithHex:0xea240a]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -92,7 +92,7 @@
     
     icon = [[UnitIconView alloc]
                           initWithFrame:CGRectMake(81, 50, 36, 36)
-                          image:@"Unit-2.png" percent:57];
+                          image:@"Unit-2.png" percent:57 color:[UIColor colorWithHex:0xea6d0a]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -100,7 +100,7 @@
     
     icon = [[UnitIconView alloc]
             initWithFrame:CGRectMake(142, 50, 36, 36)
-            image:@"Unit-3.png" percent:32];
+            image:@"Unit-3.png" percent:32 color:[UIColor colorWithHex:0xed9d14]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -108,7 +108,7 @@
     
     icon = [[UnitIconView alloc]
             initWithFrame:CGRectMake(203, 50, 36, 36)
-            image:@"Unit-4.png" percent:13];
+            image:@"Unit-4.png" percent:13 color:[UIColor colorWithHex:0xebb306]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -116,7 +116,7 @@
     
     icon = [[UnitIconView alloc]
             initWithFrame:CGRectMake(264, 50, 36, 36)
-            image:@"Unit-5.png" percent:0];
+            image:@"Unit-5.png" percent:0 color:[UIColor colorWithHex:0xeee745]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -136,23 +136,23 @@
     
     // prepare data
     _wordSets = [[NSMutableArray alloc] init];
-    WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:2328 color:[UIColor redColor]] autorelease];
+    WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:2328 color:[UIColor colorWithHex:0xea240a]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
     [_wordSets addObject:set];
     
-    set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor orangeColor]] autorelease];
+    set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor colorWithHex:0xea6d0a]] autorelease];
     set.description = @"Master this word set you can understand basic conversations.";
     [_wordSets addObject:set];
     
-    set = [[[WordSet alloc] initWithTotal:12457 marked:0 color:[UIColor lightGrayColor]] autorelease];
+    set = [[[WordSet alloc] initWithTotal:12457 marked:0 color:[UIColor colorWithHex:0xed9d14]] autorelease];
     set.description = @"Master this word set you can adfasf asdfasdf werwer asfasdf.";
     [_wordSets addObject:set];
     
-    set = [[[WordSet alloc] initWithTotal:23219 marked:0 color:[UIColor purpleColor]] autorelease];
+    set = [[[WordSet alloc] initWithTotal:23219 marked:0 color:[UIColor colorWithHex:0xebb306]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
     [_wordSets addObject:set];
     
-    set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor yellowColor]] autorelease];
+    set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor colorWithHex:0xeee745]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
     [_wordSets addObject:set];
 }

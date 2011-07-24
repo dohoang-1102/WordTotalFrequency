@@ -91,6 +91,7 @@
         [_wordSet release];
         _wordSet = [wordSet retain];
         
+        _arrowLayer.strokeColor = _wordSet.color;
         _countlabel.text = [NSString stringWithFormat:@"%d", _wordSet.markedWordCount];
         [_percentLabel setText:[NSString stringWithFormat:@"%d%% completed", _wordSet.completePercentage]];
         _progress.progress = _wordSet.completePercentage / 100.f;

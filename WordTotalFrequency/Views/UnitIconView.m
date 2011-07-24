@@ -16,11 +16,14 @@
 @synthesize percentLayer = _percentLayer;
 @synthesize percent = _percent;
 @synthesize dashboard = _dashboard;
+@synthesize color = _color;
 
-- (id)initWithFrame:(CGRect)frame image:(NSString *)image percent:(NSInteger)percent
+- (id)initWithFrame:(CGRect)frame image:(NSString *)image percent:(NSInteger)percent color:(UIColor *)color
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.color = color;
+        
         _percent = percent;
         _percentArc = percent * 2 * M_PI / 100.f;
         
@@ -107,6 +110,7 @@
     [_imagelayer release];
     [_circleLayer release];
     [_percentLayer release];
+    [_color release];
     [super dealloc];
 }
                                            

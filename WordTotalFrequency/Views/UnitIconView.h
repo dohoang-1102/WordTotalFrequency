@@ -20,8 +20,9 @@
 @property (nonatomic, retain) CAShapeLayer *percentLayer;
 @property (nonatomic, assign) DashboardController *dashboard;
 @property (nonatomic) NSInteger percent;
+@property (nonatomic, retain) UIColor *color;
 
-- (id)initWithFrame:(CGRect)frame image:(NSString *)image percent:(NSInteger)percent;
+- (id)initWithFrame:(CGRect)frame image:(NSString *)image percent:(NSInteger)percent color:(UIColor *)color;
 - (void)toggleDisplayState:(UnitIconView *)iconView affectDashboard:(BOOL)affect;
 
 @end

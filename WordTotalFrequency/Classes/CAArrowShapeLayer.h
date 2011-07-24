@@ -13,4 +13,6 @@
     
 }
 
+@property (nonatomic, retain) UIColor *strokeColor;
+
 @end

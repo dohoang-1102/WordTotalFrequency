@@ -12,6 +12,27 @@
 
 @implementation CAArrowShapeLayer
 
+@synthesize strokeColor = _strokeColor;
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        _strokeColor = [UIColor colorWithHex:0xed9f1e];
+    }
+    return self;
+}
+
+- (void)setStrokeColor:(UIColor *)strokeColor
+{
+    if (strokeColor != _strokeColor)
+    {
+        [_strokeColor release];
+        _strokeColor = [strokeColor retain];
+        [self setNeedsDisplay];
+    }
+}
+
 - (void)drawInContext:(CGContextRef)ctx
 {
     CGGradientRef glossGradient;
@@ -40,7 +61,7 @@
     CGPathCloseSubpath(path);
     
     CGContextSetLineWidth(ctx, 1.f);
-    CGContextSetStrokeColorWithColor(ctx, [UIColor colorWithHex:0xed9f1e].CGColor);
+    CGContextSetStrokeColorWithColor(ctx, _strokeColor.CGColor);
     
     CGContextAddPath(ctx, path);
     CGContextDrawPath(ctx, kCGPathStroke);
@@ -57,6 +78,7 @@
 
 - (void)dealloc
 {
+    [_strokeColor release];
     [super dealloc];
 }
 
