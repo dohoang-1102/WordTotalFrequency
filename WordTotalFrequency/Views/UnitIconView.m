@@ -57,7 +57,7 @@
         [self.layer addSublayer:_percentLayer];
         
         _imagelayer = [[CALayer alloc] init];
-        _imagelayer.frame = CGRectInset(rect, 4, 4);
+        _imagelayer.frame = CGRectInset(rect, 2, 2);
         _imagelayer.contents = (id)[UIImage imageNamed:image].CGImage;
         [self.layer addSublayer:_imagelayer];
         

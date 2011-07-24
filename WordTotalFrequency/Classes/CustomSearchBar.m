@@ -32,9 +32,9 @@
         }
     }
     if(!(searchField == nil)) {
-        searchField.leftView.hidden = YES;
         searchField.textColor = [UIColor colorForNormalText];
-        [searchField setBackground: [UIImage imageNamed:@"search-bg.png"] ];
+        searchField.font = [UIFont systemFontOfSize:18.f];
+        [searchField setBackground: [UIImage imageNamed:@"search-bg"] ];
         [searchField setBorderStyle:UITextBorderStyleNone];
     }
     
@@ -46,8 +46,6 @@
 /*
 - (void)drawRect:(CGRect)rect
 {
-    UIImage *image = [UIImage imageNamed: @"search-bg.png"];
-	[image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
 }
 */
 

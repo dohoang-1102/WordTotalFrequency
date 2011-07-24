@@ -54,8 +54,8 @@
     
     if (selectedIconIndex > -1)
     {
-        _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
         _wordSetBrief.hidden = NO;
+        _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
         
         UnitIconView *icon = [_unitIcons objectAtIndex:selectedIconIndex];
         CGPoint point = icon.center;
@@ -76,6 +76,7 @@
     
     CustomSearchBar *searchBar = [[CustomSearchBar alloc] initWithFrame:CGRectZero];
     searchBar.delegate = self;
+    searchBar.placeholder = @"type to search";
     [searchBar sizeToFit];    
     [self.view addSubview:searchBar];
     [searchBar release];
@@ -84,7 +85,7 @@
     _unitIcons = [[NSMutableArray alloc] init];
     UnitIconView *icon = [[UnitIconView alloc]
                           initWithFrame:CGRectMake(20, 50, 36, 36)
-                          image:@"Unit-1.png" percent:87 color:[UIColor colorWithHex:0xea240a]];
+                          image:@"Unit-1" percent:87 color:[UIColor colorWithHex:0xff4600]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -92,7 +93,7 @@
     
     icon = [[UnitIconView alloc]
                           initWithFrame:CGRectMake(81, 50, 36, 36)
-                          image:@"Unit-2.png" percent:57 color:[UIColor colorWithHex:0xea6d0a]];
+                          image:@"Unit-2" percent:57 color:[UIColor colorWithHex:0xff6600]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -100,7 +101,7 @@
     
     icon = [[UnitIconView alloc]
             initWithFrame:CGRectMake(142, 50, 36, 36)
-            image:@"Unit-3.png" percent:32 color:[UIColor colorWithHex:0xed9d14]];
+            image:@"Unit-3" percent:32 color:[UIColor colorWithHex:0xff9800]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -108,7 +109,7 @@
     
     icon = [[UnitIconView alloc]
             initWithFrame:CGRectMake(203, 50, 36, 36)
-            image:@"Unit-4.png" percent:13 color:[UIColor colorWithHex:0xebb306]];
+            image:@"Unit-4" percent:13 color:[UIColor colorWithHex:0xffb900]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
@@ -116,14 +117,14 @@
     
     icon = [[UnitIconView alloc]
             initWithFrame:CGRectMake(264, 50, 36, 36)
-            image:@"Unit-5.png" percent:0 color:[UIColor colorWithHex:0xeee745]];
+            image:@"Unit-5" percent:0 color:[UIColor colorWithHex:0xffda00]];
     icon.dashboard = self;
     [self.view addSubview:icon];
     [_unitIcons addObject:icon];
     [icon release];
     
     // word set brief
-    _wordSetBrief = [[WordSetBriefView alloc] initWithFrame:CGRectMake(10, 92, CGRectGetWidth(rect)-20, 200)];
+    _wordSetBrief = [[WordSetBriefView alloc] initWithFrame:CGRectMake(0, 92, CGRectGetWidth(rect), 200)];
     _wordSetBrief.hidden = YES;
     _wordSetBrief.dashboardController = self;
     [self.view addSubview:_wordSetBrief];
@@ -191,6 +192,16 @@
 }
 
 #pragma mark - UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    
+}
+
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+}
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
