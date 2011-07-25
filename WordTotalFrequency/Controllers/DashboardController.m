@@ -40,6 +40,30 @@
     [super dealloc];
 }
 
+- (void)loadData
+{
+    _wordSets = [[NSMutableArray alloc] init];
+    WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:5328 color:[UIColor colorWithHex:0xff4600]] autorelease];
+    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    [_wordSets addObject:set];
+    
+    set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor colorWithHex:0xff6600]] autorelease];
+    set.description = @"Master this word set you can understand basic conversations.";
+    [_wordSets addObject:set];
+    
+    set = [[[WordSet alloc] initWithTotal:12457 marked:2348 color:[UIColor colorWithHex:0xff9800]] autorelease];
+    set.description = @"Master this word set you can adfasf asdfasdf werwer asfasdf.";
+    [_wordSets addObject:set];
+    
+    set = [[[WordSet alloc] initWithTotal:23219 marked:8729 color:[UIColor colorWithHex:0xffb900]] autorelease];
+    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    [_wordSets addObject:set];
+    
+    set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor colorWithHex:0xffda00]] autorelease];
+    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    [_wordSets addObject:set];
+}
+
 - (void)didReceiveMemoryWarning
 {
     // Releases the view if it doesn't have a superview.
@@ -83,46 +107,17 @@
     
     // unit icons
     _unitIcons = [[NSMutableArray alloc] init];
-    UnitIconView *icon = [[UnitIconView alloc]
-                          initWithFrame:CGRectMake(20, 50, 36, 36)
-                          image:@"Unit-1" percent:87 color:[UIColor colorWithHex:0xff4600]];
-    icon.dashboard = self;
-    [self.view addSubview:icon];
-    [_unitIcons addObject:icon];
-    [icon release];
-    
-    icon = [[UnitIconView alloc]
-                          initWithFrame:CGRectMake(81, 50, 36, 36)
-                          image:@"Unit-2" percent:57 color:[UIColor colorWithHex:0xff6600]];
-    icon.dashboard = self;
-    [self.view addSubview:icon];
-    [_unitIcons addObject:icon];
-    [icon release];
-    
-    icon = [[UnitIconView alloc]
-            initWithFrame:CGRectMake(142, 50, 36, 36)
-            image:@"Unit-3" percent:32 color:[UIColor colorWithHex:0xff9800]];
-    icon.dashboard = self;
-    [self.view addSubview:icon];
-    [_unitIcons addObject:icon];
-    [icon release];
-    
-    icon = [[UnitIconView alloc]
-            initWithFrame:CGRectMake(203, 50, 36, 36)
-            image:@"Unit-4" percent:13 color:[UIColor colorWithHex:0xffb900]];
-    icon.dashboard = self;
-    [self.view addSubview:icon];
-    [_unitIcons addObject:icon];
-    [icon release];
-    
-    icon = [[UnitIconView alloc]
-            initWithFrame:CGRectMake(264, 50, 36, 36)
-            image:@"Unit-5" percent:0 color:[UIColor colorWithHex:0xffda00]];
-    icon.dashboard = self;
-    [self.view addSubview:icon];
-    [_unitIcons addObject:icon];
-    [icon release];
-    
+    for (int i=0; i<5; i++)
+    {
+        UnitIconView *icon = [[UnitIconView alloc]
+                              initWithFrame:CGRectMake(20 + i * 61, 50, 36, 36)
+                              image:[NSString stringWithFormat:@"Unit-%d", (i+1)]];
+        icon.dashboard = self;
+        [self.view addSubview:icon];
+        [_unitIcons addObject:icon];
+        [icon release];
+    }
+
     // word set brief
     _wordSetBrief = [[WordSetBriefView alloc] initWithFrame:CGRectMake(0, 92, CGRectGetWidth(rect), 200)];
     _wordSetBrief.hidden = YES;
@@ -133,34 +128,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    
-    // prepare data
-    _wordSets = [[NSMutableArray alloc] init];
-    WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:2328 color:[UIColor colorWithHex:0xea240a]] autorelease];
-    set.description = @"Master this word set you can read some short articles and have basic conversations.";
-    [_wordSets addObject:set];
-    
-    set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor colorWithHex:0xea6d0a]] autorelease];
-    set.description = @"Master this word set you can understand basic conversations.";
-    [_wordSets addObject:set];
-    
-    set = [[[WordSet alloc] initWithTotal:12457 marked:0 color:[UIColor colorWithHex:0xed9d14]] autorelease];
-    set.description = @"Master this word set you can adfasf asdfasdf werwer asfasdf.";
-    [_wordSets addObject:set];
-    
-    set = [[[WordSet alloc] initWithTotal:23219 marked:0 color:[UIColor colorWithHex:0xebb306]] autorelease];
-    set.description = @"Master this word set you can read some short articles and have basic conversations.";
-    [_wordSets addObject:set];
-    
-    set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor colorWithHex:0xeee745]] autorelease];
-    set.description = @"Master this word set you can read some short articles and have basic conversations.";
-    [_wordSets addObject:set];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    for (UnitIconView *icon in _unitIcons) {
+        [icon addCADisplayLink];
+    }
     
     if (_selectedIconIndex > -1)
     {
@@ -175,6 +151,14 @@
 {
     [super viewDidLoad];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
+    [self loadData];
+    for (int i=0; i<[_wordSets count]; i++)
+    {
+        UnitIconView *icon = [_unitIcons objectAtIndex:i];
+        icon.wordSet = [_wordSets objectAtIndex:i];
+    }
+    
     _selectedIconIndex = -1;
 }
 

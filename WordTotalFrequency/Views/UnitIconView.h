@@ -8,6 +8,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "DashboardController.h"
+#import "WordSet.h"
 
 @interface UnitIconView : UIView {
     CGFloat _currentArc;
@@ -19,10 +20,10 @@
 @property (nonatomic, retain) CAShapeLayer *circleLayer;
 @property (nonatomic, retain) CAShapeLayer *percentLayer;
 @property (nonatomic, assign) DashboardController *dashboard;
-@property (nonatomic) NSInteger percent;
-@property (nonatomic, retain) UIColor *color;
+@property (nonatomic, assign) WordSet *wordSet;
 
-- (id)initWithFrame:(CGRect)frame image:(NSString *)image percent:(NSInteger)percent color:(UIColor *)color;
+- (id)initWithFrame:(CGRect)frame image:(NSString *)image;
 - (void)toggleDisplayState:(UnitIconView *)iconView affectDashboard:(BOOL)affect;
+- (void)addCADisplayLink;
 
 @end

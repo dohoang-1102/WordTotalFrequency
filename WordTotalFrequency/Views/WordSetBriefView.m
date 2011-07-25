@@ -87,19 +87,21 @@
 
 - (void)setWordSet:(WordSet *)wordSet
 {
-    if (_wordSet != wordSet)
-    {
-        [_wordSet release];
-        _wordSet = [wordSet retain];
-        
-        _arrowLayer.strokeColor = _wordSet.color;
-        _countlabel.text = [NSString stringWithFormat:@"%d", _wordSet.markedWordCount];
-        _countlabel.textColor = _wordSet.color;
-        [_percentLabel setText:[NSString stringWithFormat:@"%d%% completed", _wordSet.completePercentage]];
-        _progress.progress = _wordSet.completePercentage / 100.f;
-        [_tableView reloadData];
-        
-        [_arrowLayer setNeedsDisplay];
+    @synchronized(self) {
+        if (_wordSet != wordSet)
+        {
+            [_wordSet release];
+            _wordSet = [wordSet retain];
+            
+            _arrowLayer.strokeColor = _wordSet.color;
+            _countlabel.text = [NSString stringWithFormat:@"%d", _wordSet.markedWordCount];
+            _countlabel.textColor = _wordSet.color;
+            [_percentLabel setText:[NSString stringWithFormat:@"%d%% completed", _wordSet.completePercentage]];
+            _progress.progress = _wordSet.completePercentage / 100.f;
+            [_tableView reloadData];
+            
+            [_arrowLayer setNeedsDisplay];
+        }
     }
 }
 

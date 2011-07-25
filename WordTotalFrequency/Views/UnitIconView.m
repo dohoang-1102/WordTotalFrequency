@@ -9,24 +9,24 @@
 #import "UnitIconView.h"
 #import "UIColor+WTF.h"
 
+@interface UnitIconView()
+
+- (void)drawPathWithArc:(CGFloat)arc;
+
+@end
+
 @implementation UnitIconView
 
 @synthesize imageLayer = _imagelayer;
 @synthesize circleLayer = _circleLayer;
 @synthesize percentLayer = _percentLayer;
-@synthesize percent = _percent;
 @synthesize dashboard = _dashboard;
-@synthesize color = _color;
+@synthesize wordSet = _wordSet;
 
-- (id)initWithFrame:(CGRect)frame image:(NSString *)image percent:(NSInteger)percent color:(UIColor *)color
+- (id)initWithFrame:(CGRect)frame image:(NSString *)image
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.color = color;
-        
-        _percent = percent;
-        _percentArc = percent * 2 * M_PI / 100.f;
-        
         CGRect rect = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
         
         _circleLayer = [[CAShapeLayer alloc] init];
@@ -61,10 +61,6 @@
         _imagelayer.contents = (id)[UIImage imageNamed:image].CGImage;
         [self.layer addSublayer:_imagelayer];
         
-        // CADisplayLink
-        CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updatePath:)];
-        [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-        
         // Tap Gesture
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]
                                            initWithTarget:self action:@selector(iconTapped:)];
@@ -74,7 +70,29 @@
     return self;
 }
 
-- (void)drawPathWithArc:(CGFloat)arc {
+- (void)setWordSet:(WordSet *)wordSet
+{
+    if (_wordSet != wordSet)
+    {
+        _wordSet = wordSet;
+        _percentArc = wordSet.completePercentage  * 2 * M_PI / 100.f -  M_PI / 2;
+        NSLog(@"XXXX: %d ----- %f", wordSet.completePercentage, _percentArc);
+    }
+}
+
+- (void)addCADisplayLink
+{
+    _currentArc = -M_PI/2;
+    [self drawPathWithArc:_currentArc];
+    
+    CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updatePath:)];
+    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+- (void)drawPathWithArc:(CGFloat)arc
+{
+    _percentLayer.path = nil;
+    
     CGMutablePathRef thePath = CGPathCreateMutable();
     CGPathAddArc(thePath,
                  NULL,
@@ -89,9 +107,10 @@
 }
 
 - (void)updatePath:(CADisplayLink *)displayLink {
-    _currentArc = fminf(_currentArc + 0.2f, _percentArc-M_PI/2);
+    CGFloat delta = (_percentArc - _currentArc) / 20;
+    _currentArc = fminf(_currentArc + delta, _percentArc);
     [self drawPathWithArc:_currentArc];
-    if(_currentArc >= _percentArc-M_PI/2) {
+    if (_currentArc >= _percentArc) {
         [displayLink invalidate];
     }
 }
@@ -110,7 +129,6 @@
     [_imagelayer release];
     [_circleLayer release];
     [_percentLayer release];
-    [_color release];
     [super dealloc];
 }
                                            
@@ -133,6 +151,7 @@
     if (_isSelected)
     {
         _imagelayer.transform = CATransform3DIdentity;
+        [self performSelector:@selector(addCADisplayLink) withObject:nil afterDelay:0];
     }
     else
     {
