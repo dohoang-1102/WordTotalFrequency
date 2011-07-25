@@ -14,7 +14,10 @@
 #import "UnitIconView.h"
 #import "WordSetBriefView.h"
 #import "UIColor+WTF.h"
-#import "CustomSearchBar.h"
+
+@interface DashboardController()
+- (void)dismissSearchResult;
+@end
 
 @implementation DashboardController
 
@@ -22,6 +25,10 @@
 @synthesize unitIcons = _unitIcons;
 @synthesize selectedIconIndex = _selectedIconIndex;
 @synthesize wordSetBrief = _wordSetBrief;
+@synthesize searchBar = _searchBar;
+@synthesize listController = _listController;
+
+#define SEARCH_BAR_HEIGHT 40
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -37,6 +44,8 @@
     [_wordSets release];
     [_unitIcons release];
     [_wordSetBrief release];
+    [_searchBar release];
+    [_listController release];
     [super dealloc];
 }
 
@@ -88,6 +97,27 @@
     }
 }
 
+- (void)dismissSearchResult
+{
+    CGContextRef context = UIGraphicsGetCurrentContext();
+	[UIView beginAnimations:nil context:context];
+    
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:0.25];
+	CGRect rect = _listController.view.frame;
+	rect.origin.y = CGRectGetHeight(self.view.frame);
+	_listController.view.frame = rect;
+	
+    for (UIView *view in self.view.subviews) {
+        if (view != _searchBar && view != _listController.view)
+        {
+            view.alpha = 100;
+        }
+    }
+    
+    [UIView commitAnimations];
+}
+
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -98,12 +128,11 @@
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
-    CustomSearchBar *searchBar = [[CustomSearchBar alloc] initWithFrame:CGRectZero];
-    searchBar.delegate = self;
-    searchBar.placeholder = @"type to search";
-    [searchBar sizeToFit];    
-    [self.view addSubview:searchBar];
-    [searchBar release];
+    _searchBar = [[CustomSearchBar alloc] initWithFrame:CGRectZero];
+    _searchBar.delegate = self;
+    _searchBar.placeholder = @"type to search";
+    [_searchBar sizeToFit];    
+    [self.view addSubview:_searchBar];
     
     // unit icons
     _unitIcons = [[NSMutableArray alloc] init];
@@ -123,11 +152,18 @@
     _wordSetBrief.hidden = YES;
     _wordSetBrief.dashboardController = self;
     [self.view addSubview:_wordSetBrief];
+    
+    _listController = [[WordListController alloc] init];
+    [self.view addSubview:_listController.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    _listController.view.frame = CGRectMake(0,
+                                            CGRectGetHeight(self.view.frame),
+                                            CGRectGetWidth(self.view.frame),
+                                            CGRectGetHeight(self.view.frame)- SEARCH_BAR_HEIGHT);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -175,21 +211,46 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [super touchesEnded:touches withEvent:event];
+    [_searchBar resignFirstResponder];
+    [self dismissSearchResult];
+}
+
 #pragma mark - UISearchBarDelegate
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
+    CGContextRef context = UIGraphicsGetCurrentContext();
+	[UIView beginAnimations:nil context:context];
     
+	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+	[UIView setAnimationDuration:0.25];
+	CGRect rect = _listController.view.frame;
+	rect.origin.y = SEARCH_BAR_HEIGHT;
+	_listController.view.frame = rect;
+    
+    for (UIView *view in self.view.subviews) {
+        if (view != _searchBar && view != _listController.view)
+        {
+            view.alpha = 0;
+        }
+    }
+	
+    [UIView commitAnimations];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
+    [self dismissSearchResult];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
 	[searchBar resignFirstResponder];
+    [self dismissSearchResult];
 }
 
 

@@ -76,7 +76,6 @@
     {
         _wordSet = wordSet;
         _percentArc = wordSet.completePercentage  * 2 * M_PI / 100.f -  M_PI / 2;
-        NSLog(@"XXXX: %d ----- %f", wordSet.completePercentage, _percentArc);
     }
 }
 

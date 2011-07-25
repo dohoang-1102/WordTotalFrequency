@@ -26,7 +26,6 @@
     UITextField *searchField;
     NSUInteger numViews = [self.subviews count];
     for(int i = 0; i < numViews; i++) {
-        NSLog(@"%d - xxxx %@", i, NSStringFromClass([[self.subviews objectAtIndex:i] class]));
         if([[self.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) {
             searchField = [self.subviews objectAtIndex:i];
         }

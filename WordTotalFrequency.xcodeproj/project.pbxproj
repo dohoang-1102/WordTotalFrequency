@@ -35,6 +35,7 @@
 		0632421513D87C8000388D3E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421313D87C8000388D3E /* MainWindow.xib */; };
 		064A681813D905FB001B6828 /* WordSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064A681713D905FB001B6828 /* WordSetController.m */; };
 		064B389913D882D9006A5780 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 064B389813D882D9006A5780 /* README */; };
+		06647E8D13DDC9F100A65A97 /* WordListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647E8C13DDC9F100A65A97 /* WordListController.m */; };
 		067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 067A0DEF13D88991003589DA /* QuartzCore.framework */; };
 		067A0DFA13D890D2003589DA /* WordSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0DF913D890D2003589DA /* WordSet.m */; };
 		067A0E0813D891AC003589DA /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E0713D891AC003589DA /* DashboardController.m */; };
@@ -81,6 +82,8 @@
 		064A681613D905FB001B6828 /* WordSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSetController.h; sourceTree = "<group>"; };
 		064A681713D905FB001B6828 /* WordSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSetController.m; sourceTree = "<group>"; };
 		064B389813D882D9006A5780 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		06647E8B13DDC9F100A65A97 /* WordListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordListController.h; sourceTree = "<group>"; };
+		06647E8C13DDC9F100A65A97 /* WordListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordListController.m; sourceTree = "<group>"; };
 		067A0DEF13D88991003589DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		067A0DF813D890D2003589DA /* WordSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSet.h; sourceTree = "<group>"; };
 		067A0DF913D890D2003589DA /* WordSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSet.m; sourceTree = "<group>"; };
@@ -225,6 +228,8 @@
 				067A0E0713D891AC003589DA /* DashboardController.m */,
 				064A681613D905FB001B6828 /* WordSetController.h */,
 				064A681713D905FB001B6828 /* WordSetController.m */,
+				06647E8B13DDC9F100A65A97 /* WordListController.h */,
+				06647E8C13DDC9F100A65A97 /* WordListController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 				06066CE713DA95A00019D945 /* MTLabel.m in Sources */,
 				06066D0C13DB17E70019D945 /* CAArrowShapeLayer.m in Sources */,
 				06066D1213DBC7A10019D945 /* CustomSearchBar.m in Sources */,
+				06647E8D13DDC9F100A65A97 /* WordListController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
