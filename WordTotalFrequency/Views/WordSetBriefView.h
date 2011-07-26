@@ -11,12 +11,13 @@
 #import "WordSet.h"
 #import "DashboardController.h"
 #import "CAArrowShapeLayer.h"
+#import "OCProgress.h"
 
 @interface WordSetBriefView : UIView<UITableViewDelegate, UITableViewDataSource> {
     UILabel *_countlabel;
     MTLabel *_countNoteLabel;
     MTLabel *_percentLabel;
-    UIProgressView *_progress;
+    OCProgress *_progress;
     CAArrowShapeLayer *_arrowLayer;
 }
 

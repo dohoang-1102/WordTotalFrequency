@@ -32,7 +32,7 @@
         
         _countlabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _countlabel.backgroundColor = [UIColor clearColor];
-        _countlabel.frame = CGRectMake(margin, top, 80, 44);
+        _countlabel.frame = CGRectMake(margin, top+4, 80, 44);
         _countlabel.font = [UIFont systemFontOfSize:36];
         _countlabel.adjustsFontSizeToFitWidth = YES;
         _countlabel.textColor = [UIColor colorForNormalText];
@@ -44,7 +44,7 @@
         
         _countNoteLabel = [[MTLabel alloc] initWithFrame:CGRectZero];
         _countNoteLabel.backgroundColor = [UIColor clearColor];
-        _countNoteLabel.frame = CGRectMake(margin+80, top, 80, 60);
+        _countNoteLabel.frame = CGRectMake(margin+80, top+4, 80, 60);
         _countNoteLabel.font = [UIFont systemFontOfSize:12];
         _countNoteLabel.numberOfLines = 0;
         _countNoteLabel.text = @"words\nmarkedas\nremembered";
@@ -62,8 +62,11 @@
         [_percentLabel setLineHeight:22];
         [self addSubview:_percentLabel];
         
-        _progress = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
-        _progress.frame = CGRectMake(margin+160, top+24, 140, 24);
+        _progress = [[OCProgress alloc] initWithFrame:CGRectMake(margin+160, top+24, 140, 20)];
+        _progress.minValue = 0;
+        _progress.maxValue = 100;
+        _progress.progressRemainingColor = [UIColor colorWithHex:0x337fc8];
+        _progress.lineColor = [UIColor colorWithHex:0x337fc8];
         [self addSubview:_progress];
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(margin, top+50, 300, 70) style:UITableViewStylePlain];
@@ -97,7 +100,8 @@
             _countlabel.text = [NSString stringWithFormat:@"%d", _wordSet.markedWordCount];
             _countlabel.textColor = _wordSet.color;
             [_percentLabel setText:[NSString stringWithFormat:@"%d%% completed", _wordSet.completePercentage]];
-            _progress.progress = _wordSet.completePercentage / 100.f;
+            _progress.currentValue = _wordSet.completePercentage;
+            _progress.progressColor = _wordSet.color;
             [_tableView reloadData];
             
             [_arrowLayer setNeedsDisplay];

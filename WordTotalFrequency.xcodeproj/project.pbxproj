@@ -35,7 +35,12 @@
 		0632421513D87C8000388D3E /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0632421313D87C8000388D3E /* MainWindow.xib */; };
 		064A681813D905FB001B6828 /* WordSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064A681713D905FB001B6828 /* WordSetController.m */; };
 		064B389913D882D9006A5780 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 064B389813D882D9006A5780 /* README */; };
+		064DBE6513DF116300990264 /* OCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 064DBE6413DF116300990264 /* OCProgress.m */; };
 		06647E8D13DDC9F100A65A97 /* WordListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647E8C13DDC9F100A65A97 /* WordListController.m */; };
+		06647EA713DEFB7400A65A97 /* WordListCellContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647EA613DEFB7400A65A97 /* WordListCellContentView.m */; };
+		06647EAB13DEFB9C00A65A97 /* WordItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647EAA13DEFB9C00A65A97 /* WordItem.m */; };
+		06647EAD13DEFE2300A65A97 /* mark-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 06647EAC13DEFE2300A65A97 /* mark-circle.png */; };
+		06647EB513DF091600A65A97 /* mark-circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06647EB413DF091600A65A97 /* mark-circle@2x.png */; };
 		067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 067A0DEF13D88991003589DA /* QuartzCore.framework */; };
 		067A0DFA13D890D2003589DA /* WordSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0DF913D890D2003589DA /* WordSet.m */; };
 		067A0E0813D891AC003589DA /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E0713D891AC003589DA /* DashboardController.m */; };
@@ -82,8 +87,16 @@
 		064A681613D905FB001B6828 /* WordSetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSetController.h; sourceTree = "<group>"; };
 		064A681713D905FB001B6828 /* WordSetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSetController.m; sourceTree = "<group>"; };
 		064B389813D882D9006A5780 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		064DBE6313DF116300990264 /* OCProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCProgress.h; sourceTree = "<group>"; };
+		064DBE6413DF116300990264 /* OCProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCProgress.m; sourceTree = "<group>"; };
 		06647E8B13DDC9F100A65A97 /* WordListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordListController.h; sourceTree = "<group>"; };
 		06647E8C13DDC9F100A65A97 /* WordListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordListController.m; sourceTree = "<group>"; };
+		06647EA513DEFB7400A65A97 /* WordListCellContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordListCellContentView.h; sourceTree = "<group>"; };
+		06647EA613DEFB7400A65A97 /* WordListCellContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordListCellContentView.m; sourceTree = "<group>"; };
+		06647EA913DEFB9C00A65A97 /* WordItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordItem.h; sourceTree = "<group>"; };
+		06647EAA13DEFB9C00A65A97 /* WordItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordItem.m; sourceTree = "<group>"; };
+		06647EAC13DEFE2300A65A97 /* mark-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mark-circle.png"; sourceTree = "<group>"; };
+		06647EB413DF091600A65A97 /* mark-circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mark-circle@2x.png"; sourceTree = "<group>"; };
 		067A0DEF13D88991003589DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		067A0DF813D890D2003589DA /* WordSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordSet.h; sourceTree = "<group>"; };
 		067A0DF913D890D2003589DA /* WordSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordSet.m; sourceTree = "<group>"; };
@@ -115,6 +128,8 @@
 		06066C7D13D9C97A0019D945 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				06647EB413DF091600A65A97 /* mark-circle@2x.png */,
+				06647EAC13DEFE2300A65A97 /* mark-circle.png */,
 				06066D1313DBFDC30019D945 /* Unit-1@2x.png */,
 				06066D1413DBFDC40019D945 /* Unit-2@2x.PNG */,
 				06066D1513DBFDC40019D945 /* Unit-3@2x.png */,
@@ -196,6 +211,8 @@
 			children = (
 				067A0DF813D890D2003589DA /* WordSet.h */,
 				067A0DF913D890D2003589DA /* WordSet.m */,
+				06647EA913DEFB9C00A65A97 /* WordItem.h */,
+				06647EAA13DEFB9C00A65A97 /* WordItem.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -252,6 +269,10 @@
 				06066CA713DA3A7A0019D945 /* UnitIconView.m */,
 				06066CE213DA804B0019D945 /* WordSetBriefView.h */,
 				06066CE313DA804B0019D945 /* WordSetBriefView.m */,
+				06647EA513DEFB7400A65A97 /* WordListCellContentView.h */,
+				06647EA613DEFB7400A65A97 /* WordListCellContentView.m */,
+				064DBE6313DF116300990264 /* OCProgress.h */,
+				064DBE6413DF116300990264 /* OCProgress.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -319,6 +340,8 @@
 				06066D1B13DBFDC50019D945 /* Unit-4@2x.png in Resources */,
 				06066D1C13DBFDC50019D945 /* Unit-5@2x.png in Resources */,
 				06066D1E13DC10600019D945 /* search-bg@2x.png in Resources */,
+				06647EAD13DEFE2300A65A97 /* mark-circle.png in Resources */,
+				06647EB513DF091600A65A97 /* mark-circle@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,6 +365,9 @@
 				06066D0C13DB17E70019D945 /* CAArrowShapeLayer.m in Sources */,
 				06066D1213DBC7A10019D945 /* CustomSearchBar.m in Sources */,
 				06647E8D13DDC9F100A65A97 /* WordListController.m in Sources */,
+				06647EA713DEFB7400A65A97 /* WordListCellContentView.m in Sources */,
+				06647EAB13DEFB9C00A65A97 /* WordItem.m in Sources */,
+				064DBE6513DF116300990264 /* OCProgress.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,7 +7,8 @@
 //
 
 #import "WordListController.h"
-
+#import "WordItem.h"
+#import "WordListCellContentView.h"
 
 @implementation WordListController
 
@@ -44,7 +45,11 @@
 {
     [super viewDidLoad];
     
-    self.words = [NSArray arrayWithObjects:@"aafasdf", @"erewrwer", nil];
+    self.words = [NSArray arrayWithObjects:
+                  [[[WordItem alloc] initWithWord:@"cirlet" translation:@"小环，小圈" marked:YES] autorelease],
+                  [[[WordItem alloc] initWithWord:@"circular" translation:@"圆的；循环的" marked:NO] autorelease],
+                  [[[WordItem alloc] initWithWord:@"circulate" translation:@"循环，流通" marked:YES] autorelease],
+                  nil];
     self.tableView.backgroundColor = [UIColor clearColor];
 }
 
@@ -74,6 +79,10 @@
     return [_words count];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 38;
+}
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -83,11 +92,15 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        
+        WordListCellContentView *cellView = [[WordListCellContentView alloc] initWithFrame:cell.bounds];
+        cellView.tag = 1;
+        [cell.contentView addSubview:cellView];
     }
     
     // Configure the cell...
-	cell.textLabel.text = [_words objectAtIndex:indexPath.row];
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    WordListCellContentView *cellView = (WordListCellContentView *)[cell viewWithTag:1];
+    cellView.wordItem = [_words objectAtIndex:indexPath.row];
     
     return cell;
 }
