@@ -252,6 +252,7 @@
             deselectRowAtIndexPath:[_wordSetBrief.tableView indexPathForSelectedRow]
                           animated:YES];
     }
+    [_listController.tableView deselectRowAtIndexPath:[_listController.tableView indexPathForSelectedRow] animated:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
