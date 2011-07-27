@@ -9,6 +9,7 @@
 #import "WordListController.h"
 #import "WordItem.h"
 #import "WordListCellContentView.h"
+#import "WordDetailController.h"
 
 @implementation WordListController
 
@@ -105,5 +106,12 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    WordDetailController *controller = [[WordDetailController alloc] init];
+    [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
+//    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
+}
 
 @end

@@ -56,8 +56,8 @@
     CGPathAddLineToPoint(path, NULL, 300, 0);
     CGPathAddLineToPoint(path, NULL, 304.5, 9.5);
     CGPathAddLineToPoint(path, NULL, 600, 9.5);
-    CGPathAddLineToPoint(path, NULL, 600, 1000);
-    CGPathAddLineToPoint(path, NULL, 0, 1000);
+    CGPathAddLineToPoint(path, NULL, 600, CGRectGetHeight(self.bounds)-.5);
+    CGPathAddLineToPoint(path, NULL, 0, CGRectGetHeight(self.bounds)-.5);
     CGPathCloseSubpath(path);
     
     CGContextSetLineWidth(ctx, 1.f);

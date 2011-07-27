@@ -27,7 +27,8 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    [[UIImage imageNamed:@"mark-circle"] drawAtPoint:CGPointMake(15, 15)];
+    if (_wordItem.marked)
+        [[UIImage imageNamed:@"mark-circle"] drawAtPoint:CGPointMake(15, 15)];
     
     _highlighted ? [[UIColor whiteColor] set] : [[UIColor colorForNormalText] set];
     [_wordItem.word drawAtPoint:CGPointMake(36, 8) withFont:[UIFont systemFontOfSize:20]];

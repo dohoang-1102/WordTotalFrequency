@@ -30,6 +30,7 @@
 @synthesize listController = _listController;
 
 #define SEARCH_BAR_HEIGHT 40
+#define WORDSETBRIEF_HEIGHT 132
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -83,21 +84,9 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)setSelectedIconIndex:(NSInteger)selectedIconIndex
+- (void)hideWordSetBrief
 {
-    _selectedIconIndex = selectedIconIndex;
-    
-    if (selectedIconIndex > -1)
-    {
-        _briefView.hidden = YES;
-        _wordSetBrief.hidden = NO;
-        _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
-        
-        UnitIconView *icon = [_unitIcons objectAtIndex:selectedIconIndex];
-        CGPoint point = icon.center;
-        point = [_wordSetBrief convertPoint:point fromView:icon.superview];
-        [_wordSetBrief centerArrowToX:point.x];
-    }
+    _wordSetBrief.hidden = YES;
 }
 
 - (void)dismissSearchResult
@@ -118,8 +107,82 @@
         }
     }
     
+    if (_selectedIconIndex > -1)
+    {
+        _briefView.alpha = 0;
+    }
+    
     [UIView commitAnimations];
 }
+
+- (void)presentWordSetBrief
+{
+    if (_wordSetBrief.hidden == YES)
+    {
+        _wordSetBrief.hidden = NO;
+        _wordSetBrief.alpha = 100;
+        _briefView.alpha = 0;
+        CGRect rect = _wordSetBrief.frame;
+        rect.size.height = 10;
+        _wordSetBrief.frame = rect;
+        
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:.25];
+        rect.size.height = WORDSETBRIEF_HEIGHT;
+        _wordSetBrief.frame = rect;
+        
+        [UIView commitAnimations];
+    }
+}
+
+- (void)dismissWordSetBrief
+{
+    if (_wordSetBrief.hidden == NO)
+    {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:.25];
+        CGRect rect = _wordSetBrief.frame;
+        rect.size.height = 10;
+        _wordSetBrief.frame = rect;
+        _wordSetBrief.alpha = 0;
+        _briefView.alpha = 100;
+        
+        [UIView commitAnimations];
+        
+        [self performSelector:@selector(hideWordSetBrief) withObject:nil afterDelay:.25];
+        self.selectedIconIndex = -1;
+    }
+}
+
+- (void)setSelectedIconIndex:(NSInteger)selectedIconIndex
+{
+    NSInteger oldIndex = _selectedIconIndex;
+    _selectedIconIndex = selectedIconIndex;
+    
+    UnitIconView *icon;
+    if (selectedIconIndex > -1)
+    {
+        _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
+        
+        icon = [_unitIcons objectAtIndex:selectedIconIndex];
+        CGPoint point = icon.center;
+        point = [_wordSetBrief convertPoint:point fromView:icon.superview];
+        [_wordSetBrief centerArrowToX:point.x];
+        [self performSelector:@selector(presentWordSetBrief) withObject:nil afterDelay:.25];
+    }
+    else if (oldIndex > -1)
+    {
+        icon = [_unitIcons objectAtIndex:oldIndex];
+        [icon toggleDisplayState:icon affectDashboard:NO];
+    }
+}
+
 
 #pragma mark - View lifecycle
 
@@ -151,12 +214,13 @@
     }
     
     _briefView = [[BriefView alloc]
-                  initWithFrame:CGRectMake(10, 112, CGRectGetWidth(rect)-20, 200)
+                  initWithFrame:CGRectMake(10, 112, CGRectGetWidth(rect)-20, 100)
                   count:1234 level:@"IV"];
     [self.view addSubview:_briefView];
 
     // word set brief
-    _wordSetBrief = [[WordSetBriefView alloc] initWithFrame:CGRectMake(0, 92, CGRectGetWidth(rect), 200)];
+    _wordSetBrief = [[WordSetBriefView alloc]
+                     initWithFrame:CGRectMake(0, 92, CGRectGetWidth(rect), WORDSETBRIEF_HEIGHT)];
     _wordSetBrief.hidden = YES;
     _wordSetBrief.dashboardController = self;
     [self.view addSubview:_wordSetBrief];
@@ -224,6 +288,7 @@
     [super touchesEnded:touches withEvent:event];
     [_searchBar resignFirstResponder];
     [self dismissSearchResult];
+    [self dismissWordSetBrief];
 }
 
 #pragma mark - UISearchBarDelegate

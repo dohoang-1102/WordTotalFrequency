@@ -25,8 +25,8 @@
         
         // separator layer
         _arrowLayer = [[CAArrowShapeLayer alloc] init];
-        _arrowLayer.bounds = CGRectMake(0, 0, 600, 70);
-        _arrowLayer.position = CGPointMake(150, 35);
+        _arrowLayer.bounds = CGRectMake(0, 0, 600, CGRectGetHeight(frame));
+        _arrowLayer.position = CGPointMake(CGRectGetWidth(frame)/2, CGRectGetHeight(frame)/2);
         self.layer.masksToBounds = YES;
         [self.layer addSublayer:_arrowLayer];
         
@@ -77,6 +77,14 @@
         [self addSubview:_tableView];
     }
     return self;
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    _arrowLayer.bounds = CGRectMake(0, 0, 600, CGRectGetHeight(frame));
+    _arrowLayer.position = CGPointMake(_arrowLayer.position.x, CGRectGetHeight(frame)/2);
+    [_arrowLayer setNeedsDisplay];
 }
 
 /*
@@ -136,7 +144,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 70;
+    return 56;
 }
 
 // Customize the appearance of table view cells.

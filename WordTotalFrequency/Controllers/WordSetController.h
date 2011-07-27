@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WordListController.h"
 
 @interface WordSetController : UIViewController {
-    
+    WordListController *_listController;
 }
 
 @end
