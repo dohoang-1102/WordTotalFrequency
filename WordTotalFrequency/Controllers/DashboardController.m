@@ -25,6 +25,7 @@
 @synthesize unitIcons = _unitIcons;
 @synthesize selectedIconIndex = _selectedIconIndex;
 @synthesize wordSetBrief = _wordSetBrief;
+@synthesize briefView = _briefView;
 @synthesize searchBar = _searchBar;
 @synthesize listController = _listController;
 
@@ -43,6 +44,7 @@
 {
     [_wordSets release];
     [_unitIcons release];
+    [_briefView release];
     [_wordSetBrief release];
     [_searchBar release];
     [_listController release];
@@ -87,6 +89,7 @@
     
     if (selectedIconIndex > -1)
     {
+        _briefView.hidden = YES;
         _wordSetBrief.hidden = NO;
         _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
         
@@ -146,6 +149,11 @@
         [_unitIcons addObject:icon];
         [icon release];
     }
+    
+    _briefView = [[BriefView alloc]
+                  initWithFrame:CGRectMake(10, 112, CGRectGetWidth(rect)-20, 200)
+                  count:1234 level:@"IV"];
+    [self.view addSubview:_briefView];
 
     // word set brief
     _wordSetBrief = [[WordSetBriefView alloc] initWithFrame:CGRectMake(0, 92, CGRectGetWidth(rect), 200)];

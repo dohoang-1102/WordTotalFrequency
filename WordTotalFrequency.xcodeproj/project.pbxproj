@@ -36,6 +36,7 @@
 		064A681813D905FB001B6828 /* WordSetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 064A681713D905FB001B6828 /* WordSetController.m */; };
 		064B389913D882D9006A5780 /* README in Resources */ = {isa = PBXBuildFile; fileRef = 064B389813D882D9006A5780 /* README */; };
 		064DBE6513DF116300990264 /* OCProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 064DBE6413DF116300990264 /* OCProgress.m */; };
+		065EE48813DF8FC50032CB43 /* BriefView.m in Sources */ = {isa = PBXBuildFile; fileRef = 065EE48713DF8FC50032CB43 /* BriefView.m */; };
 		06647E8D13DDC9F100A65A97 /* WordListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647E8C13DDC9F100A65A97 /* WordListController.m */; };
 		06647EA713DEFB7400A65A97 /* WordListCellContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647EA613DEFB7400A65A97 /* WordListCellContentView.m */; };
 		06647EAB13DEFB9C00A65A97 /* WordItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647EAA13DEFB9C00A65A97 /* WordItem.m */; };
@@ -89,6 +90,8 @@
 		064B389813D882D9006A5780 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		064DBE6313DF116300990264 /* OCProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCProgress.h; sourceTree = "<group>"; };
 		064DBE6413DF116300990264 /* OCProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OCProgress.m; sourceTree = "<group>"; };
+		065EE48613DF8FC50032CB43 /* BriefView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BriefView.h; sourceTree = "<group>"; };
+		065EE48713DF8FC50032CB43 /* BriefView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BriefView.m; sourceTree = "<group>"; };
 		06647E8B13DDC9F100A65A97 /* WordListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordListController.h; sourceTree = "<group>"; };
 		06647E8C13DDC9F100A65A97 /* WordListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordListController.m; sourceTree = "<group>"; };
 		06647EA513DEFB7400A65A97 /* WordListCellContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordListCellContentView.h; sourceTree = "<group>"; };
@@ -273,6 +276,8 @@
 				06647EA613DEFB7400A65A97 /* WordListCellContentView.m */,
 				064DBE6313DF116300990264 /* OCProgress.h */,
 				064DBE6413DF116300990264 /* OCProgress.m */,
+				065EE48613DF8FC50032CB43 /* BriefView.h */,
+				065EE48713DF8FC50032CB43 /* BriefView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -368,6 +373,7 @@
 				06647EA713DEFB7400A65A97 /* WordListCellContentView.m in Sources */,
 				06647EAB13DEFB9C00A65A97 /* WordItem.m in Sources */,
 				064DBE6513DF116300990264 /* OCProgress.m in Sources */,
+				065EE48813DF8FC50032CB43 /* BriefView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
