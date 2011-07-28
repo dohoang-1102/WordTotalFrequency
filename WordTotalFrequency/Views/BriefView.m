@@ -16,7 +16,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 48)];
+        CGFloat top = 10;
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, top, 80, 48)];
         label.backgroundColor = [UIColor clearColor];
         label.font = [UIFont boldSystemFontOfSize:40];
         label.adjustsFontSizeToFitWidth = YES;
@@ -26,7 +28,7 @@
         [self addSubview:label];
         [label release];
         
-        MTLabel *note = [[MTLabel alloc] initWithFrame:CGRectMake(85, 0, 80, 60)];
+        MTLabel *note = [[MTLabel alloc] initWithFrame:CGRectMake(85, top, 80, 60)];
         note.backgroundColor = [UIColor clearColor];
         note.font = [UIFont systemFontOfSize:12];
         note.numberOfLines = 0;
@@ -37,7 +39,13 @@
         [self addSubview:note];
         [note release];
         
-        label = [[UILabel alloc] initWithFrame:CGRectMake(200, 22, 50, 20)];
+        UIImage *image = [UIImage imageNamed:@"check-mark"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.frame = CGRectMake(150, 0, image.size.width, image.size.height);
+        [self addSubview:imageView];
+        [imageView release];
+        
+        label = [[UILabel alloc] initWithFrame:CGRectMake(200, 22+top, 50, 20)];
         label.backgroundColor = [UIColor clearColor];
         label.font = [UIFont systemFontOfSize:18];
         label.textColor = [UIColor colorForNormalText];
@@ -45,7 +53,7 @@
         [self addSubview:label];
         [label release];
         
-        label = [[UILabel alloc] initWithFrame:CGRectMake(250, 4, 80, 44)];
+        label = [[UILabel alloc] initWithFrame:CGRectMake(250, 4+top, 80, 44)];
         label.backgroundColor = [UIColor clearColor];
         label.font = [UIFont boldSystemFontOfSize:34];
         label.adjustsFontSizeToFitWidth = YES;

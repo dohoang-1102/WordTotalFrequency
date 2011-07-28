@@ -16,6 +16,7 @@
 @synthesize description = _description;
 @synthesize color = _color;
 @synthesize completePercentage = _completePercentage;
+@synthesize iconUrl = _iconUrl;
 
 - (id)initWithTotal:(NSInteger)total marked:(NSInteger)marked color:(UIColor *)color
 {

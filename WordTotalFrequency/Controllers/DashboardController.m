@@ -16,14 +16,13 @@
 #import "UIColor+WTF.h"
 
 @interface DashboardController()
-- (void)dismissSearchResult;
+- (void)dismissSearchResult:(BOOL)animated;
 @end
 
 @implementation DashboardController
 
 @synthesize wordSets = _wordSets;
 @synthesize unitIcons = _unitIcons;
-@synthesize selectedIconIndex = _selectedIconIndex;
 @synthesize wordSetBrief = _wordSetBrief;
 @synthesize briefView = _briefView;
 @synthesize searchBar = _searchBar;
@@ -57,22 +56,27 @@
     _wordSets = [[NSMutableArray alloc] init];
     WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:5328 color:[UIColor colorWithHex:0xff4600]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    set.iconUrl = @"Unit-1";
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor colorWithHex:0xff6600]] autorelease];
     set.description = @"Master this word set you can understand basic conversations.";
+    set.iconUrl = @"Unit-2";
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:12457 marked:2348 color:[UIColor colorWithHex:0xff9800]] autorelease];
     set.description = @"Master this word set you can adfasf asdfasdf werwer asfasdf.";
+    set.iconUrl = @"Unit-3";
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:23219 marked:8729 color:[UIColor colorWithHex:0xffb900]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    set.iconUrl = @"Unit-4";
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor colorWithHex:0xffda00]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    set.iconUrl = @"Unit-5";
     [_wordSets addObject:set];
 }
 
@@ -89,30 +93,51 @@
     _wordSetBrief.hidden = YES;
 }
 
-- (void)dismissSearchResult
+- (void)dismissSearchResult:(BOOL)animated
 {
-    CGContextRef context = UIGraphicsGetCurrentContext();
-	[UIView beginAnimations:nil context:context];
-    
-	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[UIView setAnimationDuration:0.25];
-	CGRect rect = _listController.view.frame;
-	rect.origin.y = CGRectGetHeight(self.view.frame);
-	_listController.view.frame = rect;
-	
-    for (UIView *view in self.view.subviews) {
-        if (view != _searchBar && view != _listController.view)
+    if (animated)
+    {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:0.25];
+        CGRect rect = _listController.view.frame;
+        rect.origin.y = CGRectGetHeight(self.view.frame);
+        _listController.view.frame = rect;
+        
+        for (UIView *view in self.view.subviews) {
+            if (view != _searchBar && view != _listController.view)
+            {
+                view.alpha = 100;
+            }
+        }
+        
+        if (_selectedIconIndex > -1)
         {
-            view.alpha = 100;
+            _briefView.alpha = 0;
+        }
+        
+        [UIView commitAnimations];
+    }
+    else
+    {
+        CGRect rect = _listController.view.frame;
+        rect.origin.y = CGRectGetHeight(self.view.frame);
+        _listController.view.frame = rect;
+        
+        for (UIView *view in self.view.subviews) {
+            if (view != _searchBar && view != _listController.view)
+            {
+                view.alpha = 100;
+            }
+        }
+        
+        if (_selectedIconIndex > -1)
+        {
+            _briefView.alpha = 0;
         }
     }
-    
-    if (_selectedIconIndex > -1)
-    {
-        _briefView.alpha = 0;
-    }
-    
-    [UIView commitAnimations];
 }
 
 - (void)presentWordSetBrief
@@ -160,26 +185,35 @@
     }
 }
 
+- (NSInteger)selectedIconIndex
+{
+    @synchronized(self) {
+        return _selectedIconIndex;
+    }
+}
+
 - (void)setSelectedIconIndex:(NSInteger)selectedIconIndex
 {
-    NSInteger oldIndex = _selectedIconIndex;
-    _selectedIconIndex = selectedIconIndex;
-    
-    UnitIconView *icon;
-    if (selectedIconIndex > -1)
-    {
-        _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
+    @synchronized(self) {
+        NSInteger oldIndex = _selectedIconIndex;
+        _selectedIconIndex = selectedIconIndex;
         
-        icon = [_unitIcons objectAtIndex:selectedIconIndex];
-        CGPoint point = icon.center;
-        point = [_wordSetBrief convertPoint:point fromView:icon.superview];
-        [_wordSetBrief centerArrowToX:point.x];
-        [self performSelector:@selector(presentWordSetBrief) withObject:nil afterDelay:.25];
-    }
-    else if (oldIndex > -1)
-    {
-        icon = [_unitIcons objectAtIndex:oldIndex];
-        [icon toggleDisplayState:icon affectDashboard:NO];
+        UnitIconView *icon;
+        if (selectedIconIndex > -1)
+        {
+            _wordSetBrief.wordSet = [_wordSets objectAtIndex:selectedIconIndex];
+            
+            icon = [_unitIcons objectAtIndex:selectedIconIndex];
+            CGPoint point = icon.center;
+            point = [_wordSetBrief convertPoint:point fromView:icon.superview];
+            [_wordSetBrief centerArrowToX:point.x];
+            [self performSelector:@selector(presentWordSetBrief) withObject:nil afterDelay:.25];
+        }
+        else if (oldIndex > -1)
+        {
+            icon = [_unitIcons objectAtIndex:oldIndex];
+            [icon toggleDisplayState:icon affectDashboard:NO];
+        }
     }
 }
 
@@ -226,6 +260,7 @@
     [self.view addSubview:_wordSetBrief];
     
     _listController = [[WordListController alloc] init];
+    _listController.delegate = self;
     [self.view addSubview:_listController.view];
 }
 
@@ -236,6 +271,9 @@
                                             CGRectGetHeight(self.view.frame),
                                             CGRectGetWidth(self.view.frame),
                                             CGRectGetHeight(self.view.frame)- SEARCH_BAR_HEIGHT);
+    
+    [_searchBar resignFirstResponder];
+    [self dismissSearchResult:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -252,7 +290,6 @@
             deselectRowAtIndexPath:[_wordSetBrief.tableView indexPathForSelectedRow]
                           animated:YES];
     }
-    [_listController.tableView deselectRowAtIndexPath:[_listController.tableView indexPathForSelectedRow] animated:YES];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -288,7 +325,7 @@
 {
     [super touchesEnded:touches withEvent:event];
     [_searchBar resignFirstResponder];
-    [self dismissSearchResult];
+    [self dismissSearchResult:YES];
     [self dismissWordSetBrief];
 }
 
@@ -318,13 +355,19 @@
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-    [self dismissSearchResult];
+    [self dismissSearchResult:YES];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
 	[searchBar resignFirstResponder];
-    [self dismissSearchResult];
+    [self dismissSearchResult:YES];
+}
+
+#pragma mark - WordListDelegate
+
+- (void)willSelectWord:(WordItem *)word
+{
 }
 
 

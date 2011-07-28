@@ -7,12 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WordItem.h"
 
+@protocol WordListDelegate <NSObject>
+
+@optional
+- (void) willSelectWord:(WordItem *)word;
+- (void) didSelectWord:(WordItem *)word;
+
+@end
 
 @interface WordListController : UITableViewController {
     
 }
 
 @property (nonatomic, retain) NSArray *words;
+@property (nonatomic, assign) id<WordListDelegate> delegate;
 
 @end

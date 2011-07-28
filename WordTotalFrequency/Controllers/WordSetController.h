@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "WordListController.h"
+#import "WordSet.h"
 
 @interface WordSetController : UIViewController {
     WordListController *_listController;
 }
+
+@property (nonatomic, retain) WordSet *wordSet;
 
 @end

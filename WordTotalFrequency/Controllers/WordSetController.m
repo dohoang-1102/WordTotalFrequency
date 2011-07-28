@@ -8,8 +8,16 @@
 
 #import "WordSetController.h"
 #import "DashboardView.h"
+#import "OCProgress.h"
+#import "UIColor+WTF.h"
 
 @implementation WordSetController
+
+@synthesize wordSet = _wordSet;
+
+#define ICON_IMAGE_TAG 1
+#define PERCENT_LABEL_TAG 2
+#define PROGRESS_TAG 3
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,6 +31,7 @@
 - (void)dealloc
 {
     [_listController release];
+    [_wordSet release];
     [super dealloc];
 }
 
@@ -53,10 +62,31 @@
     [self.view addSubview:_listController.view];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(10, 13, 14, 17);
+    button.frame = CGRectMake(14, 13, 14, 17);
     [button setBackgroundImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(70, 7, 30, 30)];
+    imageView.tag = ICON_IMAGE_TAG;
+    [self.view addSubview:imageView];
+    [imageView release];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(114, 4, 160, 16)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont systemFontOfSize:14];
+    label.textColor = [UIColor colorForNormalText];
+    label.tag = PERCENT_LABEL_TAG;
+    [self.view addSubview:label];
+    [label release];
+    
+    OCProgress *progress = [[OCProgress alloc] initWithFrame:CGRectMake(110, 21, 160, 16)];
+    progress.minValue = 0;
+    progress.maxValue = 100;
+    progress.progressRemainingColor = [UIColor colorWithHex:0x337fc8];
+    progress.lineColor = [UIColor colorWithHex:0x337fc8];
+    [self.view addSubview:progress];
+    [progress release];
     
     UISegmentedControl *segment = [[UISegmentedControl alloc]
                                    initWithItems:[NSArray arrayWithObjects:@"List", @"Test", @"History", @"Setting", nil]];
@@ -70,6 +100,12 @@
 {
     [super viewDidLoad];
     self.title = @"Word Set";
+    
+    [(UIImageView *)[self.view viewWithTag:ICON_IMAGE_TAG] setImage:[UIImage imageNamed:_wordSet.iconUrl]];
+    [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
+    [(OCProgress *)[self.view viewWithTag:PROGRESS_TAG] setCurrentValue:_wordSet.completePercentage];
+    [(OCProgress *)[self.view viewWithTag:PROGRESS_TAG] setProgressColor:_wordSet.color];
+    NSLog(@"%d - %@", _wordSet.completePercentage, _wordSet.color);
 }
 
 - (void)viewDidUnload

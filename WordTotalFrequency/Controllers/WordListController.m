@@ -11,9 +11,11 @@
 #import "WordListCellContentView.h"
 #import "WordDetailController.h"
 
+
 @implementation WordListController
 
 @synthesize words = _words;
+@synthesize delegate = _delegate;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -108,9 +110,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self.delegate willSelectWord:[_words objectAtIndex:indexPath.row]];
+    
     WordDetailController *controller = [[WordDetailController alloc] init];
     [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
-//    [self.navigationController pushViewController:controller animated:YES];
     [controller release];
 }
 

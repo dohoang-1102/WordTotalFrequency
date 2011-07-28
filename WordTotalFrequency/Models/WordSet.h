@@ -15,9 +15,10 @@
 
 @property (nonatomic) NSInteger totalWordCount;
 @property (nonatomic) NSInteger markedWordCount;
-@property (nonatomic, copy)NSString *description;
-@property (nonatomic, retain)UIColor *color;
-@property (nonatomic, readonly)NSInteger completePercentage;
+@property (nonatomic, copy) NSString *description;
+@property (nonatomic, retain) UIColor *color;
+@property (nonatomic, readonly) NSInteger completePercentage;
+@property (nonatomic, copy) NSString *iconUrl;
 
 - (id)initWithTotal:(NSInteger)total marked:(NSInteger)marked color:(UIColor *)color;
 

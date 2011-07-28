@@ -50,6 +50,8 @@
 		067A0E0813D891AC003589DA /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E0713D891AC003589DA /* DashboardController.m */; };
 		067A0E1613D8E8D3003589DA /* UIColor+WTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E1513D8E8D3003589DA /* UIColor+WTF.m */; };
 		067A0E1913D8EBBE003589DA /* DashboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E1813D8EBBE003589DA /* DashboardView.m */; };
+		06B1F22F13E0E0BF00864971 /* check-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 06B1F22D13E0E0BF00864971 /* check-mark.png */; };
+		06B1F23013E0E0BF00864971 /* check-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06B1F22E13E0E0BF00864971 /* check-mark@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -117,6 +119,8 @@
 		067A0E1513D8E8D3003589DA /* UIColor+WTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WTF.m"; sourceTree = "<group>"; };
 		067A0E1713D8EBBE003589DA /* DashboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardView.h; sourceTree = "<group>"; };
 		067A0E1813D8EBBE003589DA /* DashboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardView.m; sourceTree = "<group>"; };
+		06B1F22D13E0E0BF00864971 /* check-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-mark.png"; sourceTree = "<group>"; };
+		06B1F22E13E0E0BF00864971 /* check-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-mark@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,8 @@
 		06066C7D13D9C97A0019D945 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				06B1F22D13E0E0BF00864971 /* check-mark.png */,
+				06B1F22E13E0E0BF00864971 /* check-mark@2x.png */,
 				065EE49013E051A60032CB43 /* arrow-back.png */,
 				065EE49113E051A60032CB43 /* arrow-back@2x.png */,
 				06647EB413DF091600A65A97 /* mark-circle@2x.png */,
@@ -360,6 +366,8 @@
 				06647EB513DF091600A65A97 /* mark-circle@2x.png in Resources */,
 				065EE49213E051A60032CB43 /* arrow-back.png in Resources */,
 				065EE49313E051A60032CB43 /* arrow-back@2x.png in Resources */,
+				06B1F22F13E0E0BF00864971 /* check-mark.png in Resources */,
+				06B1F23013E0E0BF00864971 /* check-mark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,6 +461,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordTotalFrequency/WordTotalFrequency-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "WordTotalFrequency/WordTotalFrequency-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -466,6 +475,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WordTotalFrequency/WordTotalFrequency-Prefix.pch";
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "WordTotalFrequency/WordTotalFrequency-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALIDATE_PRODUCT = YES;

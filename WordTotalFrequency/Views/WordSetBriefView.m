@@ -13,7 +13,6 @@
 @implementation WordSetBriefView
 
 @synthesize tableView = _tableView;
-@synthesize wordSet = _wordSet;
 @synthesize dashboardController = _dashboardController;
 
 - (id)initWithFrame:(CGRect)frame
@@ -96,6 +95,13 @@
 }
 */
 
+- (WordSet *)wordSet
+{
+    @synchronized(self) {
+        return _wordSet;
+    }
+}
+
 - (void)setWordSet:(WordSet *)wordSet
 {
     @synchronized(self) {
@@ -170,6 +176,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WordSetController *wsc = [[WordSetController alloc] init];
+    wsc.wordSet = _wordSet;
     [self.dashboardController.navigationController pushViewController:wsc animated:YES];
     [wsc release];
 }

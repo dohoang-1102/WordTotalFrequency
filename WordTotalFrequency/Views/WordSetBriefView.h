@@ -19,10 +19,12 @@
     MTLabel *_percentLabel;
     OCProgress *_progress;
     CAArrowShapeLayer *_arrowLayer;
+    
+    WordSet *_wordSet;
 }
 
 @property (nonatomic, retain) UITableView *tableView;
-@property (nonatomic, retain) WordSet *wordSet;
+@property (retain) WordSet *wordSet;
 @property (nonatomic, assign) DashboardController *dashboardController;
 
 - (void)centerArrowToX:(CGFloat)x;
