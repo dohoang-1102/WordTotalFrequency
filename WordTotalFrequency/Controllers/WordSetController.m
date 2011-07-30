@@ -83,14 +83,21 @@
     OCProgress *progress = [[OCProgress alloc] initWithFrame:CGRectMake(110, 21, 160, 16)];
     progress.minValue = 0;
     progress.maxValue = 100;
+    progress.tag = PROGRESS_TAG;
     progress.progressRemainingColor = [UIColor colorWithHex:0x337fc8];
     progress.lineColor = [UIColor colorWithHex:0x337fc8];
     [self.view addSubview:progress];
     [progress release];
     
+    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth(rect), 1.5)];
+    line.backgroundColor = [UIColor colorWithWhite:1.f alpha:.6f];
+    [self.view addSubview:line];
+    [line release];
+    
     UISegmentedControl *segment = [[UISegmentedControl alloc]
                                    initWithItems:[NSArray arrayWithObjects:@"List", @"Test", @"History", @"Setting", nil]];
     segment.frame = CGRectMake(10, CGRectGetHeight(rect)-46, CGRectGetWidth(rect)-20, 40);
+    segment.selectedSegmentIndex = 0;
     [self.view addSubview:segment];
     [segment release];
 }
@@ -103,9 +110,9 @@
     
     [(UIImageView *)[self.view viewWithTag:ICON_IMAGE_TAG] setImage:[UIImage imageNamed:_wordSet.iconUrl]];
     [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
-    [(OCProgress *)[self.view viewWithTag:PROGRESS_TAG] setCurrentValue:_wordSet.completePercentage];
-    [(OCProgress *)[self.view viewWithTag:PROGRESS_TAG] setProgressColor:_wordSet.color];
-    NSLog(@"%d - %@", _wordSet.completePercentage, _wordSet.color);
+    OCProgress *progress = (OCProgress *)[self.view viewWithTag:PROGRESS_TAG];
+    progress.currentValue = _wordSet.completePercentage;
+    progress.progressColor = _wordSet.color;
 }
 
 - (void)viewDidUnload
