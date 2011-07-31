@@ -78,6 +78,7 @@
 {
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorColor = [UIColor colorWithWhite:1.f alpha:.5f];
     
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
