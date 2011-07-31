@@ -7,15 +7,16 @@
 //
 
 #import "WordListController.h"
-#import "WordItem.h"
 #import "WordListCellContentView.h"
 #import "WordDetailController.h"
-
+#import "Word.h"
+#import "WordTotalFrequencyAppDelegate.h"
 
 @implementation WordListController
 
-@synthesize words = _words;
 @synthesize delegate = _delegate;
+@synthesize fetchedResultsController = _fetchedResultsController;
+@synthesize searchString = _searchString;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -28,6 +29,8 @@
 
 - (void)dealloc
 {
+    [_fetchedResultsController release];
+    [_searchString release];
     [super dealloc];
 }
 
@@ -39,6 +42,33 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)setSearchString:(NSString *)searchString
+{
+    if (_searchString != searchString)
+    {
+        [_searchString release];
+        _searchString = [searchString copy];
+        
+        if ([searchString isEqualToString:@""])
+        {
+            [self.fetchedResultsController.fetchRequest setPredicate:nil];
+        }
+        else
+        {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"spell contains[cd] %@", searchString];
+            [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+        }
+        
+        NSError *error;
+        if (![[self fetchedResultsController] performFetch:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);  // Fail
+        }
+        
+        [self.tableView reloadData];
+    }
+}
+
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -47,20 +77,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    self.words = [NSArray arrayWithObjects:
-                  [[[WordItem alloc] initWithWord:@"cirlet" translation:@"小环，小圈" marked:YES] autorelease],
-                  [[[WordItem alloc] initWithWord:@"circular" translation:@"圆的；循环的" marked:NO] autorelease],
-                  [[[WordItem alloc] initWithWord:@"circulate" translation:@"循环，流通" marked:YES] autorelease],
-                  nil];
     self.tableView.backgroundColor = [UIColor clearColor];
+    
+    NSError *error;
+	if (![[self fetchedResultsController] performFetch:&error]) {
+		// Update to handle the error appropriately.
+		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+		exit(-1);  // Fail
+	}
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.fetchedResultsController = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -78,8 +108,8 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return [_words count];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+	return [sectionInfo numberOfObjects];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -103,18 +133,61 @@
     
     // Configure the cell...
     WordListCellContentView *cellView = (WordListCellContentView *)[cell viewWithTag:1];
-    cellView.wordItem = [_words objectAtIndex:indexPath.row];
+    Word *word = [_fetchedResultsController objectAtIndexPath:indexPath];
+    cellView.word = word;
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.delegate willSelectWord:[_words objectAtIndex:indexPath.row]];
+    Word *word = (Word *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+    [self.delegate willSelectWord:word];
     
     WordDetailController *controller = [[WordDetailController alloc] init];
     [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
     [controller release];
+}
+
+#pragma mark -- Fetched Results Controller
+
+/**
+ Returns the fetched results controller. Creates and configures the controller if necessary.
+ */
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+
+	// Create and configure a fetch request with the Book entity.
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+	[fetchRequest setEntity:entity];
+    
+    // Create the sort descriptors array.
+	NSSortDescriptor *spellDescriptor = [[NSSortDescriptor alloc] initWithKey:@"spell" ascending:YES];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:spellDescriptor, nil];
+	[fetchRequest setSortDescriptors:sortDescriptors];
+
+	
+	// Create and initialize the fetch results controller.
+	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
+                                                             initWithFetchRequest:fetchRequest
+                                                             managedObjectContext:appDelegate.managedObjectContext
+                                                             sectionNameKeyPath:nil cacheName:nil];
+	self.fetchedResultsController = aFetchedResultsController;
+	_fetchedResultsController.delegate = self;
+	
+	// Memory management.
+	[aFetchedResultsController release];
+	[fetchRequest release];
+    [spellDescriptor release];
+	[sortDescriptors release];
+	
+	return _fetchedResultsController;
 }
 
 @end

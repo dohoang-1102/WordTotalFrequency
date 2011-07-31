@@ -42,7 +42,6 @@
 		065EE49913E0589A0032CB43 /* WordDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 065EE49813E0589A0032CB43 /* WordDetailController.m */; };
 		06647E8D13DDC9F100A65A97 /* WordListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647E8C13DDC9F100A65A97 /* WordListController.m */; };
 		06647EA713DEFB7400A65A97 /* WordListCellContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647EA613DEFB7400A65A97 /* WordListCellContentView.m */; };
-		06647EAB13DEFB9C00A65A97 /* WordItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 06647EAA13DEFB9C00A65A97 /* WordItem.m */; };
 		06647EAD13DEFE2300A65A97 /* mark-circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 06647EAC13DEFE2300A65A97 /* mark-circle.png */; };
 		06647EB513DF091600A65A97 /* mark-circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06647EB413DF091600A65A97 /* mark-circle@2x.png */; };
 		067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 067A0DEF13D88991003589DA /* QuartzCore.framework */; };
@@ -50,6 +49,8 @@
 		067A0E0813D891AC003589DA /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E0713D891AC003589DA /* DashboardController.m */; };
 		067A0E1613D8E8D3003589DA /* UIColor+WTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E1513D8E8D3003589DA /* UIColor+WTF.m */; };
 		067A0E1913D8EBBE003589DA /* DashboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E1813D8EBBE003589DA /* DashboardView.m */; };
+		0693086213E52EAA00FBF949 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0693086113E52EAA00FBF949 /* WordTotalFrequency.sqlite */; };
+		06AE715A13E4E65000653717 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AE715913E4E65000653717 /* libsqlite3.dylib */; };
 		06B1F22F13E0E0BF00864971 /* check-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 06B1F22D13E0E0BF00864971 /* check-mark.png */; };
 		06B1F23013E0E0BF00864971 /* check-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06B1F22E13E0E0BF00864971 /* check-mark@2x.png */; };
 		06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B2F9EC13E4333C001463AC /* CoreData.framework */; };
@@ -108,8 +109,6 @@
 		06647E8C13DDC9F100A65A97 /* WordListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordListController.m; sourceTree = "<group>"; };
 		06647EA513DEFB7400A65A97 /* WordListCellContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordListCellContentView.h; sourceTree = "<group>"; };
 		06647EA613DEFB7400A65A97 /* WordListCellContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordListCellContentView.m; sourceTree = "<group>"; };
-		06647EA913DEFB9C00A65A97 /* WordItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordItem.h; sourceTree = "<group>"; };
-		06647EAA13DEFB9C00A65A97 /* WordItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordItem.m; sourceTree = "<group>"; };
 		06647EAC13DEFE2300A65A97 /* mark-circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mark-circle.png"; sourceTree = "<group>"; };
 		06647EB413DF091600A65A97 /* mark-circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mark-circle@2x.png"; sourceTree = "<group>"; };
 		067A0DEF13D88991003589DA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -122,6 +121,8 @@
 		067A0E1513D8E8D3003589DA /* UIColor+WTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WTF.m"; sourceTree = "<group>"; };
 		067A0E1713D8EBBE003589DA /* DashboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardView.h; sourceTree = "<group>"; };
 		067A0E1813D8EBBE003589DA /* DashboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardView.m; sourceTree = "<group>"; };
+		0693086113E52EAA00FBF949 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
+		06AE715913E4E65000653717 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		06B1F22D13E0E0BF00864971 /* check-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-mark.png"; sourceTree = "<group>"; };
 		06B1F22E13E0E0BF00864971 /* check-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-mark@2x.png"; sourceTree = "<group>"; };
 		06B2F9EC13E4333C001463AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -135,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06AE715A13E4E65000653717 /* libsqlite3.dylib in Frameworks */,
 				06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */,
 				06066CF113DA97710019D945 /* CoreText.framework in Frameworks */,
 				067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */,
@@ -194,6 +196,7 @@
 		0632420013D87C7F00388D3E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				06AE715913E4E65000653717 /* libsqlite3.dylib */,
 				06B2F9EC13E4333C001463AC /* CoreData.framework */,
 				06066CF013DA97710019D945 /* CoreText.framework */,
 				067A0DEF13D88991003589DA /* QuartzCore.framework */,
@@ -223,6 +226,7 @@
 		0632420813D87C7F00388D3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				0693086113E52EAA00FBF949 /* WordTotalFrequency.sqlite */,
 				06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */,
 				06066C7D13D9C97A0019D945 /* Images */,
 				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
@@ -239,8 +243,6 @@
 			children = (
 				067A0DF813D890D2003589DA /* WordSet.h */,
 				067A0DF913D890D2003589DA /* WordSet.m */,
-				06647EA913DEFB9C00A65A97 /* WordItem.h */,
-				06647EAA13DEFB9C00A65A97 /* WordItem.m */,
 				06B2F9F213E434D3001463AC /* Word.h */,
 				06B2F9F313E434D3001463AC /* Word.m */,
 			);
@@ -380,6 +382,7 @@
 				065EE49313E051A60032CB43 /* arrow-back@2x.png in Resources */,
 				06B1F22F13E0E0BF00864971 /* check-mark.png in Resources */,
 				06B1F23013E0E0BF00864971 /* check-mark@2x.png in Resources */,
+				0693086213E52EAA00FBF949 /* WordTotalFrequency.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,7 +407,6 @@
 				06066D1213DBC7A10019D945 /* CustomSearchBar.m in Sources */,
 				06647E8D13DDC9F100A65A97 /* WordListController.m in Sources */,
 				06647EA713DEFB7400A65A97 /* WordListCellContentView.m in Sources */,
-				06647EAB13DEFB9C00A65A97 /* WordItem.m in Sources */,
 				064DBE6513DF116300990264 /* OCProgress.m in Sources */,
 				065EE48813DF8FC50032CB43 /* BriefView.m in Sources */,
 				065EE49913E0589A0032CB43 /* WordDetailController.m in Sources */,

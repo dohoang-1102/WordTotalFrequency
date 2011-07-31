@@ -364,9 +364,14 @@
     [self dismissSearchResult:YES];
 }
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    _listController.searchString = searchBar.text;
+}
+
 #pragma mark - WordListDelegate
 
-- (void)willSelectWord:(WordItem *)word
+- (void)willSelectWord:(Word *)word
 {
 }
 

@@ -12,10 +12,12 @@
 @implementation Word
 
 @dynamic spell;
+@dynamic phonetic;
 @dynamic soundFile;
 @dynamic translate;
 @dynamic tags;
 @dynamic detail;
 @dynamic category;
+@dynamic marked;
 
 @end

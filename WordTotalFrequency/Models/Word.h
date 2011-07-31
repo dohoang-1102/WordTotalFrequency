@@ -15,9 +15,11 @@
 
 @property (nonatomic, retain) NSString *spell;
 @property (nonatomic, retain) NSString *soundFile;
+@property (nonatomic, retain) NSString *phonetic;
 @property (nonatomic, retain) NSString *translate;
 @property (nonatomic, retain) NSString *tags;
 @property (nonatomic, retain) NSString *detail;
-@property (nonatomic) NSInteger category;
+@property (nonatomic, retain) NSNumber *category;
+@property (nonatomic, retain) NSNumber *marked;
 
 @end

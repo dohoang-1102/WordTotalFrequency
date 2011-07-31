@@ -6,22 +6,22 @@
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "WordItem.h"
+#import <CoreData/CoreData.h>
+#import "Word.h"
 
 @protocol WordListDelegate <NSObject>
 
 @optional
-- (void) willSelectWord:(WordItem *)word;
-- (void) didSelectWord:(WordItem *)word;
+- (void) willSelectWord:(Word *)word;
+- (void) didSelectWord:(Word *)word;
 
 @end
 
-@interface WordListController : UITableViewController {
-    
+@interface WordListController : UITableViewController<NSFetchedResultsControllerDelegate> {
 }
 
-@property (nonatomic, retain) NSArray *words;
 @property (nonatomic, assign) id<WordListDelegate> delegate;
+@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, copy) NSString *searchString;
 
 @end

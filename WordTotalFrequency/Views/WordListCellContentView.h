@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WordItem.h"
+#import "Word.h"
 
 @interface WordListCellContentView : UIView {
     BOOL _highlighted;
 }
 
-@property (nonatomic, assign)WordItem *wordItem;
+@property (nonatomic, retain) Word *word;
 
 @end

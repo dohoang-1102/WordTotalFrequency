@@ -12,7 +12,7 @@
 
 @implementation WordListCellContentView
 
-@synthesize wordItem = _wordItem;
+@synthesize word = _word;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -27,18 +27,22 @@
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
-    if (_wordItem.marked)
+    if ([_word.marked boolValue])
         [[UIImage imageNamed:@"mark-circle"] drawAtPoint:CGPointMake(15, 15)];
     
     _highlighted ? [[UIColor whiteColor] set] : [[UIColor colorForNormalText] set];
-    [_wordItem.word drawAtPoint:CGPointMake(36, 8) withFont:[UIFont systemFontOfSize:20]];
-    [_wordItem.translation drawAtPoint:CGPointMake(140, 10) withFont:[UIFont systemFontOfSize:18]];
+    [_word.spell drawAtPoint:CGPointMake(36, 8) withFont:[UIFont systemFontOfSize:20]];
+    [_word.translate drawAtPoint:CGPointMake(140, 10) withFont:[UIFont systemFontOfSize:18]];
 }
 
-- (void)setWordItem:(WordItem *)wordItem
+- (void)setWord:(Word *)word
 {
-    _wordItem = wordItem;
-    [self setNeedsDisplay];
+    if (_word != word)
+    {
+        [_word release];
+        _word = [word retain];
+        [self setNeedsDisplay];
+    }
 }
 
 - (void)setHighlighted:(BOOL)highlighted
@@ -55,6 +59,7 @@
 
 - (void)dealloc
 {
+    [_word release];
     [super dealloc];
 }
 
