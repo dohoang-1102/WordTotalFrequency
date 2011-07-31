@@ -62,7 +62,7 @@
     [self.view addSubview:_listController.view];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(14, 13, 14, 17);
+    button.frame = CGRectMake(14, 13, 12, 15);
     [button setBackgroundImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
@@ -128,7 +128,7 @@
     _listController.view.frame = CGRectMake(0,
                                             44,
                                             CGRectGetWidth(self.view.frame),
-                                            CGRectGetHeight(self.view.frame)-88);
+                                            CGRectGetHeight(self.view.frame)-94);
 }
 
 - (void)viewDidAppear:(BOOL)animated

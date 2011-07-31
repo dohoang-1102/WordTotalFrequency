@@ -145,6 +145,7 @@
     [self.delegate willSelectWord:word];
     
     WordDetailController *controller = [[WordDetailController alloc] init];
+    controller.word = word;
     [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
     [controller release];
 }
