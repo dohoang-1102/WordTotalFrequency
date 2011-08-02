@@ -26,6 +26,7 @@
 		06066D1B13DBFDC50019D945 /* Unit-4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066D1613DBFDC40019D945 /* Unit-4@2x.png */; };
 		06066D1C13DBFDC50019D945 /* Unit-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066D1713DBFDC40019D945 /* Unit-5@2x.png */; };
 		06066D1E13DC10600019D945 /* search-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066D1D13DC10600019D945 /* search-bg@2x.png */; };
+		060C4C4213E773D000B7735D /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 060C4C4113E773D000B7735D /* WordTotalFrequency.sqlite */; };
 		0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420113D87C7F00388D3E /* UIKit.framework */; };
 		0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420313D87C7F00388D3E /* Foundation.framework */; };
 		0632420613D87C7F00388D3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420513D87C7F00388D3E /* CoreGraphics.framework */; };
@@ -49,7 +50,6 @@
 		067A0E0813D891AC003589DA /* DashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E0713D891AC003589DA /* DashboardController.m */; };
 		067A0E1613D8E8D3003589DA /* UIColor+WTF.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E1513D8E8D3003589DA /* UIColor+WTF.m */; };
 		067A0E1913D8EBBE003589DA /* DashboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 067A0E1813D8EBBE003589DA /* DashboardView.m */; };
-		0693086213E52EAA00FBF949 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 0693086113E52EAA00FBF949 /* WordTotalFrequency.sqlite */; };
 		0693086513E55FEE00FBF949 /* speaker.png in Resources */ = {isa = PBXBuildFile; fileRef = 0693086313E55FEE00FBF949 /* speaker.png */; };
 		0693086613E55FEE00FBF949 /* speaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0693086413E55FEE00FBF949 /* speaker@2x.png */; };
 		0693086913E561D600FBF949 /* mark-circle-gray.png in Resources */ = {isa = PBXBuildFile; fileRef = 0693086713E561D600FBF949 /* mark-circle-gray.png */; };
@@ -93,6 +93,7 @@
 		06066D1613DBFDC40019D945 /* Unit-4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-4@2x.png"; sourceTree = "<group>"; };
 		06066D1713DBFDC40019D945 /* Unit-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-5@2x.png"; sourceTree = "<group>"; };
 		06066D1D13DC10600019D945 /* search-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg@2x.png"; sourceTree = "<group>"; };
+		060C4C4113E773D000B7735D /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
 		063241FD13D87C7F00388D3E /* WordTotalFrequency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordTotalFrequency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0632420113D87C7F00388D3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0632420313D87C7F00388D3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -131,7 +132,6 @@
 		067A0E1513D8E8D3003589DA /* UIColor+WTF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WTF.m"; sourceTree = "<group>"; };
 		067A0E1713D8EBBE003589DA /* DashboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardView.h; sourceTree = "<group>"; };
 		067A0E1813D8EBBE003589DA /* DashboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardView.m; sourceTree = "<group>"; };
-		0693086113E52EAA00FBF949 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
 		0693086313E55FEE00FBF949 /* speaker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speaker.png; sourceTree = "<group>"; };
 		0693086413E55FEE00FBF949 /* speaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaker@2x.png"; sourceTree = "<group>"; };
 		0693086713E561D600FBF949 /* mark-circle-gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mark-circle-gray.png"; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 		0632420813D87C7F00388D3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0693086113E52EAA00FBF949 /* WordTotalFrequency.sqlite */,
+				060C4C4113E773D000B7735D /* WordTotalFrequency.sqlite */,
 				06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */,
 				06066C7D13D9C97A0019D945 /* Images */,
 				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
@@ -412,7 +412,6 @@
 				065EE49313E051A60032CB43 /* arrow-back@2x.png in Resources */,
 				06B1F22F13E0E0BF00864971 /* check-mark.png in Resources */,
 				06B1F23013E0E0BF00864971 /* check-mark@2x.png in Resources */,
-				0693086213E52EAA00FBF949 /* WordTotalFrequency.sqlite in Resources */,
 				0693086513E55FEE00FBF949 /* speaker.png in Resources */,
 				0693086613E55FEE00FBF949 /* speaker@2x.png in Resources */,
 				0693086913E561D600FBF949 /* mark-circle-gray.png in Resources */,
@@ -423,6 +422,7 @@
 				0693087413E566DD00FBF949 /* tag-toefl@2x.png in Resources */,
 				0693087513E566DD00FBF949 /* tag-yelts.png in Resources */,
 				0693087613E566DD00FBF949 /* tag-yelts@2x.png in Resources */,
+				060C4C4213E773D000B7735D /* WordTotalFrequency.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

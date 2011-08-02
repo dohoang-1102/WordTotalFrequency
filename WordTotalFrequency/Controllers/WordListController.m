@@ -17,6 +17,7 @@
 @synthesize delegate = _delegate;
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize searchString = _searchString;
+@synthesize wordSetIndex = _wordSetIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -69,6 +70,28 @@
     }
 }
 
+- (void)setWordSetIndex:(NSInteger)wordSetIndex
+{
+    _wordSetIndex = wordSetIndex;
+    if (wordSetIndex == -1)
+    {
+        [self.fetchedResultsController.fetchRequest setPredicate:nil];
+    }
+    else
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex];
+        [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+    }
+    
+    NSError *error;
+    if (![[self fetchedResultsController] performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        exit(-1);  // Fail
+    }
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -82,7 +105,6 @@
     
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
-		// Update to handle the error appropriately.
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
@@ -94,10 +116,10 @@
     self.fetchedResultsController = nil;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)viewWillAppear:(BOOL)animated
 {
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    [super viewWillAppear:animated];
+    NSLog(@"WordListController view will appear!!!!!");
 }
 
 #pragma mark - table view
@@ -157,7 +179,6 @@
  Returns the fetched results controller. Creates and configures the controller if necessary.
  */
 - (NSFetchedResultsController *)fetchedResultsController {
-    
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
@@ -168,11 +189,18 @@
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
 	[fetchRequest setEntity:entity];
+    [fetchRequest setFetchBatchSize:20];
     
     // Create the sort descriptors array.
-	NSSortDescriptor *spellDescriptor = [[NSSortDescriptor alloc] initWithKey:@"spell" ascending:YES];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:spellDescriptor, nil];
+	NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:YES];
+	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:descriptor, nil];
+    [descriptor release];
 	[fetchRequest setSortDescriptors:sortDescriptors];
+	[sortDescriptors release];
+    
+    NSArray *propertiesToFetch = [[NSArray alloc] initWithObjects:@"spell", @"translate", nil];
+    [fetchRequest setPropertiesToFetch:propertiesToFetch];
+    [propertiesToFetch release];
 
 	
 	// Create and initialize the fetch results controller.
@@ -186,8 +214,6 @@
 	// Memory management.
 	[aFetchedResultsController release];
 	[fetchRequest release];
-    [spellDescriptor release];
-	[sortDescriptors release];
 	
 	return _fetchedResultsController;
 }

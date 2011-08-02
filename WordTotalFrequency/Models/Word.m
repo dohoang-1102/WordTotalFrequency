@@ -12,6 +12,7 @@
 @implementation Word
 
 @dynamic spell;
+@dynamic rank;
 @dynamic phonetic;
 @dynamic soundFile;
 @dynamic translate;

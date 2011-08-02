@@ -12,7 +12,6 @@
 
 @interface UnitIconView : UIView {
     CGFloat _currentArc;
-    CGFloat _percentArc;
     BOOL _isSelected;
 }
 
@@ -21,9 +20,11 @@
 @property (nonatomic, retain) CAShapeLayer *percentLayer;
 @property (nonatomic, assign) DashboardController *dashboard;
 @property (nonatomic, assign) WordSet *wordSet;
+@property (nonatomic) CGFloat percentArc;
 
 - (id)initWithFrame:(CGRect)frame image:(NSString *)image;
 - (void)toggleDisplayState:(UnitIconView *)iconView affectDashboard:(BOOL)affect;
 - (void)addCADisplayLink;
+- (void)updateData;
 
 @end

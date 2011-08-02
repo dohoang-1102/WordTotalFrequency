@@ -19,6 +19,7 @@
 @property (nonatomic, retain) UIColor *color;
 @property (nonatomic, readonly) NSInteger completePercentage;
 @property (nonatomic, copy) NSString *iconUrl;
+@property (nonatomic) NSInteger categoryId;
 
 - (id)initWithTotal:(NSInteger)total marked:(NSInteger)marked color:(UIColor *)color;
 

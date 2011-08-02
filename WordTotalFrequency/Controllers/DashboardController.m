@@ -14,6 +14,7 @@
 #import "UnitIconView.h"
 #import "WordSetBriefView.h"
 #import "UIColor+WTF.h"
+#import "WordTotalFrequencyAppDelegate.h"
 
 @interface DashboardController()
 - (void)dismissSearchResult:(BOOL)animated;
@@ -57,27 +58,57 @@
     WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:5328 color:[UIColor colorWithHex:0xff4600]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
     set.iconUrl = @"Unit-1";
+    set.categoryId = 0;
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor colorWithHex:0xff6600]] autorelease];
     set.description = @"Master this word set you can understand basic conversations.";
     set.iconUrl = @"Unit-2";
+    set.categoryId = 1;
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:12457 marked:2348 color:[UIColor colorWithHex:0xff9800]] autorelease];
     set.description = @"Master this word set you can adfasf asdfasdf werwer asfasdf.";
     set.iconUrl = @"Unit-3";
+    set.categoryId = 2;
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:23219 marked:8729 color:[UIColor colorWithHex:0xffb900]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
     set.iconUrl = @"Unit-4";
+    set.categoryId = 3;
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor colorWithHex:0xffda00]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
     set.iconUrl = @"Unit-5";
+    set.categoryId = 4;
     [_wordSets addObject:set];
+    
+    // retrieve data
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+    [request setEntity:entity];
+    
+    for (int i=0; i<5; i++) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", i];
+        [request setPredicate:predicate];
+        
+        NSError *error;
+        NSUInteger count = [appDelegate.managedObjectContext countForFetchRequest:request error:&error];
+        if(count == NSNotFound) 
+        {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);  // Fail
+        }
+        else
+        {
+            WordSet *wordSet = [_wordSets objectAtIndex:i];
+            wordSet.totalWordCount = count;
+        }
+    }
+    [request release];
 }
 
 - (void)didReceiveMemoryWarning
@@ -274,6 +305,34 @@
     
     [_searchBar resignFirstResponder];
     [self dismissSearchResult:NO];
+    
+    // retrieve data
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+    [request setEntity:entity];
+    
+    for (int i=0; i<5; i++) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", i];
+        [request setPredicate:predicate];
+        
+        NSError *error;
+        NSUInteger count = [appDelegate.managedObjectContext countForFetchRequest:request error:&error];
+        if(count == NSNotFound) 
+        {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);  // Fail
+        }
+        else
+        {
+            WordSet *wordSet = [_wordSets objectAtIndex:i];
+            wordSet.markedWordCount = count;
+            
+            UnitIconView *icon = [_unitIcons objectAtIndex:i];
+            [icon updateData];
+        }
+    }
+    [request release];
 }
 
 - (void)viewDidAppear:(BOOL)animated

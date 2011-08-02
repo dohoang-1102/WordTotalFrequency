@@ -113,6 +113,8 @@
     OCProgress *progress = (OCProgress *)[self.view viewWithTag:PROGRESS_TAG];
     progress.currentValue = _wordSet.completePercentage;
     progress.progressColor = _wordSet.color;
+    
+    _listController.wordSetIndex = _wordSet.categoryId;
 }
 
 - (void)viewDidUnload
