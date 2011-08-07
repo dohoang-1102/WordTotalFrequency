@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "Word.h"
 
-@interface WordDetailController : UIViewController {
+@interface WordDetailController : UIViewController<UIGestureRecognizerDelegate> {
     
 }
 
 @property (nonatomic, retain) Word *word;
+@property (nonatomic, retain) NSArray *words;
+@property (nonatomic) NSInteger wordSetIndex;
+@property (nonatomic) NSUInteger currentWordIndex;
 
 @end

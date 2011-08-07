@@ -55,7 +55,7 @@
 - (void)loadData
 {
     _wordSets = [[NSMutableArray alloc] init];
-    WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:5328 color:[UIColor colorWithHex:0xff4600]] autorelease];
+    WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:3210 color:[UIColor colorWithHex:0xff4600]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
     set.iconUrl = @"Unit-1";
     set.categoryId = 0;
@@ -73,7 +73,7 @@
     set.categoryId = 2;
     [_wordSets addObject:set];
     
-    set = [[[WordSet alloc] initWithTotal:23219 marked:8729 color:[UIColor colorWithHex:0xffb900]] autorelease];
+    set = [[[WordSet alloc] initWithTotal:23219 marked:1030 color:[UIColor colorWithHex:0xffb900]] autorelease];
     set.description = @"Master this word set you can read some short articles and have basic conversations.";
     set.iconUrl = @"Unit-4";
     set.categoryId = 3;

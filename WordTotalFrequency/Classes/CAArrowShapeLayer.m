@@ -18,7 +18,7 @@
 {
     if ((self = [super init]))
     {
-        _strokeColor = [UIColor colorWithHex:0xed9f1e];
+        _strokeColor = [[UIColor colorWithHex:0xed9f1e] retain];
     }
     return self;
 }

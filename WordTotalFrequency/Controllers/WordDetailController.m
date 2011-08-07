@@ -9,15 +9,28 @@
 #import "WordDetailController.h"
 #import "DashboardView.h"
 #import "UIColor+WTF.h"
+#import "WordTotalFrequencyAppDelegate.h"
 
 @implementation WordDetailController
 
 @synthesize word = _word;
+@synthesize words = _words;
+@synthesize wordSetIndex = _wordSetIndex;
+@synthesize currentWordIndex = _currentWordIndex;
 
 #define MARK_ICON_TAG 1
 #define SPELL_LABEL_TAG 2
 #define PHONETIC_LABEL_TAG 3
 #define DETAIL_LABEL_TAG 4
+
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        _wordSetIndex = -1;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +44,7 @@
 - (void)dealloc
 {
     [_word release];
+    [_words release];
     [super dealloc];
 }
 
@@ -42,6 +56,33 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)updateWordDisplay
+{
+    if ([_word.marked boolValue])
+        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
+    else
+        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
+    
+    [(UILabel *)[self.view viewWithTag:SPELL_LABEL_TAG] setText:_word.spell];
+    [(UILabel *)[self.view viewWithTag:PHONETIC_LABEL_TAG] setText:_word.phonetic];
+    
+    // detail translate
+    NSArray *array = [_word.detail componentsSeparatedByString:@"\n"];
+    NSMutableString *detail = [[NSMutableString alloc] initWithCapacity:0];
+    int count = 0;
+    for (NSString *string in array) {
+        [detail appendFormat:@"%d. %@\n", ++count, string];
+    }
+    UILabel *label = (UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG];
+    CGRect frame = label.frame;
+    CGSize maximumSize = CGSizeMake(CGRectGetWidth(frame), 9999);
+    CGSize size = [detail sizeWithFont:label.font constrainedToSize:maximumSize lineBreakMode:label.lineBreakMode];
+    frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
+    label.frame = frame;
+    [(UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG] setText:detail];
+    [detail release];
+}
+
 - (void)backAction
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -50,6 +91,30 @@
 - (void)speakAction
 {
     
+}
+
+- (void)swipeAction:(UISwipeGestureRecognizer *)recognizer
+{
+    if (_wordSetIndex < 0) return;
+    
+    if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft)
+    {
+        NSLog(@"swipe left");
+        if (_currentWordIndex < [self.words count]-1)
+        {
+            self.word = [self.words objectAtIndex:++_currentWordIndex];
+            [self updateWordDisplay];
+        }
+    }
+    else
+    {
+        NSLog(@"swiped right");
+        if (_currentWordIndex > 0)
+        {
+            self.word = [self.words objectAtIndex:--_currentWordIndex];
+            [self updateWordDisplay];
+        }
+    }
 }
 
 #pragma mark - View lifecycle
@@ -108,11 +173,18 @@
     [self.view addSubview:detail];
     [detail release];
     
-    UISegmentedControl *segment = [[UISegmentedControl alloc]
-                                   initWithItems:[NSArray arrayWithObjects:@"Last", @"Mark as remembered", @"Next",nil]];
-    segment.frame = CGRectMake(10, CGRectGetHeight(rect)-46, CGRectGetWidth(rect)-20, 40);
-    [self.view addSubview:segment];
-    [segment release];
+    UISwipeGestureRecognizer *recognizer;
+    recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
+    recognizer.direction = UISwipeGestureRecognizerDirectionLeft;
+    recognizer.delegate = self;
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
+    
+    recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
+    recognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    recognizer.delegate = self;
+    [self.view addGestureRecognizer:recognizer];
+    [recognizer release];
 }
 
 /*
@@ -134,29 +206,31 @@
 {
     [super viewWillAppear:animated];
     
-    if ([_word.marked boolValue])
-        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
-    else
-        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
-    
-    [(UILabel *)[self.view viewWithTag:SPELL_LABEL_TAG] setText:_word.spell];
-    [(UILabel *)[self.view viewWithTag:PHONETIC_LABEL_TAG] setText:_word.phonetic];
-    
-    // detail translate
-    NSArray *array = [_word.detail componentsSeparatedByString:@"\n"];
-    NSMutableString *detail = [[NSMutableString alloc] initWithCapacity:0];
-    int count = 0;
-    for (NSString *string in array) {
-        [detail appendFormat:@"%d. %@\n", ++count, string];
+    if (_wordSetIndex > -1)
+    {
+        // retrieve data
+        WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+        [request setEntity:entity];
+        [request setFetchBatchSize:20];
+        
+        // Create the sort descriptors array.
+        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:YES];
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:descriptor, nil];
+        [descriptor release];
+        [request setSortDescriptors:sortDescriptors];
+        [sortDescriptors release];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex];
+        [request setPredicate:predicate];
+        
+        NSError *error;
+        self.words = [appDelegate.managedObjectContext executeFetchRequest:request error:&error];
+        [request release];
     }
-    UILabel *label = (UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG];
-    CGRect frame = label.frame;
-    CGSize maximumSize = CGSizeMake(CGRectGetWidth(frame), 9999);
-    CGSize size = [detail sizeWithFont:label.font constrainedToSize:maximumSize lineBreakMode:label.lineBreakMode];
-    frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
-    label.frame = frame;
-    [(UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG] setText:detail];
-    [detail release];
+    
+    [self updateWordDisplay];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

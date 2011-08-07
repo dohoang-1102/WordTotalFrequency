@@ -28,6 +28,15 @@
     return self;
 }
 
+- (id)init
+{
+    if ((self = [super init]))
+    {
+        self.wordSetIndex = -1;
+    }
+    return self;
+}
+
 - (void)dealloc
 {
     [_fetchedResultsController release];
@@ -70,28 +79,6 @@
     }
 }
 
-- (void)setWordSetIndex:(NSInteger)wordSetIndex
-{
-    _wordSetIndex = wordSetIndex;
-    if (wordSetIndex == -1)
-    {
-        [self.fetchedResultsController.fetchRequest setPredicate:nil];
-    }
-    else
-    {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex];
-        [self.fetchedResultsController.fetchRequest setPredicate:predicate];
-    }
-    
-    NSError *error;
-    if (![[self fetchedResultsController] performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        exit(-1);  // Fail
-    }
-    
-    [self.tableView reloadData];
-}
-
 #pragma mark - View lifecycle
 
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
@@ -102,6 +89,12 @@
     [super viewDidLoad];
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.separatorColor = [UIColor colorWithWhite:1.f alpha:.5f];
+    
+    if (_wordSetIndex > -1)
+    {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex];
+        [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+    }
     
     NSError *error;
 	if (![[self fetchedResultsController] performFetch:&error]) {
@@ -119,7 +112,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"WordListController view will appear!!!!!");
 }
 
 #pragma mark - table view
@@ -131,7 +123,7 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[_fetchedResultsController sections] objectAtIndex:section];
+    id <NSFetchedResultsSectionInfo> sectionInfo = [_fetchedResultsController.sections objectAtIndex:section];
 	return [sectionInfo numberOfObjects];
 }
 
@@ -169,6 +161,8 @@
     
     WordDetailController *controller = [[WordDetailController alloc] init];
     controller.word = word;
+    controller.wordSetIndex = self.wordSetIndex;
+    controller.currentWordIndex = indexPath.row;
     [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
     [controller release];
 }

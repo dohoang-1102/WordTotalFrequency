@@ -58,9 +58,6 @@
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
-    _listController = [[WordListController alloc] init];
-    [self.view addSubview:_listController.view];
-    
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.frame = CGRectMake(14, 13, 12, 15);
     [button setBackgroundImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
@@ -114,7 +111,9 @@
     progress.currentValue = _wordSet.completePercentage;
     progress.progressColor = _wordSet.color;
     
+    _listController = [[WordListController alloc] init];
     _listController.wordSetIndex = _wordSet.categoryId;
+    [self.view addSubview:_listController.view];
 }
 
 - (void)viewDidUnload
