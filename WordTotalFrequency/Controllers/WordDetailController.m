@@ -28,6 +28,10 @@
     if ((self = [super init]))
     {
         _wordSetIndex = -1;
+        
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:@"something" ofType:@"mp3"]];
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+        [fileURL release];
     }
     return self;
 }
@@ -45,6 +49,7 @@
 {
     [_word release];
     [_words release];
+    [_player release];
     [super dealloc];
 }
 
@@ -90,7 +95,19 @@
 
 - (void)speakAction
 {
+    if (_player)
+        [_player play];
+}
+
+- (void)markAction:(UIGestureRecognizer *)gestureRecognizer
+{
+    BOOL marked = [_word.marked boolValue];
+    _word.marked = [NSNumber numberWithBool:!marked];
     
+    if ([_word.marked boolValue])
+        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
+    else
+        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
 }
 
 - (void)swipeAction:(UISwipeGestureRecognizer *)recognizer
@@ -133,19 +150,28 @@
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(92, 0, 170, 44)];
+    [self.view addSubview:view];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(markAction:)];
+    [view addGestureRecognizer:tapGesture];
+    [tapGesture release];
+    
     UIButton *mark = [UIButton buttonWithType:UIButtonTypeCustom];
-    mark.frame = CGRectMake(92, 20, 8, 9);
+    mark.frame = CGRectMake(0, 20, 8, 9);
     mark.tag = MARK_ICON_TAG;
     mark.userInteractionEnabled = NO;
-    [self.view addSubview:mark];
+    [view addSubview:mark];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(110, 4, 160, 32)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18, 4, 160, 32)];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:28];
     label.textColor = [UIColor colorForNormalText];
     label.tag = SPELL_LABEL_TAG;
-    [self.view addSubview:label];
+    [view addSubview:label];
     [label release];
+    
+    [view release];
     
     UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth(rect), 1.5)];
     line.backgroundColor = [UIColor colorWithWhite:1.f alpha:.6f];
@@ -231,6 +257,12 @@
     }
     
     [self updateWordDisplay];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.words = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -11,6 +11,7 @@
 
 @interface WordListCellContentView : UIView {
     BOOL _highlighted;
+    CGPoint _lastHitPoint;
 }
 
 @property (nonatomic, retain) Word *word;
