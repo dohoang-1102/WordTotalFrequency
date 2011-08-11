@@ -72,20 +72,13 @@
     [(UILabel *)[self.view viewWithTag:PHONETIC_LABEL_TAG] setText:_word.phonetic];
     
     // detail translate
-    NSArray *array = [_word.detail componentsSeparatedByString:@"\n"];
-    NSMutableString *detail = [[NSMutableString alloc] initWithCapacity:0];
-    int count = 0;
-    for (NSString *string in array) {
-        [detail appendFormat:@"%d. %@\n", ++count, string];
-    }
     UILabel *label = (UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG];
     CGRect frame = label.frame;
     CGSize maximumSize = CGSizeMake(CGRectGetWidth(frame), 9999);
-    CGSize size = [detail sizeWithFont:label.font constrainedToSize:maximumSize lineBreakMode:label.lineBreakMode];
+    CGSize size = [_word.detail sizeWithFont:label.font constrainedToSize:maximumSize lineBreakMode:label.lineBreakMode];
     frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
     label.frame = frame;
-    [(UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG] setText:detail];
-    [detail release];
+    [(UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG] setText:_word.detail];
 }
 
 - (void)backAction

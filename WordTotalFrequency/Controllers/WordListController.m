@@ -15,6 +15,8 @@
 @implementation WordListController
 
 @synthesize delegate = _delegate;
+@synthesize wordSetController = _wordSetController;
+
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize searchString = _searchString;
 @synthesize wordSetIndex = _wordSetIndex;
@@ -105,6 +107,7 @@
 
 - (void)viewDidUnload
 {
+    NSLog(@"viewWillUnload...");
     [super viewDidUnload];
     self.fetchedResultsController = nil;
 }
@@ -112,6 +115,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate saveAction];
+    [super viewDidDisappear:animated];
 }
 
 #pragma mark - table view
@@ -142,6 +157,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         
         WordListCellContentView *cellView = [[WordListCellContentView alloc] initWithFrame:cell.bounds];
+        cellView.wordSetController = _wordSetController;
         cellView.tag = 1;
         [cell.contentView addSubview:cellView];
     }

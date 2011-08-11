@@ -10,10 +10,14 @@
 #import "WordListController.h"
 #import "WordSet.h"
 
+@class WordListController;
+
 @interface WordSetController : UIViewController {
     WordListController *_listController;
 }
 
 @property (nonatomic, retain) WordSet *wordSet;
+
+- (void)updateMarkedCount;
 
 @end

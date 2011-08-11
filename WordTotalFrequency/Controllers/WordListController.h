@@ -9,6 +9,8 @@
 #import <CoreData/CoreData.h>
 #import "Word.h"
 
+@class WordSetController;
+
 @protocol WordListDelegate <NSObject>
 
 @optional
@@ -21,6 +23,7 @@
 }
 
 @property (nonatomic, assign) id<WordListDelegate> delegate;
+@property (nonatomic, assign) WordSetController *wordSetController;
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, copy) NSString *searchString;
 @property (nonatomic) NSInteger wordSetIndex;

@@ -10,6 +10,7 @@
 #import "DashboardView.h"
 #import "OCProgress.h"
 #import "UIColor+WTF.h"
+#import "WordTotalFrequencyAppDelegate.h"
 
 @implementation WordSetController
 
@@ -46,6 +47,25 @@
 - (void)backAction
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)updateMarkedCount
+{
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+    [request setEntity:entity];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", _wordSet.categoryId];
+    [request setPredicate:predicate];
+    
+    NSError *error;
+    NSUInteger count = [appDelegate.managedObjectContext countForFetchRequest:request error:&error];
+    _wordSet.markedWordCount = count;
+    [request release];
+
+    // update control
+    [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
 }
 
 #pragma mark - View lifecycle
@@ -106,18 +126,20 @@
     self.title = @"Word Set";
     
     [(UIImageView *)[self.view viewWithTag:ICON_IMAGE_TAG] setImage:[UIImage imageNamed:_wordSet.iconUrl]];
-    [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
     OCProgress *progress = (OCProgress *)[self.view viewWithTag:PROGRESS_TAG];
     progress.currentValue = _wordSet.completePercentage;
     progress.progressColor = _wordSet.color;
     
     _listController = [[WordListController alloc] init];
     _listController.wordSetIndex = _wordSet.categoryId;
+    _listController.wordSetController = self;
     [self.view addSubview:_listController.view];
 }
 
 - (void)viewDidUnload
 {
+    [_listController viewDidUnload];
+    
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -130,12 +152,20 @@
                                             44,
                                             CGRectGetWidth(self.view.frame),
                                             CGRectGetHeight(self.view.frame)-94);
+    
+    [self updateMarkedCount];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [_listController.tableView deselectRowAtIndexPath:[_listController.tableView indexPathForSelectedRow] animated:YES];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [_listController viewDidDisappear:NO];
+    [super viewDidDisappear:animated];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

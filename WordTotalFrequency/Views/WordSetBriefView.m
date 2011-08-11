@@ -107,16 +107,21 @@
         [_wordSet release];
         _wordSet = [wordSet retain];
         
-        _arrowLayer.strokeColor = _wordSet.color;
-        _countlabel.text = [NSString stringWithFormat:@"%d", _wordSet.markedWordCount];
-        _countlabel.textColor = _wordSet.color;
-        [_percentLabel setText:[NSString stringWithFormat:@"%d%% completed", _wordSet.completePercentage]];
-        _progress.currentValue = _wordSet.completePercentage;
-        _progress.progressColor = _wordSet.color;
-        [_tableView reloadData];
-        
-        [_arrowLayer setNeedsDisplay];
+        [self updateDisplay];
     }
+}
+
+- (void)updateDisplay
+{
+    _arrowLayer.strokeColor = _wordSet.color;
+    _countlabel.text = [NSString stringWithFormat:@"%d", _wordSet.markedWordCount];
+    _countlabel.textColor = _wordSet.color;
+    [_percentLabel setText:[NSString stringWithFormat:@"%d%% completed", _wordSet.completePercentage]];
+    _progress.currentValue = _wordSet.completePercentage;
+    _progress.progressColor = _wordSet.color;
+    [_tableView reloadData];
+    
+    [_arrowLayer setNeedsDisplay];
 }
 
 - (void)centerArrowToX:(CGFloat)x

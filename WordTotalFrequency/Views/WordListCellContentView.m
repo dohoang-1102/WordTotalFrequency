@@ -13,6 +13,7 @@
 @implementation WordListCellContentView
 
 @synthesize word = _word;
+@synthesize wordSetController = _wordSetController;
 
 static NSUInteger const kWordWrapperTag = 1;
 static NSUInteger const kMarkIconTag = 2;
@@ -144,6 +145,9 @@ static NSUInteger const kTranslateLabelTag = 4;
         _word.marked = [NSNumber numberWithBool:!marked];
         
         [self setNeedsDisplay];
+        
+        if (_wordSetController)
+            [_wordSetController updateMarkedCount];
     }
     else
     {

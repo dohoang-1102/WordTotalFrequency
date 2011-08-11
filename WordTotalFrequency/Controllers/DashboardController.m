@@ -333,6 +333,9 @@
         }
     }
     [request release];
+    
+    if (_selectedIconIndex > -1)
+        [_wordSetBrief updateDisplay];
 }
 
 - (void)viewDidAppear:(BOOL)animated

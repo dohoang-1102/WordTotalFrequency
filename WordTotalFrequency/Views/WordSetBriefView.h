@@ -28,5 +28,6 @@
 @property (nonatomic, assign) DashboardController *dashboardController;
 
 - (void)centerArrowToX:(CGFloat)x;
+- (void)updateDisplay;
 
 @end

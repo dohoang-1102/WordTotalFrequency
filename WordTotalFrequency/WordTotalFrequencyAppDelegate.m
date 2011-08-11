@@ -59,7 +59,7 @@ sqlite3 *database;
 
 - (void)syncData
 {
-    const char *sql = "SELECT spell, phonetic, soundFile, translate, tags, detail, category, rank FROM word";
+    const char *sql = "SELECT spell, phonetic, soundFile, translate, tags, detail, category, frequency FROM word";
     sqlite3_stmt *statement;
     if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
         while (sqlite3_step(statement) == SQLITE_ROW) {
@@ -68,13 +68,13 @@ sqlite3 *database;
             [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)] forKey:@"phonetic"];
             [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)] forKey:@"soundFile"];
             [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)] forKey:@"translate"];
-//            [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)] forKey:@"tags"];
+            [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)] forKey:@"tags"];
             [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)] forKey:@"detail"];
             [word setValue:[NSNumber numberWithInt:sqlite3_column_int(statement, 6)] forKey:@"category"];
             [word setValue:[NSNumber numberWithBool:NO] forKey:@"marked"];
             [word setValue:[NSNumber numberWithInt:sqlite3_column_int(statement, 7)] forKey:@"rank"];
-            [self saveAction];
         }
+        [self saveAction];
     }
     sqlite3_finalize(statement);
 }
@@ -127,14 +127,7 @@ sqlite3 *database;
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    NSError *error;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-			// Update to handle the error appropriately.
-			NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-			exit(-1);  // Fail
-        } 
-    }
+    [self saveAction];
 }
 
 - (void)dealloc
@@ -151,9 +144,9 @@ sqlite3 *database;
 #pragma mark - save
 
 - (void)saveAction
-{	
+{
     NSError *error;
-    if (![[self managedObjectContext] save:&error]) {
+    if ([self.managedObjectContext hasChanges] && ![[self managedObjectContext] save:&error]) {
 		// Update to handle the error appropriately.
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
@@ -208,6 +201,7 @@ sqlite3 *database;
 	
 	
 	NSString *storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"WordTotalFrequency.sqlite"];
+    
 	/*
 	 Set up the store.
 	 For the sake of illustration, provide a pre-populated default store.

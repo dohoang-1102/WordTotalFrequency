@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Word.h"
+#import "WordSetController.h"
 
 @interface WordListCellContentView : UIView {
     BOOL _highlighted;
@@ -15,5 +16,6 @@
 }
 
 @property (nonatomic, retain) Word *word;
+@property (nonatomic, assign) WordSetController *wordSetController;
 
 @end
