@@ -26,7 +26,6 @@
 		06066D1B13DBFDC50019D945 /* Unit-4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066D1613DBFDC40019D945 /* Unit-4@2x.png */; };
 		06066D1C13DBFDC50019D945 /* Unit-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066D1713DBFDC40019D945 /* Unit-5@2x.png */; };
 		06066D1E13DC10600019D945 /* search-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06066D1D13DC10600019D945 /* search-bg@2x.png */; };
-		060C4C4213E773D000B7735D /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 060C4C4113E773D000B7735D /* WordTotalFrequency.sqlite */; };
 		0632420213D87C7F00388D3E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420113D87C7F00388D3E /* UIKit.framework */; };
 		0632420413D87C7F00388D3E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420313D87C7F00388D3E /* Foundation.framework */; };
 		0632420613D87C7F00388D3E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0632420513D87C7F00388D3E /* CoreGraphics.framework */; };
@@ -66,6 +65,7 @@
 		06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B2F9EC13E4333C001463AC /* CoreData.framework */; };
 		06B2F9F113E433F0001463AC /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */; };
 		06B2F9F413E434D3001463AC /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9F313E434D3001463AC /* Word.m */; };
+		C28CFCEC13F4232A0081B2C0 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */; };
 		C2BA9AF013F2CBEA00655182 /* something.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2BA9AEF13F2CBEA00655182 /* something.mp3 */; };
 		C2BA9AF213F2CFA700655182 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BA9AF113F2CFA700655182 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -95,7 +95,6 @@
 		06066D1613DBFDC40019D945 /* Unit-4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-4@2x.png"; sourceTree = "<group>"; };
 		06066D1713DBFDC40019D945 /* Unit-5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Unit-5@2x.png"; sourceTree = "<group>"; };
 		06066D1D13DC10600019D945 /* search-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg@2x.png"; sourceTree = "<group>"; };
-		060C4C4113E773D000B7735D /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
 		063241FD13D87C7F00388D3E /* WordTotalFrequency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordTotalFrequency.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0632420113D87C7F00388D3E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0632420313D87C7F00388D3E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -151,6 +150,7 @@
 		06B2F9F013E433F0001463AC /* WordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordModel.xcdatamodel; sourceTree = "<group>"; };
 		06B2F9F213E434D3001463AC /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		06B2F9F313E434D3001463AC /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
+		C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
 		C2BA9AEF13F2CBEA00655182 /* something.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = something.mp3; sourceTree = "<group>"; };
 		C2BA9AF113F2CFA700655182 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -262,8 +262,8 @@
 		0632420813D87C7F00388D3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */,
 				C2BA9AE113F2CAA600655182 /* mp3 */,
-				060C4C4113E773D000B7735D /* WordTotalFrequency.sqlite */,
 				06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */,
 				06066C7D13D9C97A0019D945 /* Images */,
 				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
@@ -437,8 +437,8 @@
 				0693087413E566DD00FBF949 /* tag-toefl@2x.png in Resources */,
 				0693087513E566DD00FBF949 /* tag-yelts.png in Resources */,
 				0693087613E566DD00FBF949 /* tag-yelts@2x.png in Resources */,
-				060C4C4213E773D000B7735D /* WordTotalFrequency.sqlite in Resources */,
 				C2BA9AF013F2CBEA00655182 /* something.mp3 in Resources */,
+				C28CFCEC13F4232A0081B2C0 /* WordTotalFrequency.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
