@@ -66,6 +66,7 @@
 		06B2F9F113E433F0001463AC /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */; };
 		06B2F9F413E434D3001463AC /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9F313E434D3001463AC /* Word.m */; };
 		C28CFCEC13F4232A0081B2C0 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */; };
+		C28CFD2E13F4A43E0081B2C0 /* WordDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */; };
 		C2BA9AF013F2CBEA00655182 /* something.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C2BA9AEF13F2CBEA00655182 /* something.mp3 */; };
 		C2BA9AF213F2CFA700655182 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BA9AF113F2CFA700655182 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
@@ -151,6 +152,8 @@
 		06B2F9F213E434D3001463AC /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		06B2F9F313E434D3001463AC /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
+		C28CFD2C13F4A43D0081B2C0 /* WordDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordDetailView.h; sourceTree = "<group>"; };
+		C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordDetailView.m; sourceTree = "<group>"; };
 		C2BA9AEF13F2CBEA00655182 /* something.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = something.mp3; sourceTree = "<group>"; };
 		C2BA9AF113F2CFA700655182 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -346,6 +349,8 @@
 				064DBE6413DF116300990264 /* OCProgress.m */,
 				065EE48613DF8FC50032CB43 /* BriefView.h */,
 				065EE48713DF8FC50032CB43 /* BriefView.m */,
+				C28CFD2C13F4A43D0081B2C0 /* WordDetailView.h */,
+				C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -468,6 +473,7 @@
 				065EE49913E0589A0032CB43 /* WordDetailController.m in Sources */,
 				06B2F9F113E433F0001463AC /* WordModel.xcdatamodeld in Sources */,
 				06B2F9F413E434D3001463AC /* Word.m in Sources */,
+				C28CFD2E13F4A43E0081B2C0 /* WordDetailView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
