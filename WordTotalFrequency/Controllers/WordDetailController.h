@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
 #import "Word.h"
 
 @interface WordDetailController : UIViewController<UIGestureRecognizerDelegate> {
-    AVAudioPlayer *_player;
 }
 
 @property (nonatomic, retain) Word *word;

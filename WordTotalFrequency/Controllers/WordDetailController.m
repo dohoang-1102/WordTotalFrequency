@@ -10,6 +10,7 @@
 #import "DashboardView.h"
 #import "UIColor+WTF.h"
 #import "WordTotalFrequencyAppDelegate.h"
+#import "WordDetailView.h"
 
 @implementation WordDetailController
 
@@ -28,10 +29,6 @@
     if ((self = [super init]))
     {
         _wordSetIndex = -1;
-        
-        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:@"something" ofType:@"mp3"]];
-        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-        [fileURL release];
     }
     return self;
 }
@@ -49,7 +46,6 @@
 {
     [_word release];
     [_words release];
-    [_player release];
     [super dealloc];
 }
 
@@ -61,46 +57,9 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)updateWordDisplay
-{
-    if ([_word.marked boolValue])
-        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
-    else
-        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
-    
-    [(UILabel *)[self.view viewWithTag:SPELL_LABEL_TAG] setText:_word.spell];
-    [(UILabel *)[self.view viewWithTag:PHONETIC_LABEL_TAG] setText:_word.phonetic];
-    
-    // detail translate
-    UILabel *label = (UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG];
-    CGRect frame = label.frame;
-    CGSize maximumSize = CGSizeMake(CGRectGetWidth(frame), 9999);
-    CGSize size = [_word.detail sizeWithFont:label.font constrainedToSize:maximumSize lineBreakMode:label.lineBreakMode];
-    frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
-    label.frame = frame;
-    [(UILabel *)[self.view viewWithTag:DETAIL_LABEL_TAG] setText:_word.detail];
-}
-
 - (void)backAction
 {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)speakAction
-{
-    if (_player)
-        [_player play];
-}
-
-- (void)markAction:(UIGestureRecognizer *)gestureRecognizer
-{
-    BOOL marked = [_word.marked boolValue];
-    _word.marked = [NSNumber numberWithBool:!marked];
-    
-    if ([_word.marked boolValue])
-        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
-    else
-        [(UIButton *)[self.view viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
 }
 
 - (void)swipeAction:(UISwipeGestureRecognizer *)recognizer
@@ -112,8 +71,27 @@
         NSLog(@"swipe left");
         if (_currentWordIndex < [self.words count]-1)
         {
+            CGRect rect = self.view.bounds;
+            rect.origin.x += CGRectGetWidth(rect);
+            WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
+            [self.view addSubview:view];
+            
+            WordDetailView *oldView =  [[self.view subviews] objectAtIndex:0];
+            [UIView transitionWithView:self.view duration:0.5
+                               options:UIViewAnimationOptionCurveEaseInOut
+                            animations:^ {
+                                view.frame = self.view.bounds;
+                                oldView.frame = CGRectMake(-CGRectGetWidth(rect), rect.origin.y, CGRectGetWidth(rect), CGRectGetHeight(rect));
+                            }
+                            completion:^(BOOL finished) {
+                                if (finished)
+                                    [oldView removeFromSuperview];
+                            }];
+            
             self.word = [self.words objectAtIndex:++_currentWordIndex];
-            [self updateWordDisplay];
+            view.word = self.word;
+            [view updateWordData];
+            [view release];
         }
     }
     else
@@ -121,8 +99,27 @@
         NSLog(@"swiped right");
         if (_currentWordIndex > 0)
         {
+            CGRect rect = self.view.bounds;
+            rect.origin.x -= CGRectGetWidth(rect);
+            WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
+            [self.view addSubview:view];
+            
+            WordDetailView *oldView =  [[self.view subviews] objectAtIndex:0];
+            [UIView transitionWithView:self.view duration:0.5
+                               options:UIViewAnimationOptionCurveEaseInOut
+                            animations:^ {
+                                view.frame = self.view.bounds;
+                                oldView.frame = CGRectMake(CGRectGetWidth(rect), rect.origin.y, CGRectGetWidth(rect), CGRectGetHeight(rect));
+                            }
+                            completion:^(BOOL finished) {
+                                if (finished)
+                                    [oldView removeFromSuperview];
+                            }];
+            
             self.word = [self.words objectAtIndex:--_currentWordIndex];
-            [self updateWordDisplay];
+            view.word = self.word;
+            [view updateWordData];
+            [view release];
         }
     }
 }
@@ -132,65 +129,68 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    CGRect rect = [UIScreen mainScreen].bounds;
-    rect = CGRectMake(0, 20, rect.size.width, rect.size.height-20);
+    CGRect rect = [[UIScreen mainScreen] bounds];
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(10, 13, 12, 15);
-    [button setBackgroundImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:button];
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(92, 0, 170, 44)];
+    WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
     [self.view addSubview:view];
-    
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(markAction:)];
-    [view addGestureRecognizer:tapGesture];
-    [tapGesture release];
-    
-    UIButton *mark = [UIButton buttonWithType:UIButtonTypeCustom];
-    mark.frame = CGRectMake(0, 20, 8, 9);
-    mark.tag = MARK_ICON_TAG;
-    mark.userInteractionEnabled = NO;
-    [view addSubview:mark];
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18, 4, 160, 32)];
-    label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont systemFontOfSize:28];
-    label.textColor = [UIColor colorForNormalText];
-    label.tag = SPELL_LABEL_TAG;
-    [view addSubview:label];
-    [label release];
-    
     [view release];
     
-    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth(rect), 1.5)];
-    line.backgroundColor = [UIColor colorWithWhite:1.f alpha:.6f];
-    [self.view addSubview:line];
-    [line release];
-    
-    UIButton *speaker = [UIButton buttonWithType:UIButtonTypeCustom];
-    speaker.frame = CGRectMake(255, 22, 47, 47);
-    [speaker setBackgroundImage:[UIImage imageNamed:@"speaker"] forState:UIControlStateNormal];
-    [speaker addTarget:self action:@selector(speakAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:speaker];
-    
-    UILabel *phonetic = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 200, 20)];
-    phonetic.backgroundColor = [UIColor clearColor];
-    phonetic.textColor = [UIColor colorForNormalText];
-    phonetic.tag = PHONETIC_LABEL_TAG;
-    [self.view addSubview:phonetic];
-    [phonetic release];
-    
-    UILabel *detail = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 300, 300)];
-    detail.backgroundColor = [UIColor clearColor];
-    detail.textColor = [UIColor colorForNormalText];
-    detail.numberOfLines = 0;
-    detail.tag = DETAIL_LABEL_TAG;
-    [self.view addSubview:detail];
-    [detail release];
+//    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    button.frame = CGRectMake(10, 13, 12, 15);
+//    [button setBackgroundImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:button];
+//    
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(92, 0, 170, 44)];
+//    [self.view addSubview:view];
+//    
+//    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(markAction:)];
+//    [view addGestureRecognizer:tapGesture];
+//    [tapGesture release];
+//    
+//    UIButton *mark = [UIButton buttonWithType:UIButtonTypeCustom];
+//    mark.frame = CGRectMake(0, 20, 8, 9);
+//    mark.tag = MARK_ICON_TAG;
+//    mark.userInteractionEnabled = NO;
+//    [view addSubview:mark];
+//    
+//    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18, 4, 160, 32)];
+//    label.backgroundColor = [UIColor clearColor];
+//    label.font = [UIFont systemFontOfSize:28];
+//    label.textColor = [UIColor colorForNormalText];
+//    label.tag = SPELL_LABEL_TAG;
+//    [view addSubview:label];
+//    [label release];
+//    
+//    [view release];
+//    
+//    UILabel *line = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, CGRectGetWidth(rect), 1.5)];
+//    line.backgroundColor = [UIColor colorWithWhite:1.f alpha:.6f];
+//    [self.view addSubview:line];
+//    [line release];
+//    
+//    UIButton *speaker = [UIButton buttonWithType:UIButtonTypeCustom];
+//    speaker.frame = CGRectMake(255, 22, 47, 47);
+//    [speaker setBackgroundImage:[UIImage imageNamed:@"speaker"] forState:UIControlStateNormal];
+//    [speaker addTarget:self action:@selector(speakAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:speaker];
+//    
+//    UILabel *phonetic = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 200, 20)];
+//    phonetic.backgroundColor = [UIColor clearColor];
+//    phonetic.textColor = [UIColor colorForNormalText];
+//    phonetic.tag = PHONETIC_LABEL_TAG;
+//    [self.view addSubview:phonetic];
+//    [phonetic release];
+//    
+//    UILabel *detail = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 300, 300)];
+//    detail.backgroundColor = [UIColor clearColor];
+//    detail.textColor = [UIColor colorForNormalText];
+//    detail.numberOfLines = 0;
+//    detail.tag = DETAIL_LABEL_TAG;
+//    [self.view addSubview:detail];
+//    [detail release];
     
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
@@ -249,7 +249,9 @@
         [request release];
     }
     
-    [self updateWordDisplay];
+    WordDetailView *view =  [[self.view subviews] objectAtIndex:0];
+    view.word = _word;
+    [view updateWordData];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
