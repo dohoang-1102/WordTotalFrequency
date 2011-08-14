@@ -12,11 +12,11 @@
 #import "WordDetailController.h"
 
 @interface WordDetailView : UIView {
-    AVAudioPlayer *_player;
 }
 
 @property (nonatomic, retain) Word *word;
 @property (nonatomic, assign) WordDetailController *wordDetailController;
+@property (nonatomic, retain) AVAudioPlayer *player;
 
 - (void)updateWordData;
 

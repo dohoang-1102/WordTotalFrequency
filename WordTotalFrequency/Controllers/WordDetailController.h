@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Word.h"
+#import "WordListController.h"
 
 @interface WordDetailController : UIViewController<UIGestureRecognizerDelegate> {
 }
@@ -16,5 +17,6 @@
 @property (nonatomic, retain) NSArray *words;
 @property (nonatomic) NSInteger wordSetIndex;
 @property (nonatomic) NSUInteger currentWordIndex;
+@property (nonatomic, assign) WordListController *wordListController;
 
 @end

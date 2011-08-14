@@ -179,6 +179,7 @@
     controller.word = word;
     controller.wordSetIndex = self.wordSetIndex;
     controller.currentWordIndex = indexPath.row;
+    controller.wordListController = self;
     [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
     [controller release];
 }
@@ -202,7 +203,7 @@
     [fetchRequest setFetchBatchSize:20];
     
     // Create the sort descriptors array.
-	NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:YES];
+	NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:NO];
 	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:descriptor, nil];
     [descriptor release];
 	[fetchRequest setSortDescriptors:sortDescriptors];

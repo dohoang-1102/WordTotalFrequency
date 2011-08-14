@@ -15,9 +15,12 @@
 #define SPELL_LABEL_TAG 2
 #define PHONETIC_LABEL_TAG 3
 #define DETAIL_LABEL_TAG 4
+#define SPEAKER_TAG 5
+#define SCROLLVIEW_TAG 6
 
 @synthesize word = _word;
 @synthesize wordDetailController = _wordDetailController;
+@synthesize player = _player;
 
 - (void)markAction:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -40,11 +43,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:@"something" ofType:@"mp3"]];
-        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-        [fileURL release];
-        
-        
         self.backgroundColor = [UIColor clearColor];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -83,6 +81,7 @@
         
         UIButton *speaker = [UIButton buttonWithType:UIButtonTypeCustom];
         speaker.frame = CGRectMake(255, 22, 47, 47);
+        speaker.tag = SPEAKER_TAG;
         [speaker setBackgroundImage:[UIImage imageNamed:@"speaker"] forState:UIControlStateNormal];
         [speaker addTarget:self action:@selector(speakAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:speaker];
@@ -94,14 +93,18 @@
         [self addSubview:phonetic];
         [phonetic release];
         
-        UILabel *detail = [[UILabel alloc] initWithFrame:CGRectMake(10, 100, 300, 300)];
+        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 100, 300, 300)];
+        scrollView.tag = SCROLLVIEW_TAG;
+        [self addSubview:scrollView];
+        
+        UILabel *detail = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(scrollView.frame), CGRectGetHeight(scrollView.frame))];
         detail.backgroundColor = [UIColor clearColor];
         detail.textColor = [UIColor colorForNormalText];
         detail.numberOfLines = 0;
         detail.tag = DETAIL_LABEL_TAG;
-        [self addSubview:detail];
+        [scrollView addSubview:detail];
         [detail release];
-
+        [scrollView release];
     }
     return self;
 }
@@ -133,13 +136,36 @@
     [(UILabel *)[self viewWithTag:PHONETIC_LABEL_TAG] setText:_word.phonetic];
     
     // detail translate
-    UILabel *label = (UILabel *)[self viewWithTag:DETAIL_LABEL_TAG];
+    UIScrollView *scrollView = (UIScrollView *)[self viewWithTag:SCROLLVIEW_TAG];
+    UILabel *label = (UILabel *)[scrollView viewWithTag:DETAIL_LABEL_TAG];
     CGRect frame = label.frame;
     CGSize maximumSize = CGSizeMake(CGRectGetWidth(frame), 9999);
     CGSize size = [_word.detail sizeWithFont:label.font constrainedToSize:maximumSize lineBreakMode:label.lineBreakMode];
     frame = CGRectMake(CGRectGetMinX(frame), CGRectGetMinY(frame), CGRectGetWidth(frame), size.height);
     label.frame = frame;
     [(UILabel *)[self viewWithTag:DETAIL_LABEL_TAG] setText:_word.detail];
+    
+    if (size.height > scrollView.bounds.size.height)
+        scrollView.contentSize = size;
+    
+    
+    
+    NSArray *files = [_word.soundFile componentsSeparatedByString:@" "];
+    NSString *file = [files objectAtIndex:0];
+    file = [[[file lastPathComponent] stringByDeletingPathExtension]
+            stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (file && [file length] > 0)
+    {
+        NSLog(@"mp3 file: %@", file);
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:file ofType:@"mp3"]];
+        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+        [fileURL release];
+        [self.player prepareToPlay];
+    }
+    else
+    {
+        [self viewWithTag:SPEAKER_TAG].hidden = YES;
+    }
 }
 
 @end
