@@ -14,6 +14,17 @@
 
 @synthesize wordSetController = _wordSetController;
 
+- (NSArray *)getTestOptionsWithAnswer:(NSString *)answer atIndex:(NSUInteger)answerIndex
+{
+    NSMutableArray *array = [NSMutableArray arrayWithObjects:
+                             [[_wordSetController.testWords objectAtIndex:rand()%_wordSetController.wordSet.totalWordCount] translate],
+                             [[_wordSetController.testWords objectAtIndex:rand()%_wordSetController.wordSet.totalWordCount] translate],
+                             [[_wordSetController.testWords objectAtIndex:rand()%_wordSetController.wordSet.totalWordCount] translate],
+                             nil];
+    [array insertObject:answer atIndex:answerIndex];
+    return array;
+}
+
 - (void)setWordSetController:(WordSetController *)wordSetController
 {
     _wordSetController = wordSetController;
@@ -26,9 +37,8 @@
     }
     
     Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
-    NSLog(@"adfasdf %@", word.spell);
     WordSet *wordSet = [_wordSetController wordSet];
-    NSArray *options = [NSArray arrayWithObjects:@"aaa", @"bbb", @"ccc", @"dddd", nil];
+    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:rand()%4];
     _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
                                                  word:word.spell
                                               options:options
@@ -53,7 +63,7 @@
                             {
                                 Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
                                 WordSet *wordSet = [_wordSetController wordSet];
-                                NSArray *options = [NSArray arrayWithObjects:@"aaa", @"bbb", @"ccc", @"dddd", nil];
+                                NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:rand()%4];
                                 _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
                                                                              word:word.spell
                                                                           options:options
@@ -78,7 +88,7 @@
         
         Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
         WordSet *wordSet = [_wordSetController wordSet];
-        NSArray *options = [NSArray arrayWithObjects:@"aaa", @"bbb", @"ccc", @"dddd", nil];
+        NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:rand()%4];
         _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
                                                      word:word.spell
                                                   options:options

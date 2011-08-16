@@ -166,9 +166,6 @@
     _listController.view.frame = _viewContainer.bounds;
     [_viewContainer addSubview:_listController.view];
     
-    _wordTestView = [[WordTestView alloc] initWithFrame:_viewContainer.bounds];
-    _wordTestView.wordSetController = self;
-    
     
     // get words collection
     WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -212,6 +209,9 @@
     [super viewDidAppear:animated];
     [_listController.tableView reloadData];
     [_listController.tableView deselectRowAtIndexPath:[_listController.tableView indexPathForSelectedRow] animated:YES];
+    
+    _wordTestView = [[WordTestView alloc] initWithFrame:_viewContainer.bounds];
+    _wordTestView.wordSetController = self;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
