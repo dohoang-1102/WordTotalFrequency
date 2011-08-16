@@ -14,7 +14,10 @@
 
 @implementation WordSetController
 
+@synthesize viewContainer = _viewContainer;
 @synthesize wordSet = _wordSet;
+@synthesize testWords = _testWords;
+@synthesize currentTestWordIndex = _currentTestWordIndex;
 
 #define ICON_IMAGE_TAG 1
 #define PERCENT_LABEL_TAG 2
@@ -32,7 +35,10 @@
 - (void)dealloc
 {
     [_listController release];
+    [_wordTestView release];
+    [_viewContainer release];
     [_wordSet release];
+    [_testWords release];
     [super dealloc];
 }
 
@@ -47,6 +53,23 @@
 - (void)backAction
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)switchViewAction:(id)sender
+{
+    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
+    switch (segmentedControl.selectedSegmentIndex) {
+        case 0:
+            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
+            [_viewContainer addSubview:_listController.view];
+            break;
+        case 1:
+            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
+            [_viewContainer addSubview:_wordTestView];
+            break;
+        default:
+            break;
+    }
 }
 
 - (void)updateMarkedCount
@@ -111,10 +134,17 @@
     [self.view addSubview:line];
     [line release];
     
+    _viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                              44,
+                                                              CGRectGetWidth(self.view.bounds),
+                                                              CGRectGetHeight(self.view.bounds)-94)];
+    [self.view addSubview:_viewContainer];
+    
     UISegmentedControl *segment = [[UISegmentedControl alloc]
                                    initWithItems:[NSArray arrayWithObjects:@"List", @"Test", @"History", @"Setting", nil]];
     segment.frame = CGRectMake(10, CGRectGetHeight(rect)-46, CGRectGetWidth(rect)-20, 40);
     segment.selectedSegmentIndex = 0;
+    [segment addTarget:self action:@selector(switchViewAction:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segment];
     [segment release];
 }
@@ -133,7 +163,33 @@
     _listController = [[WordListController alloc] init];
     _listController.wordSetIndex = _wordSet.categoryId;
     _listController.wordSetController = self;
-    [self.view addSubview:_listController.view];
+    _listController.view.frame = _viewContainer.bounds;
+    [_viewContainer addSubview:_listController.view];
+    
+    _wordTestView = [[WordTestView alloc] initWithFrame:_viewContainer.bounds];
+    _wordTestView.wordSetController = self;
+    
+    
+    // get words collection
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+    [request setEntity:entity];
+    [request setFetchBatchSize:20];
+    
+    // Create the sort descriptors array.
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:descriptor, nil];
+    [descriptor release];
+    [request setSortDescriptors:sortDescriptors];
+    [sortDescriptors release];
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSet.categoryId];
+    [request setPredicate:predicate];
+    
+    NSError *error;
+    self.testWords = [appDelegate.managedObjectContext executeFetchRequest:request error:&error];
+    [request release];
 }
 
 - (void)viewDidUnload
@@ -147,12 +203,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    _listController.view.frame = CGRectMake(0,
-                                            44,
-                                            CGRectGetWidth(self.view.frame),
-                                            CGRectGetHeight(self.view.frame)-94);
-    
+    [super viewWillAppear:animated];    
     [self updateMarkedCount];
 }
 
@@ -167,12 +218,6 @@
 {
     [_listController viewDidDisappear:NO];
     [super viewDidDisappear:animated];
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
