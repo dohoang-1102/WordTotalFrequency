@@ -24,6 +24,48 @@
             break;
         }
     }
+    
+    if (tapIndex > -1)
+    {
+        if (tapIndex != _answerIndex)
+        {
+            UIView *tappedView = [self  viewWithTag:tapIndex+1];
+            UIImageView *wrong = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mark-circle-wrong"]];
+            wrong.center = CGPointMake(CGRectGetMinX(tappedView.frame), CGRectGetMidY(tappedView.frame));
+            CGSize size = CGSizeMake(CGRectGetWidth(wrong.bounds), CGRectGetHeight(wrong.bounds));
+            CGAffineTransform scaled = CGAffineTransformMakeScale(1/size.width, 1/size.height);
+            wrong.transform = scaled;
+            
+            [UIView animateWithDuration:.2
+                                  delay:0
+                                options:UIViewAnimationCurveEaseInOut
+                             animations:^{
+                                 [self addSubview:wrong];
+                                 wrong.transform = CGAffineTransformIdentity;
+                             }
+                             completion:^(BOOL finished){}];
+            [wrong release];
+        }
+        
+        UIView *rightView = [self  viewWithTag:_answerIndex+1];
+        UIImageView *right = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mark-circle-right"]];
+        right.center = CGPointMake(CGRectGetMinX(rightView.frame), CGRectGetMidY(rightView.frame));
+        CGSize size = CGSizeMake(CGRectGetWidth(right.bounds), CGRectGetHeight(right.bounds));
+        CGAffineTransform scaled = CGAffineTransformMakeScale(1/size.width, 1/size.height);
+        right.transform = scaled;
+        
+        [UIView animateWithDuration:.2
+                              delay:(tapIndex != _answerIndex ? .2 : 0)
+                            options:UIViewAnimationCurveEaseInOut
+                         animations:^{
+                             [self addSubview:right];
+                             right.transform = CGAffineTransformIdentity;
+                         }
+                         completion:^(BOOL finished){}];
+        [right release];
+        
+        [self removeGestureRecognizer:gestureRecognizer];
+    }
 }
 
 - (id)initWithFrame:(CGRect)frame word:(NSString *)word options:(NSArray *)options answer:(NSUInteger)answer footer:(NSString *)footer

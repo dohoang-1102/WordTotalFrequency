@@ -38,11 +38,12 @@
     
     Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
     WordSet *wordSet = [_wordSetController wordSet];
-    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:rand()%4];
+    int answerIndex = rand()%4;
+    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
     _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
                                                  word:word.spell
                                               options:options
-                                               answer:1
+                                               answer:answerIndex
                                                footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]];
     _paperView.backgroundColor = [UIColor whiteColor];
     [_containerView addSubview:_paperView];
@@ -63,11 +64,12 @@
                             {
                                 Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
                                 WordSet *wordSet = [_wordSetController wordSet];
-                                NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:rand()%4];
+                                int answerIndex = rand()%4;
+                                NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
                                 _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
                                                                              word:word.spell
                                                                           options:options
-                                                                           answer:1
+                                                                           answer:answerIndex
                                                                            footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]];
                                 _paperView.backgroundColor = [UIColor whiteColor];
                                 [_containerView addSubview:_paperView];
@@ -88,11 +90,12 @@
         
         Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
         WordSet *wordSet = [_wordSetController wordSet];
-        NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:rand()%4];
+        int answerIndex = rand()%4;
+        NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
         _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
                                                      word:word.spell
                                                   options:options
-                                                   answer:1
+                                                   answer:answerIndex
                                                    footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]];
         _paperView.backgroundColor = [UIColor whiteColor];
         
