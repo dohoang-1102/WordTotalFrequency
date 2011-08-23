@@ -103,11 +103,13 @@
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		exit(-1);  // Fail
 	}
+    
+    if (_wordSetIndex > -1)
+        self.wordSetController.testWords = self.fetchedResultsController.fetchedObjects;
 }
 
 - (void)viewDidUnload
 {
-    NSLog(@"viewWillUnload...");
     [super viewDidUnload];
     self.fetchedResultsController = nil;
 }
@@ -160,6 +162,7 @@
         cellView.wordSetController = _wordSetController;
         cellView.tag = 1;
         [cell.contentView addSubview:cellView];
+        [cellView release];
     }
     
     // Configure the cell...

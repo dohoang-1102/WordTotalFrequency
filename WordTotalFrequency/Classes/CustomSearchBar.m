@@ -28,15 +28,14 @@
     for(int i = 0; i < numViews; i++) {
         if([[self.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) {
             searchField = [self.subviews objectAtIndex:i];
+            
+            searchField.textColor = [UIColor colorForNormalText];
+            searchField.font = [UIFont systemFontOfSize:18.f];
+            [searchField setBackground: [UIImage imageNamed:@"search-bg"] ];
+            [searchField setBorderStyle:UITextBorderStyleNone];
         }
     }
-    if(!(searchField == nil)) {
-        searchField.textColor = [UIColor colorForNormalText];
-        searchField.font = [UIFont systemFontOfSize:18.f];
-        [searchField setBackground: [UIImage imageNamed:@"search-bg"] ];
-        [searchField setBorderStyle:UITextBorderStyleNone];
-    }
-    
+
     [super layoutSubviews];
 }
 

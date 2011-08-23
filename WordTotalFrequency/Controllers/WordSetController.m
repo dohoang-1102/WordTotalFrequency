@@ -34,7 +34,6 @@
 
 - (void)dealloc
 {
-    [_listController release];
     [_wordTestView release];
     [_viewContainer release];
     [_wordSet release];
@@ -165,37 +164,15 @@
     _listController.wordSetController = self;
     _listController.view.frame = _viewContainer.bounds;
     [_viewContainer addSubview:_listController.view];
-    
-    
-    // get words collection
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
-    [request setEntity:entity];
-    [request setFetchBatchSize:20];
-    
-    // Create the sort descriptors array.
-    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:NO];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:descriptor, nil];
-    [descriptor release];
-    [request setSortDescriptors:sortDescriptors];
-    [sortDescriptors release];
-    
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSet.categoryId];
-    [request setPredicate:predicate];
-    
-    NSError *error;
-    self.testWords = [appDelegate.managedObjectContext executeFetchRequest:request error:&error];
-    [request release];
 }
 
 - (void)viewDidUnload
 {
     [_listController viewDidUnload];
+    [_listController release];
+    _listController = nil;
     
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated

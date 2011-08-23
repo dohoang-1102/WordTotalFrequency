@@ -158,8 +158,10 @@
     {
         NSLog(@"mp3 file: %@", file);
         NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:file ofType:@"mp3"]];
-        self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+        self.player = audioPlayer;
         [fileURL release];
+        [audioPlayer release];
         [self.player prepareToPlay];
     }
     else
