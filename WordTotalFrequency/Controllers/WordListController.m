@@ -141,7 +141,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [_fetchedResultsController.sections objectAtIndex:section];
-	return [sectionInfo numberOfObjects];
+    if (_wordSetIndex > -1)
+    {
+        return [sectionInfo numberOfObjects];        
+    }
+    return MIN(100, [sectionInfo numberOfObjects]);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,6 +190,7 @@
     [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
     [controller release];
 }
+
 
 #pragma mark -- Fetched Results Controller
 

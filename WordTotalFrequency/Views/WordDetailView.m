@@ -46,8 +46,8 @@
         self.backgroundColor = [UIColor clearColor];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(10, 13, 12, 15);
-        [button setBackgroundImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
+        button.frame = CGRectMake(0, 2, 44, 44);
+        [button setImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
         [button addTarget:self.wordDetailController action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:button];
         
@@ -156,13 +156,13 @@
             stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if (file && [file length] > 0)
     {
-        NSLog(@"mp3 file: %@", file);
-        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:file ofType:@"mp3"]];
-        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-        self.player = audioPlayer;
-        [fileURL release];
-        [audioPlayer release];
-        [self.player prepareToPlay];
+//        NSLog(@"mp3 file: %@", file);
+//        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:file ofType:@"mp3"]];
+//        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+//        self.player = audioPlayer;
+//        [fileURL release];
+//        [audioPlayer release];
+//        [self.player prepareToPlay];
     }
     else
     {

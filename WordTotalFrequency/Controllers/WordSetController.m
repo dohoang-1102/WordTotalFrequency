@@ -101,8 +101,8 @@
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    button.frame = CGRectMake(14, 13, 12, 15);
-    [button setBackgroundImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
+    button.frame = CGRectMake(0, 2, 44, 44);
+    [button setImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     
