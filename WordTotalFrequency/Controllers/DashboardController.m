@@ -28,6 +28,7 @@
 @synthesize briefView = _briefView;
 @synthesize searchBar = _searchBar;
 @synthesize listController = _listController;
+@synthesize collapseButton = _collapseButton;
 
 #define SEARCH_BAR_HEIGHT 40
 #define WORDSETBRIEF_HEIGHT 132
@@ -43,6 +44,9 @@
 
 - (void)dealloc
 {
+    [_collapseButton release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     [_wordSets release];
     [_unitIcons release];
     [_briefView release];
@@ -109,14 +113,6 @@
         }
     }
     [request release];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)hideWordSetBrief
@@ -248,6 +244,38 @@
     }
 }
 
+- (void)keyboardWillShow:(NSNotification *)note {
+    NSArray *allWindows = [[UIApplication sharedApplication] windows];
+	int topWindow = [allWindows count] - 1;
+	UIWindow *keyboardWindow = [allWindows objectAtIndex:topWindow];
+    [keyboardWindow addSubview:self.collapseButton];
+
+    [UIView transitionWithView:self.collapseButton duration:0.2
+                       options:UIViewAnimationOptionCurveLinear
+                    animations:^ {
+                        self.collapseButton.frame = CGRectMake(242, 438, 75, 39);
+                    }
+                    completion:^(BOOL finished) {
+                    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)note {
+    [UIView transitionWithView:self.collapseButton duration:0.2
+                       options:UIViewAnimationOptionCurveLinear
+                    animations:^ {
+                        self.collapseButton.frame = CGRectMake(242, 480, 75, 39);
+                    }
+                    completion:^(BOOL finished) {
+                        if (finished)
+                            [self.collapseButton removeFromSuperview];
+                    }];
+}
+
+- (void)dismissKeyboard
+{
+    [_searchBar resignFirstResponder];
+}
+
 
 #pragma mark - View lifecycle
 
@@ -259,10 +287,11 @@
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
-    _searchBar = [[CustomSearchBar alloc] initWithFrame:CGRectZero];
+    _searchBar = [[CustomSearchBar alloc] init];
+    _searchBar.keyboardType = UIKeyboardTypeASCIICapable;
     _searchBar.delegate = self;
     _searchBar.placeholder = @"type to search";
-    [_searchBar sizeToFit];    
+    [_searchBar sizeToFit];
     [self.view addSubview:_searchBar];
     
     // unit icons
@@ -293,6 +322,16 @@
     _listController = [[WordListController alloc] init];
     _listController.delegate = self;
     [self.view addSubview:_listController.view];
+    
+    // keyboard notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    self.collapseButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    self.collapseButton.frame = CGRectMake(242, 480, 75, 39);
+    [self.collapseButton setImage:[UIImage imageNamed:@"down-button.png"] forState:UIControlStateNormal];
+    [self.collapseButton setImage:[UIImage imageNamed:@"down-button.png"] forState:UIControlStateHighlighted];
+    [self.collapseButton addTarget:self action:@selector(dismissKeyboard)  forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)viewWillAppear:(BOOL)animated

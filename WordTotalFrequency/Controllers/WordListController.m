@@ -110,8 +110,9 @@
 
 - (void)viewDidUnload
 {
+    [_fetchedResultsController release];
+    _fetchedResultsController = nil;
     [super viewDidUnload];
-    self.fetchedResultsController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -145,7 +146,7 @@
     {
         return [sectionInfo numberOfObjects];        
     }
-    return MIN(100, [sectionInfo numberOfObjects]);
+    return MIN(30, [sectionInfo numberOfObjects]);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

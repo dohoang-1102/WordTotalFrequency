@@ -22,7 +22,6 @@ static NSUInteger const kTranslateLabelTag = 4;
 
 - (void)markAction:(UIGestureRecognizer *)gestureRecognizer
 {
-    NSLog(@"XXYYZZ");
     BOOL marked = [_word.marked boolValue];
     _word.marked = [NSNumber numberWithBool:!marked];
     
@@ -87,6 +86,7 @@ static NSUInteger const kTranslateLabelTag = 4;
     [(UILabel *)[self viewWithTag:kTranslateLabelTag] setText:_word.translate];
 }
 
+
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
@@ -102,7 +102,6 @@ static NSUInteger const kTranslateLabelTag = 4;
               actualFontSize:nil
                lineBreakMode:UILineBreakModeCharacterWrap
           baselineAdjustment:UIBaselineAdjustmentAlignCenters];
-//    [_word.spell drawAtPoint:CGPointMake(36, 8) withFont:[UIFont systemFontOfSize:20]];
     [_word.translate drawAtPoint:CGPointMake(140, 10) withFont:[UIFont systemFontOfSize:18]];
 }
 
@@ -112,7 +111,6 @@ static NSUInteger const kTranslateLabelTag = 4;
     {
         [_word release];
         _word = [word retain];
-//        [self updateWordDisplay];
         [self setNeedsDisplay];
     }
 }

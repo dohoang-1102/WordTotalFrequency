@@ -27,4 +27,6 @@
 @property (nonatomic, retain) BriefView *briefView;
 @property (nonatomic, retain) WordSetBriefView *wordSetBrief;
 
+@property (nonatomic, retain) IBOutlet UIButton *collapseButton;
+
 @end
