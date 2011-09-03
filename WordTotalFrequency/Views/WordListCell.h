@@ -1,8 +1,8 @@
 //
-//  WordListCellContentView.h
+//  WordListCell.h
 //  WordTotalFrequency
 //
-//  Created by OCS on 11-7-26.
+//  Created by Perry on 11-9-3.
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
@@ -10,8 +10,11 @@
 #import "Word.h"
 #import "WordSetController.h"
 
-@interface WordListCellContentView : UIView {
-    BOOL _highlighted;
+@interface WordListCell : UITableViewCell {
+    UIButton *_markIcon;
+    UILabel *_spell;
+    UILabel *_translate;
+    
     CGPoint _lastHitPoint;
 }
 

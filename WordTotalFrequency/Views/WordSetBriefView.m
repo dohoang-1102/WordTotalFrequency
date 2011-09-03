@@ -54,7 +54,7 @@
         _countNoteLabel.frame = CGRectMake(margin+80, top+4, 80, 60);
         _countNoteLabel.font = [UIFont systemFontOfSize:12];
         _countNoteLabel.numberOfLines = 0;
-        _countNoteLabel.text = @"words\nmarkedas\nremembered";
+        _countNoteLabel.text = @"words\nmarked as\nremembered";
         [_countNoteLabel setFontColor:[UIColor colorForNormalText]];
         [_countNoteLabel setLineHeight:12];
         _countNoteLabel.textAlignment = UITextAlignmentLeft;
@@ -63,10 +63,12 @@
         _percentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _percentLabel.backgroundColor = [UIColor clearColor];
         _percentLabel.frame = CGRectMake(margin+160, top+5, 140, 22);
-        _percentLabel.font = [UIFont systemFontOfSize:20];
+        _percentLabel.font = [UIFont boldSystemFontOfSize:20];
         _percentLabel.text = @"";
         _percentLabel.textColor = [UIColor colorForNormalText];
         _percentLabel.textAlignment = UITextAlignmentRight;
+        _percentLabel.shadowColor = [UIColor whiteColor];
+        _percentLabel.shadowOffset = CGSizeMake(.5, 1);
         [self addSubview:_percentLabel];
         
         _progress = [[CustomProgress alloc] initWithFrame:CGRectMake(margin+160, top+30, 140, 13)];
@@ -178,6 +180,8 @@
         cell.textLabel.backgroundColor = [UIColor yellowColor];
         cell.textLabel.frame = CGRectMake(0, 0, 260, 70);
         cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
+        cell.textLabel.shadowColor = [UIColor whiteColor];
+        cell.textLabel.shadowOffset = CGSizeMake(.5, 1);
         cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
     }
     

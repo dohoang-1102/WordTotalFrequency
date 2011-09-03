@@ -7,10 +7,10 @@
 //
 
 #import "WordListController.h"
-#import "WordListCellContentView.h"
 #import "WordDetailController.h"
 #import "Word.h"
 #import "WordTotalFrequencyAppDelegate.h"
+#import "WordListCell.h"
 
 @implementation WordListController
 
@@ -159,21 +159,14 @@
     
     static NSString *CellIdentifier = @"Cell";
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    WordListCell *cell = (WordListCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-        
-        WordListCellContentView *cellView = [[WordListCellContentView alloc] initWithFrame:cell.bounds];
-        cellView.wordSetController = _wordSetController;
-        cellView.tag = 1;
-        [cell.contentView addSubview:cellView];
-        [cellView release];
+        cell = [[[WordListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell.wordSetController = _wordSetController;
     }
     
-    // Configure the cell...
-    WordListCellContentView *cellView = (WordListCellContentView *)[cell viewWithTag:1];
     Word *word = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cellView.word = word;
+    cell.word = word;
     
     return cell;
 }
