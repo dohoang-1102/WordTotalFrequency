@@ -60,20 +60,16 @@
         _countNoteLabel.textAlignment = UITextAlignmentLeft;
         [self addSubview:_countNoteLabel];
         
-        _percentLabel = [[MTLabel alloc] initWithFrame:CGRectZero];
+        _percentLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _percentLabel.backgroundColor = [UIColor clearColor];
-        _percentLabel.frame = CGRectMake(margin+160, top, 140, 22);
+        _percentLabel.frame = CGRectMake(margin+160, top+5, 140, 22);
         _percentLabel.font = [UIFont systemFontOfSize:20];
         _percentLabel.text = @"";
-        [_percentLabel setFontColor:[UIColor colorForNormalText]];
-        [_percentLabel setLineHeight:22];
+        _percentLabel.textColor = [UIColor colorForNormalText];
+        _percentLabel.textAlignment = UITextAlignmentRight;
         [self addSubview:_percentLabel];
         
-        _progress = [[OCProgress alloc] initWithFrame:CGRectMake(margin+160, top+24, 140, 20)];
-        _progress.minValue = 0;
-        _progress.maxValue = 100;
-        _progress.progressRemainingColor = [UIColor colorWithHex:0x337fc8];
-        _progress.lineColor = [UIColor colorWithHex:0x337fc8];
+        _progress = [[CustomProgress alloc] initWithFrame:CGRectMake(margin+160, top+30, 140, 13)];
         [self addSubview:_progress];
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(margin, top+50, 300, 70) style:UITableViewStylePlain];
@@ -131,9 +127,9 @@
     _arrowLayer.strokeColor = _wordSet.color;
     _countlabel.text = [NSString stringWithFormat:@"%d", _wordSet.markedWordCount];
     _countlabel.textColor = _wordSet.color;
-    [_percentLabel setText:[NSString stringWithFormat:@"%d%% completed", _wordSet.completePercentage]];
+    [_percentLabel setText:[NSString stringWithFormat:@"%d%%", _wordSet.completePercentage]];
+    [_progress setImageName:[NSString stringWithFormat:@"progress-fg-%d", _wordSet.categoryId+1]];
     _progress.currentValue = _wordSet.completePercentage;
-    _progress.progressColor = _wordSet.color;
     [_tableView reloadData];
     
     [_arrowLayer setNeedsDisplay];

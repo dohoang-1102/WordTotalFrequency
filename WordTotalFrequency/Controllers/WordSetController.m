@@ -8,7 +8,7 @@
 
 #import "WordSetController.h"
 #import "DashboardView.h"
-#import "OCProgress.h"
+#import "CustomProgress.h"
 #import "UIColor+WTF.h"
 #import "WordTotalFrequencyAppDelegate.h"
 
@@ -119,12 +119,8 @@
     [self.view addSubview:label];
     [label release];
     
-    OCProgress *progress = [[OCProgress alloc] initWithFrame:CGRectMake(110, 21, 160, 16)];
-    progress.minValue = 0;
-    progress.maxValue = 100;
+    CustomProgress *progress = [[CustomProgress alloc] initWithFrame:CGRectMake(110, 21, 160, 13)];
     progress.tag = PROGRESS_TAG;
-    progress.progressRemainingColor = [UIColor colorWithHex:0x337fc8];
-    progress.lineColor = [UIColor colorWithHex:0x337fc8];
     [self.view addSubview:progress];
     [progress release];
     
@@ -155,9 +151,9 @@
     self.title = @"Word Set";
     
     [(UIImageView *)[self.view viewWithTag:ICON_IMAGE_TAG] setImage:[UIImage imageNamed:_wordSet.iconUrl]];
-    OCProgress *progress = (OCProgress *)[self.view viewWithTag:PROGRESS_TAG];
+    CustomProgress *progress = (CustomProgress *)[self.view viewWithTag:PROGRESS_TAG];
+    [progress setImageName:[NSString stringWithFormat:@"progress-fg-%d", _wordSet.categoryId+1]];
     progress.currentValue = _wordSet.completePercentage;
-    progress.progressColor = _wordSet.color;
     
     _listController = [[WordListController alloc] init];
     _listController.wordSetIndex = _wordSet.categoryId;
