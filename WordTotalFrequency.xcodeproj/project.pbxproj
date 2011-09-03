@@ -81,6 +81,17 @@
 		C255A00D1411B30C00558487 /* progress-fg-5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A0011411B30C00558487 /* progress-fg-5@2x.png */; };
 		C255A0181411B89100558487 /* CustomProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = C255A0171411B89100558487 /* CustomProgress.m */; };
 		C255A0261411DBDF00558487 /* WordListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C255A0251411DBDE00558487 /* WordListCell.m */; };
+		C255A08914122DE700558487 /* CustomSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C255A08814122DE600558487 /* CustomSegmentedControl.m */; };
+		C255A08E1412340F00558487 /* segment-left-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A08A1412340E00558487 /* segment-left-pressed.png */; };
+		C255A08F1412340F00558487 /* segment-left-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A08B1412340E00558487 /* segment-left-pressed@2x.png */; };
+		C255A0961412360800558487 /* segment-right-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A0921412360700558487 /* segment-right-pressed.png */; };
+		C255A0971412360800558487 /* segment-right-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A0931412360700558487 /* segment-right-pressed@2x.png */; };
+		C255A09C1412384B00558487 /* segment-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A09A1412384A00558487 /* segment-bg.png */; };
+		C255A09D1412384B00558487 /* segment-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A09B1412384A00558487 /* segment-bg@2x.png */; };
+		C255A0A014123AC100558487 /* segment-middle-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A09E14123AC000558487 /* segment-middle-pressed.png */; };
+		C255A0A114123AC100558487 /* segment-middle-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A09F14123AC100558487 /* segment-middle-pressed@2x.png */; };
+		C255A0A414123B7C00558487 /* segment-breaker.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A0A214123B7B00558487 /* segment-breaker.png */; };
+		C255A0A514123B7C00558487 /* segment-breaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A0A314123B7C00558487 /* segment-breaker@2x.png */; };
 		C28CFCEC13F4232A0081B2C0 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */; };
 		C28CFD2E13F4A43E0081B2C0 /* WordDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */; };
 		C29A881F13FB361100CA1FD1 /* mark-circle-right.png in Resources */ = {isa = PBXBuildFile; fileRef = C29A881B13FB361100CA1FD1 /* mark-circle-right.png */; };
@@ -191,6 +202,18 @@
 		C255A0171411B89100558487 /* CustomProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomProgress.m; sourceTree = "<group>"; };
 		C255A0241411DBDE00558487 /* WordListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordListCell.h; sourceTree = "<group>"; };
 		C255A0251411DBDE00558487 /* WordListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordListCell.m; sourceTree = "<group>"; };
+		C255A08714122DE600558487 /* CustomSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSegmentedControl.h; sourceTree = "<group>"; };
+		C255A08814122DE600558487 /* CustomSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSegmentedControl.m; sourceTree = "<group>"; };
+		C255A08A1412340E00558487 /* segment-left-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-left-pressed.png"; sourceTree = "<group>"; };
+		C255A08B1412340E00558487 /* segment-left-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-left-pressed@2x.png"; sourceTree = "<group>"; };
+		C255A0921412360700558487 /* segment-right-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-right-pressed.png"; sourceTree = "<group>"; };
+		C255A0931412360700558487 /* segment-right-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-right-pressed@2x.png"; sourceTree = "<group>"; };
+		C255A09A1412384A00558487 /* segment-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-bg.png"; sourceTree = "<group>"; };
+		C255A09B1412384A00558487 /* segment-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-bg@2x.png"; sourceTree = "<group>"; };
+		C255A09E14123AC000558487 /* segment-middle-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-middle-pressed.png"; sourceTree = "<group>"; };
+		C255A09F14123AC100558487 /* segment-middle-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-middle-pressed@2x.png"; sourceTree = "<group>"; };
+		C255A0A214123B7B00558487 /* segment-breaker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-breaker.png"; sourceTree = "<group>"; };
+		C255A0A314123B7C00558487 /* segment-breaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-breaker@2x.png"; sourceTree = "<group>"; };
 		C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
 		C28CFD2C13F4A43D0081B2C0 /* WordDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordDetailView.h; sourceTree = "<group>"; };
 		C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordDetailView.m; sourceTree = "<group>"; };
@@ -229,6 +252,16 @@
 		06066C7D13D9C97A0019D945 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C255A0A214123B7B00558487 /* segment-breaker.png */,
+				C255A0A314123B7C00558487 /* segment-breaker@2x.png */,
+				C255A09E14123AC000558487 /* segment-middle-pressed.png */,
+				C255A09F14123AC100558487 /* segment-middle-pressed@2x.png */,
+				C255A09A1412384A00558487 /* segment-bg.png */,
+				C255A09B1412384A00558487 /* segment-bg@2x.png */,
+				C255A0921412360700558487 /* segment-right-pressed.png */,
+				C255A0931412360700558487 /* segment-right-pressed@2x.png */,
+				C255A08A1412340E00558487 /* segment-left-pressed.png */,
+				C255A08B1412340E00558487 /* segment-left-pressed@2x.png */,
 				C2559FF61411B30B00558487 /* progress-bg.png */,
 				C2559FF71411B30B00558487 /* progress-bg@2x.png */,
 				C2559FF81411B30B00558487 /* progress-fg-1.png */,
@@ -426,6 +459,8 @@
 				C255A0171411B89100558487 /* CustomProgress.m */,
 				C255A0241411DBDE00558487 /* WordListCell.h */,
 				C255A0251411DBDE00558487 /* WordListCell.m */,
+				C255A08714122DE600558487 /* CustomSegmentedControl.h */,
+				C255A08814122DE600558487 /* CustomSegmentedControl.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -531,6 +566,16 @@
 				C255A00B1411B30C00558487 /* progress-fg-4@2x.png in Resources */,
 				C255A00C1411B30C00558487 /* progress-fg-5.png in Resources */,
 				C255A00D1411B30C00558487 /* progress-fg-5@2x.png in Resources */,
+				C255A08E1412340F00558487 /* segment-left-pressed.png in Resources */,
+				C255A08F1412340F00558487 /* segment-left-pressed@2x.png in Resources */,
+				C255A0961412360800558487 /* segment-right-pressed.png in Resources */,
+				C255A0971412360800558487 /* segment-right-pressed@2x.png in Resources */,
+				C255A09C1412384B00558487 /* segment-bg.png in Resources */,
+				C255A09D1412384B00558487 /* segment-bg@2x.png in Resources */,
+				C255A0A014123AC100558487 /* segment-middle-pressed.png in Resources */,
+				C255A0A114123AC100558487 /* segment-middle-pressed@2x.png in Resources */,
+				C255A0A414123B7C00558487 /* segment-breaker.png in Resources */,
+				C255A0A514123B7C00558487 /* segment-breaker@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,6 +609,7 @@
 				C2A6AAF213F97D4400A2B0AF /* WordPaperView.m in Sources */,
 				C255A0181411B89100558487 /* CustomProgress.m in Sources */,
 				C255A0261411DBDF00558487 /* WordListCell.m in Sources */,
+				C255A08914122DE700558487 /* CustomSegmentedControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

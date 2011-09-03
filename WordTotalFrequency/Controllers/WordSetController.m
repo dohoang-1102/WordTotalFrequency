@@ -12,6 +12,14 @@
 #import "UIColor+WTF.h"
 #import "WordTotalFrequencyAppDelegate.h"
 
+typedef enum {
+    CapLeft          = 0,
+    CapMiddle        = 1,
+    CapRight         = 2,
+    CapLeftAndRight  = 3
+} CapLocation;
+
+
 @implementation WordSetController
 
 @synthesize viewContainer = _viewContainer;
@@ -34,6 +42,7 @@
 
 - (void)dealloc
 {
+    [_segmentedControl release];
     [_wordTestView release];
     [_viewContainer release];
     [_wordSet release];
@@ -132,16 +141,32 @@
     _viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                               44,
                                                               CGRectGetWidth(self.view.bounds),
-                                                              CGRectGetHeight(self.view.bounds)-94)];
+                                                              CGRectGetHeight(self.view.bounds)-100)];
     [self.view addSubview:_viewContainer];
     
-    UISegmentedControl *segment = [[UISegmentedControl alloc]
-                                   initWithItems:[NSArray arrayWithObjects:@"List", @"Test", @"History", @"Setting", nil]];
-    segment.frame = CGRectMake(10, CGRectGetHeight(rect)-46, CGRectGetWidth(rect)-20, 40);
-    segment.selectedSegmentIndex = 0;
-    [segment addTarget:self action:@selector(switchViewAction:) forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:segment];
-    [segment release];
+    
+//    UISegmentedControl *segment = [[UISegmentedControl alloc]
+//                                   initWithItems:[NSArray arrayWithObjects:@"List", @"Test", @"History", @"Setting", nil]];
+//    segment.frame = CGRectMake(10, CGRectGetHeight(rect)-46, CGRectGetWidth(rect)-20, 40);
+//    segment.selectedSegmentIndex = 0;
+//    [segment addTarget:self action:@selector(switchViewAction:) forControlEvents:UIControlEventValueChanged];
+//    [self.view addSubview:segment];
+//    [segment release];
+    
+    UIImageView *segmentBg = [[UIImageView alloc] initWithFrame:CGRectMake(6, CGRectGetHeight(rect)-49, 309, 48)];
+    segmentBg.image = [UIImage imageNamed:@"segment-bg"];
+    [self.view addSubview:segmentBg];
+    [segmentBg release];
+    
+    NSArray *titles = [NSArray arrayWithObjects:@"List", @"Test", @"History", @"Setting", nil];
+    _segmentedControl = [[CustomSegmentedControl alloc]
+                                                     initWithSegmentCount:titles.count
+                                                     segmentsize:CGSizeMake(77, 48)
+                                                     dividerImage:[UIImage imageNamed:@"segment-breaker"]
+                                                     tag:1000
+                                                    delegate:self];
+    _segmentedControl.frame = CGRectMake(6, CGRectGetHeight(rect)-54, 308, 48);
+    [self.view addSubview:_segmentedControl];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -191,6 +216,89 @@
 {
     [_listController viewDidDisappear:NO];
     [super viewDidDisappear:animated];
+}
+
+#pragma mark - CustomSegmentedControlDelegate
+
+- (void)touchUpInsideSegmentIndex:(NSUInteger)segmentIndex
+{
+    for (int i=0; i<4; i++) {
+        UIButton* button = (UIButton *)[_segmentedControl viewWithTag:i+10];
+        UILabel *label = (UILabel *)[button viewWithTag:99];
+        label.textColor = (i == segmentIndex) ? [UIColor whiteColor] : [UIColor colorForNormalText];
+    }
+    
+    switch (segmentIndex) {
+        case 0:
+            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
+            [_viewContainer addSubview:_listController.view];
+            break;
+        case 1:
+            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
+            [_viewContainer addSubview:_wordTestView];
+            break;
+        default:
+            break;
+    }
+}
+
+- (UIButton *) buttonFor:(CustomSegmentedControl*)segmentedControl atIndex:(NSUInteger)segmentIndex;
+{
+//    NSUInteger dataOffset = segmentedControl.tag - TAG_VALUE ;
+//    NSDictionary* data = [buttons objectAtIndex:dataOffset];
+    NSArray *titles = [NSArray arrayWithObjects:@"List", @"Test", @"History", @"Setting", nil];
+    
+    CapLocation location;
+    if (segmentIndex == 0)
+        location = CapLeft;
+    else if (segmentIndex == titles.count - 1)
+        location = CapRight;
+    else
+        location = CapMiddle;
+    
+    UIImage* buttonImage = nil;
+    UIImage* buttonPressedImage = nil;
+    
+    CGFloat capWidth = 0;
+    CGSize buttonSize = CGSizeMake(77, 48);
+    
+    if (location == CapLeft)
+    {
+        buttonPressedImage = [[UIImage imageNamed:@"segment-left-pressed"] stretchableImageWithLeftCapWidth:capWidth topCapHeight:0.0];
+    }
+    else if (location == CapRight)
+    {
+        buttonPressedImage = [[UIImage imageNamed:@"segment-right-pressed"] stretchableImageWithLeftCapWidth:capWidth topCapHeight:0.0];
+    }
+    else
+    {
+        buttonPressedImage = [[UIImage imageNamed:@"segment-middle-pressed"] stretchableImageWithLeftCapWidth:capWidth topCapHeight:0.0];
+    }
+    
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0.0, 0.0, buttonSize.width, buttonSize.height);
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, buttonSize.width, 40)];
+    label.tag = 99;
+    label.backgroundColor = [UIColor clearColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.shadowColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(.5, 1);
+    label.text = [titles objectAtIndex:segmentIndex];
+    [button addSubview:label];
+    [label release];
+    
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+    [button setBackgroundImage:buttonPressedImage forState:UIControlStateSelected];
+    button.adjustsImageWhenHighlighted = NO;
+    
+    if (segmentIndex == 0)
+    {
+        button.selected = YES;
+        label.textColor = [UIColor whiteColor];
+    }
+    return button;
 }
 
 @end

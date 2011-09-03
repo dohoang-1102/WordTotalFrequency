@@ -10,13 +10,14 @@
 #import "WordListController.h"
 #import "WordSet.h"
 #import "WordTestView.h"
-
+#import "CustomSegmentedControl.h"
 
 @class WordListController;
 
-@interface WordSetController : UIViewController {
+@interface WordSetController : UIViewController<CustomSegmentedControlDelegate> {
     WordListController *_listController;
     WordTestView *_wordTestView;
+    CustomSegmentedControl *_segmentedControl;
 }
 
 @property (nonatomic, retain) UIView *viewContainer;
