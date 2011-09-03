@@ -13,4 +13,6 @@
     
 }
 
+@property (nonatomic, readonly) UITextField *searchBox;
+
 @end

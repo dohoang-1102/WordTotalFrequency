@@ -66,6 +66,8 @@
 		06B2F9F113E433F0001463AC /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */; };
 		06B2F9F413E434D3001463AC /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9F313E434D3001463AC /* Word.m */; };
 		C2559FE214113CD700558487 /* down-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FE114113CD700558487 /* down-button.png */; };
+		C2559FF41411A80A00558487 /* search-bg-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FF21411A80A00558487 /* search-bg-highlight.png */; };
+		C2559FF51411A80A00558487 /* search-bg-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FF31411A80A00558487 /* search-bg-highlight@2x.png */; };
 		C28CFCEC13F4232A0081B2C0 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */; };
 		C28CFD2E13F4A43E0081B2C0 /* WordDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */; };
 		C29A881F13FB361100CA1FD1 /* mark-circle-right.png in Resources */ = {isa = PBXBuildFile; fileRef = C29A881B13FB361100CA1FD1 /* mark-circle-right.png */; };
@@ -160,6 +162,8 @@
 		06B2F9F213E434D3001463AC /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		06B2F9F313E434D3001463AC /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		C2559FE114113CD700558487 /* down-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down-button.png"; sourceTree = "<group>"; };
+		C2559FF21411A80A00558487 /* search-bg-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg-highlight.png"; sourceTree = "<group>"; };
+		C2559FF31411A80A00558487 /* search-bg-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg-highlight@2x.png"; sourceTree = "<group>"; };
 		C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
 		C28CFD2C13F4A43D0081B2C0 /* WordDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordDetailView.h; sourceTree = "<group>"; };
 		C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordDetailView.m; sourceTree = "<group>"; };
@@ -198,6 +202,8 @@
 		06066C7D13D9C97A0019D945 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C2559FF21411A80A00558487 /* search-bg-highlight.png */,
+				C2559FF31411A80A00558487 /* search-bg-highlight@2x.png */,
 				C2559FE114113CD700558487 /* down-button.png */,
 				C29A881B13FB361100CA1FD1 /* mark-circle-right.png */,
 				C29A881C13FB361100CA1FD1 /* mark-circle-right@2x.png */,
@@ -470,6 +476,8 @@
 				C29A882113FB361100CA1FD1 /* mark-circle-wrong.png in Resources */,
 				C29A882213FB361100CA1FD1 /* mark-circle-wrong@2x.png in Resources */,
 				C2559FE214113CD700558487 /* down-button.png in Resources */,
+				C2559FF41411A80A00558487 /* search-bg-highlight.png in Resources */,
+				C2559FF51411A80A00558487 /* search-bg-highlight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -434,6 +434,8 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
+    [self.searchBar.searchBox setBackground:[UIImage imageNamed:@"search-bg-highlight"]];
+    
     CGContextRef context = UIGraphicsGetCurrentContext();
 	[UIView beginAnimations:nil context:context];
     

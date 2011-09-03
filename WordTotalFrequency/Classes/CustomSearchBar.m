@@ -12,32 +12,34 @@
 
 @implementation CustomSearchBar
 
+@synthesize searchBox = _searchBox;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         UIView* segment = [self.subviews objectAtIndex:0];
         segment.alpha = 0;
+        
+        NSUInteger numViews = [self.subviews count];
+        for(int i = 0; i < numViews; i++) {
+            if([[self.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) {
+                _searchBox = [self.subviews objectAtIndex:i];
+                
+                _searchBox.textColor = [UIColor colorForNormalText];
+                _searchBox.font = [UIFont systemFontOfSize:18.f];
+                [_searchBox setBackground: [UIImage imageNamed:@"search-bg"] ];
+                [_searchBox setBorderStyle:UITextBorderStyleNone];
+            }
+        }
     }
     return self;
 }
 
 - (void)layoutSubviews {
-    UITextField *searchField;
-    NSUInteger numViews = [self.subviews count];
-    for(int i = 0; i < numViews; i++) {
-        if([[self.subviews objectAtIndex:i] isKindOfClass:[UITextField class]]) {
-            searchField = [self.subviews objectAtIndex:i];
-            
-            searchField.textColor = [UIColor colorForNormalText];
-            searchField.font = [UIFont systemFontOfSize:18.f];
-            [searchField setBackground: [UIImage imageNamed:@"search-bg"] ];
-            [searchField setBorderStyle:UITextBorderStyleNone];
-        }
-    }
-
     [super layoutSubviews];
 }
+
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -50,6 +52,12 @@
 - (void)dealloc
 {
     [super dealloc];
+}
+
+- (BOOL)resignFirstResponder
+{
+    [_searchBox setBackground:[UIImage imageNamed:@"search-bg"]];
+    return [super resignFirstResponder];
 }
 
 @end

@@ -15,6 +15,14 @@
 @synthesize tableView = _tableView;
 @synthesize dashboardController = _dashboardController;
 
+- (void)wordSetBriefTapped:(UIGestureRecognizer *)gestureRecognizer
+{
+    WordSetController *wsc = [[WordSetController alloc] init];
+    wsc.wordSet = _wordSet;
+    [self.dashboardController.navigationController pushViewController:wsc animated:YES];
+    [wsc release];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -70,10 +78,17 @@
         
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(margin, top+50, 300, 70) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.userInteractionEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         [self addSubview:_tableView];
+        
+        // Tap Gesture
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self action:@selector(wordSetBriefTapped:)];
+        [self addGestureRecognizer:gesture];
+        [gesture release];
     }
     return self;
 }
@@ -172,14 +187,6 @@
     
     cell.textLabel.text = _wordSet.description;        
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    WordSetController *wsc = [[WordSetController alloc] init];
-    wsc.wordSet = _wordSet;
-    [self.dashboardController.navigationController pushViewController:wsc animated:YES];
-    [wsc release];
 }
 
 @end
