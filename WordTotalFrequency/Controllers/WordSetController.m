@@ -27,6 +27,7 @@ typedef enum {
 @synthesize testWords = _testWords;
 @synthesize currentTestWordIndex = _currentTestWordIndex;
 @synthesize fetchRequest = _fetchRequest;
+@synthesize wordTestView = _wordTestView;
 
 #define ICON_IMAGE_TAG 1
 #define PERCENT_LABEL_TAG 2
@@ -36,9 +37,10 @@ typedef enum {
 {
     [_fetchRequest release];
     _fetchRequest = nil;
+    [_wordTestView release];
+    _wordTestView = nil;
     
     [_segmentedControl release];
-    [_wordTestView release];
     [_viewContainer release];
     [_wordSet release];
     [_testWords release];
@@ -60,7 +62,7 @@ typedef enum {
             break;
         case 1:
             [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
-            [_viewContainer addSubview:_wordTestView];
+            [_viewContainer addSubview:self.wordTestView];
             break;
         default:
             break;
@@ -187,9 +189,6 @@ typedef enum {
 {
     [super viewDidAppear:animated];
     [_listController.tableView deselectRowAtIndexPath:[_listController.tableView indexPathForSelectedRow] animated:YES];
-    
-    _wordTestView = [[WordTestView alloc] initWithFrame:_viewContainer.bounds];
-    _wordTestView.wordSetController = self;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -218,7 +217,7 @@ typedef enum {
             break;
         case 1:
             [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
-            [_viewContainer addSubview:_wordTestView];
+            [_viewContainer addSubview:self.wordTestView];
             break;
         default:
             break;
@@ -302,6 +301,18 @@ typedef enum {
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
     [_fetchRequest setEntity:entity];
     return _fetchRequest;
+}
+
+#pragma mark - segmented views
+
+- (WordTestView *)wordTestView
+{
+    if (_wordTestView == nil)
+    {
+        _wordTestView = [[WordTestView alloc] initWithFrame:_viewContainer.bounds];
+        _wordTestView.wordSetController = self;
+    }
+    return _wordTestView;
 }
 
 @end
