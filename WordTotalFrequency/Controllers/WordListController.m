@@ -162,7 +162,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 38;
+    return 44;
 }
 
 // Customize the appearance of table view cells.
@@ -189,6 +189,7 @@
     
     WordDetailController *controller = [[WordDetailController alloc] init];
     controller.word = word;
+    controller.words = self.fetchedResultsController.fetchedObjects;
     controller.wordSetIndex = self.wordSetIndex;
     controller.currentWordIndex = indexPath.row;
     controller.wordListController = self;

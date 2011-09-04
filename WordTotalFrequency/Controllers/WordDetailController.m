@@ -34,28 +34,11 @@
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)dealloc
 {
     [_word release];
     [_words release];
     [super dealloc];
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)backAction
@@ -65,6 +48,7 @@
     {
         NSUInteger ii[2] = {0, _currentWordIndex};
         NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
+        [self.wordListController.tableView reloadData];
         [self.wordListController.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -176,30 +160,6 @@
 {
     [super viewWillAppear:animated];
     
-    if (_wordSetIndex > -1)
-    {
-        // retrieve data
-        WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-        NSFetchRequest *request = [[NSFetchRequest alloc] init];
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
-        [request setEntity:entity];
-        [request setFetchBatchSize:20];
-        
-        // Create the sort descriptors array.
-        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:NO];
-        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:descriptor, nil];
-        [descriptor release];
-        [request setSortDescriptors:sortDescriptors];
-        [sortDescriptors release];
-        
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex];
-        [request setPredicate:predicate];
-        
-        NSError *error;
-        self.words = [appDelegate.managedObjectContext executeFetchRequest:request error:&error];
-        [request release];
-    }
-    
     WordDetailView *view =  [[self.view subviews] objectAtIndex:0];
     view.word = _word;
     [view updateWordData];
@@ -209,12 +169,6 @@
 {
     [super viewDidDisappear:animated];
     self.words = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 @end
