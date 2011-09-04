@@ -29,23 +29,18 @@
 @synthesize searchBar = _searchBar;
 @synthesize listController = _listController;
 @synthesize collapseButton = _collapseButton;
+@synthesize fetchRequest = _fetchRequest;
 
 #define SEARCH_BAR_HEIGHT 40
 #define WORDSETBRIEF_HEIGHT 132
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)dealloc
 {
     [_collapseButton release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [_fetchRequest release];
+    _fetchRequest = nil;
     
     [_wordSets release];
     [_unitIcons release];
@@ -90,29 +85,25 @@
     [_wordSets addObject:set];
     
     // retrieve data
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
-    [request setEntity:entity];
-    
     for (int i=0; i<5; i++) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", i];
-        [request setPredicate:predicate];
+        [self.fetchRequest setPredicate:predicate];
         
         NSError *error;
-        NSUInteger count = [appDelegate.managedObjectContext countForFetchRequest:request error:&error];
-        if(count == NSNotFound) 
-        {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            exit(-1);  // Fail
-        }
-        else
-        {
-            WordSet *wordSet = [_wordSets objectAtIndex:i];
-            wordSet.totalWordCount = count;
-        }
+        NSUInteger total = [self.managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+        
+        // marked count
+        predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", i];
+        [self.fetchRequest setPredicate:predicate];
+        
+        NSUInteger marked = [self.managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+        WordSet *wordSet = [_wordSets objectAtIndex:i];
+        wordSet.totalWordCount = total;
+        wordSet.markedWordCount = marked;
+        
+        UnitIconView *icon = [_unitIcons objectAtIndex:i];
+        [icon updateData];
     }
-    [request release];
 }
 
 - (void)hideWordSetBrief
@@ -128,22 +119,10 @@
         [UIView beginAnimations:nil context:context];
         
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationDuration:0.25];
+        [UIView setAnimationDuration:0.2];
         CGRect rect = _listController.view.frame;
         rect.origin.y = CGRectGetHeight(self.view.frame);
         _listController.view.frame = rect;
-        
-        for (UIView *view in self.view.subviews) {
-            if (view != _searchBar && view != _listController.view)
-            {
-                view.alpha = 100;
-            }
-        }
-        
-        if (_selectedIconIndex > -1)
-        {
-            _briefView.alpha = 0;
-        }
         
         [UIView commitAnimations];
     }
@@ -198,7 +177,7 @@
         [UIView beginAnimations:nil context:context];
         
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationDuration:.25];
+        [UIView setAnimationDuration:.2];
         CGRect rect = _wordSetBrief.frame;
         rect.size.height = 10;
         _wordSetBrief.frame = rect;
@@ -345,34 +324,6 @@
     [_searchBar resignFirstResponder];
     [self dismissSearchResult:NO];
     
-    // retrieve data
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
-    [request setEntity:entity];
-    
-    for (int i=0; i<5; i++) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", i];
-        [request setPredicate:predicate];
-        
-        NSError *error;
-        NSUInteger count = [appDelegate.managedObjectContext countForFetchRequest:request error:&error];
-        if(count == NSNotFound) 
-        {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            exit(-1);  // Fail
-        }
-        else
-        {
-            WordSet *wordSet = [_wordSets objectAtIndex:i];
-            wordSet.markedWordCount = count;
-            
-            UnitIconView *icon = [_unitIcons objectAtIndex:i];
-            [icon updateData];
-        }
-    }
-    [request release];
-    
     if (_selectedIconIndex > -1)
         [_wordSetBrief updateDisplay];
 }
@@ -440,18 +391,11 @@
 	[UIView beginAnimations:nil context:context];
     
 	[UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-	[UIView setAnimationDuration:0.25];
+	[UIView setAnimationDuration:0.2];
 	CGRect rect = _listController.view.frame;
 	rect.origin.y = SEARCH_BAR_HEIGHT;
 	_listController.view.frame = rect;
     
-    for (UIView *view in self.view.subviews) {
-        if (view != _searchBar && view != _listController.view)
-        {
-            view.alpha = 0;
-        }
-    }
-	
     [UIView commitAnimations];
 }
 
@@ -476,6 +420,26 @@
 
 - (void)willSelectWord:(Word *)word
 {
+}
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    return appDelegate.managedObjectContext;
+}
+
+- (NSFetchRequest *)fetchRequest
+{
+    if (_fetchRequest != nil)
+    {
+        return _fetchRequest;
+    }
+    
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    _fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+    [_fetchRequest setEntity:entity];
+    return _fetchRequest;
 }
 
 

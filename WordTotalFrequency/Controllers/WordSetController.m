@@ -26,36 +26,23 @@ typedef enum {
 @synthesize wordSet = _wordSet;
 @synthesize testWords = _testWords;
 @synthesize currentTestWordIndex = _currentTestWordIndex;
+@synthesize fetchRequest = _fetchRequest;
 
 #define ICON_IMAGE_TAG 1
 #define PERCENT_LABEL_TAG 2
 #define PROGRESS_TAG 3
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)dealloc
 {
+    [_fetchRequest release];
+    _fetchRequest = nil;
+    
     [_segmentedControl release];
     [_wordTestView release];
     [_viewContainer release];
     [_wordSet release];
     [_testWords release];
     [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)backAction
@@ -82,18 +69,12 @@ typedef enum {
 
 - (void)updateMarkedCount
 {
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
-    [request setEntity:entity];
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", _wordSet.categoryId];
-    [request setPredicate:predicate];
+    [self.fetchRequest setPredicate:predicate];
     
     NSError *error;
-    NSUInteger count = [appDelegate.managedObjectContext countForFetchRequest:request error:&error];
+    NSUInteger count = [self.managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
     _wordSet.markedWordCount = count;
-    [request release];
 
     // update control
     [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
@@ -139,7 +120,7 @@ typedef enum {
     [line release];
     
     _viewContainer = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                              44,
+                                                              45.5,
                                                               CGRectGetWidth(self.view.bounds),
                                                               CGRectGetHeight(self.view.bounds)-100)];
     [self.view addSubview:_viewContainer];
@@ -220,14 +201,17 @@ typedef enum {
 
 #pragma mark - CustomSegmentedControlDelegate
 
-- (void)touchUpInsideSegmentIndex:(NSUInteger)segmentIndex
+- (void)touchDownAtSegmentIndex:(NSUInteger)segmentIndex
 {
     for (int i=0; i<4; i++) {
         UIButton* button = (UIButton *)[_segmentedControl viewWithTag:i+10];
         UILabel *label = (UILabel *)[button viewWithTag:99];
         label.textColor = (i == segmentIndex) ? [UIColor whiteColor] : [UIColor colorForNormalText];
     }
-    
+}
+
+- (void)touchUpInsideSegmentIndex:(NSUInteger)segmentIndex
+{
     switch (segmentIndex) {
         case 0:
             [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
@@ -299,6 +283,26 @@ typedef enum {
         label.textColor = [UIColor whiteColor];
     }
     return button;
+}
+
+- (NSManagedObjectContext *)managedObjectContext
+{
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    return appDelegate.managedObjectContext;
+}
+
+- (NSFetchRequest *)fetchRequest
+{
+    if (_fetchRequest != nil)
+    {
+        return _fetchRequest;
+    }
+    
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    _fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+    [_fetchRequest setEntity:entity];
+    return _fetchRequest;
 }
 
 @end

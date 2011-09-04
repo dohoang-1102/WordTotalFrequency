@@ -65,7 +65,8 @@
         
         if ([searchString isEqualToString:@""])
         {
-            [self.fetchedResultsController.fetchRequest setPredicate:nil];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"1 != -1"];
+            [self.fetchedResultsController.fetchRequest setPredicate:predicate];
         }
         else
         {
@@ -91,20 +92,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.backgroundColor = [UIColor clearColor];
+
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.separatorColor = [UIColor colorWithWhite:1.f alpha:.5f];
     
     if (_wordSetIndex > -1)
     {
+        self.tableView.backgroundColor = [UIColor clearColor];
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex];
         [self.fetchedResultsController.fetchRequest setPredicate:predicate];
     }
+    else
+    {
+        self.tableView.backgroundColor = [UIColor colorWithRed:203.0/255 green:234.0/255 blue:1.0 alpha:1.0];
+    }
     
-    NSError *error;
-	if (![[self fetchedResultsController] performFetch:&error]) {
-		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-		exit(-1);  // Fail
-	}
+    if (_wordSetIndex > -1 || _searchString)
+    {
+        NSError *error;
+        if (![[self fetchedResultsController] performFetch:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            exit(-1);  // Fail
+        }
+    }
     
     if (_wordSetIndex > -1)
         self.wordSetController.testWords = self.fetchedResultsController.fetchedObjects;

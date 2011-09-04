@@ -25,6 +25,9 @@
 @property (nonatomic, retain) NSArray *testWords;
 @property (nonatomic) NSUInteger currentTestWordIndex;
 
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) NSFetchRequest *fetchRequest;
+
 - (void)updateMarkedCount;
 
 @end

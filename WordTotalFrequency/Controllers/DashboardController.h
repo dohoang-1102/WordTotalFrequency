@@ -24,6 +24,9 @@
 @property (nonatomic, retain) CustomSearchBar *searchBar;
 @property (nonatomic, retain) WordListController *listController;
 
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) NSFetchRequest *fetchRequest;
+
 @property (nonatomic, retain) BriefView *briefView;
 @property (nonatomic, retain) WordSetBriefView *wordSetBrief;
 
