@@ -41,7 +41,9 @@
 
 - (void)dealloc
 {
-    [_fetchedResultsController release];
+    self.fetchedResultsController.delegate = nil;
+    self.fetchedResultsController = nil;
+    
     [_searchString release];
     [super dealloc];
 }
@@ -110,7 +112,6 @@
 
 - (void)viewDidUnload
 {
-    [_fetchedResultsController release];
     _fetchedResultsController = nil;
     [super viewDidUnload];
 }
@@ -202,20 +203,18 @@
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
 	[fetchRequest setEntity:entity];
-    [fetchRequest setFetchBatchSize:20];
     
     // Create the sort descriptors array.
 	NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:NO];
-	NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:descriptor, nil];
+	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:descriptor]];
     [descriptor release];
-	[fetchRequest setSortDescriptors:sortDescriptors];
-	[sortDescriptors release];
-    
+
     NSArray *propertiesToFetch = [[NSArray alloc] initWithObjects:@"spell", @"translate", nil];
     [fetchRequest setPropertiesToFetch:propertiesToFetch];
     [propertiesToFetch release];
 
-	
+    [fetchRequest setFetchBatchSize:20];
+    	
 	// Create and initialize the fetch results controller.
 	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest

@@ -37,14 +37,19 @@
         _spell.shadowOffset = CGSizeMake(.5, 1);
         [self addSubview:_spell];
         
-        _translate = [[UILabel alloc] initWithFrame:CGRectMake(144, 0, CGRectGetWidth(rect)-144, CGRectGetHeight(rect))];
+        _translate = [[WordListCellTranslateView alloc] initWithFrame:CGRectMake(144, 0, CGRectGetWidth(rect)-144, CGRectGetHeight(rect))];
         _translate.backgroundColor = [UIColor clearColor];
-        _translate.adjustsFontSizeToFitWidth = NO;
-        _translate.textColor = [UIColor colorForNormalText];
-        _translate.font = [UIFont systemFontOfSize:18];
-        _translate.shadowColor = [UIColor whiteColor];
-        _translate.shadowOffset = CGSizeMake(.5, 1);
         [self addSubview:_translate];
+        
+        // UILabel with NSUTF8StringEncoding causes memory leak when scrolling table cells
+//        _translate = [[UILabel alloc] initWithFrame:CGRectMake(144, 0, CGRectGetWidth(rect)-144, CGRectGetHeight(rect))];
+//        _translate.backgroundColor = [UIColor clearColor];
+//        _translate.adjustsFontSizeToFitWidth = NO;
+//        _translate.textColor = [UIColor colorForNormalText];
+//        _translate.font = [UIFont systemFontOfSize:18];
+//        _translate.shadowColor = [UIColor whiteColor];
+//        _translate.shadowOffset = CGSizeMake(.5, 1);
+//        [self addSubview:_translate];
     }
     return self;
 }
@@ -63,6 +68,16 @@
     [super dealloc];
 }
 
+/*
+- (void)drawRect:(CGRect)rect
+{
+    [[UIColor whiteColor] set];
+    [_word.translate drawAtPoint:CGPointMake(144.5, 11) withFont:[UIFont systemFontOfSize:18]];
+    [[UIColor colorForNormalText] set];
+    [_word.translate drawAtPoint:CGPointMake(144, 10) withFont:[UIFont systemFontOfSize:18]];
+}
+ */
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -73,7 +88,10 @@
         [_markIcon setImage:nil forState:UIControlStateNormal];
     
     _spell.text = _word.spell;
-    _translate.text = _word.translate;
+    _translate.translate = _word.translate;
+    
+//    const char *cstr = [_word.translate UTF8String];
+//    _translate.text = [NSString stringWithCString:cstr encoding:NSUTF8StringEncoding];
 }
 
 - (void)setWord:(Word *)word
@@ -82,8 +100,6 @@
     {
         [_word release];
         _word = [word retain];
-        
-        [self setNeedsLayout];
     }
 }
 
