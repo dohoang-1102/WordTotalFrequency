@@ -16,6 +16,7 @@
 @interface DashboardController : UIViewController<UISearchBarDelegate, WordListDelegate>
 {
     NSInteger _selectedIconIndex;
+    UIView *_barContainer;
 }
 
 @property (nonatomic, retain) NSMutableArray *wordSets;

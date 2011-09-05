@@ -15,12 +15,24 @@
 @synthesize tableView = _tableView;
 @synthesize dashboardController = _dashboardController;
 
-- (void)wordSetBriefTapped:(UIGestureRecognizer *)gestureRecognizer
+- (void)navigateToWordSetController
 {
     WordSetController *wsc = [[WordSetController alloc] init];
     wsc.wordSet = _wordSet;
     [self.dashboardController.navigationController pushViewController:wsc animated:YES];
     [wsc release];
+}
+
+- (void)fadeSelectedBackground
+{
+    _backgroundImage.image = [UIImage imageNamed:@"word-set-bg"];
+}
+
+- (void)wordSetBriefTapped:(UIGestureRecognizer *)gestureRecognizer
+{
+    _backgroundImage.image = [UIImage imageNamed:@"word-set-selected-bg"];
+    
+    [self performSelector:@selector(navigateToWordSetController) withObject:nil afterDelay:.15];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -36,6 +48,10 @@
         _arrowLayer.position = CGPointMake(CGRectGetWidth(frame)/2, CGRectGetHeight(frame)/2);
         self.layer.masksToBounds = YES;
         [self.layer addSublayer:_arrowLayer];
+        
+        _backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"word-set-bg"]];
+        _backgroundImage.frame = CGRectMake(0, 8.5, frame.size.width, 106);
+        [self addSubview:_backgroundImage];
         
         _countlabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _countlabel.backgroundColor = [UIColor clearColor];
@@ -74,7 +90,7 @@
         _progress = [[CustomProgress alloc] initWithFrame:CGRectMake(margin+160, top+30, 140, 13)];
         [self addSubview:_progress];
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(margin, top+50, 300, 70) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(margin, top+46, 300, 70) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.userInteractionEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -152,6 +168,7 @@
     [_progress release];
     [_tableView release];
     [_arrowLayer release];
+    [_backgroundImage release];
     
     [_wordSet release];
     [super dealloc];

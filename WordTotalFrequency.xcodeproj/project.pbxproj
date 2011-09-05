@@ -101,6 +101,10 @@
 		C29A882013FB361100CA1FD1 /* mark-circle-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C29A881C13FB361100CA1FD1 /* mark-circle-right@2x.png */; };
 		C29A882113FB361100CA1FD1 /* mark-circle-wrong.png in Resources */ = {isa = PBXBuildFile; fileRef = C29A881D13FB361100CA1FD1 /* mark-circle-wrong.png */; };
 		C29A882213FB361100CA1FD1 /* mark-circle-wrong@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C29A881E13FB361100CA1FD1 /* mark-circle-wrong@2x.png */; };
+		C2A6340E1414F3D00022C72E /* word-set-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A6340C1414F3D00022C72E /* word-set-bg.png */; };
+		C2A6340F1414F3D00022C72E /* word-set-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A6340D1414F3D00022C72E /* word-set-bg@2x.png */; };
+		C2A63413141505DE0022C72E /* word-set-selected-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A63411141505DE0022C72E /* word-set-selected-bg.png */; };
+		C2A63414141505DE0022C72E /* word-set-selected-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A63412141505DE0022C72E /* word-set-selected-bg@2x.png */; };
 		C2A6AAAA13F954E800A2B0AF /* WordTestView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A6AAA913F954E800A2B0AF /* WordTestView.m */; };
 		C2A6AAEE13F978AC00A2B0AF /* paper.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A6AAEC13F978AC00A2B0AF /* paper.png */; };
 		C2A6AAEF13F978AC00A2B0AF /* paper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A6AAED13F978AC00A2B0AF /* paper@2x.png */; };
@@ -228,6 +232,10 @@
 		C29A881C13FB361100CA1FD1 /* mark-circle-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mark-circle-right@2x.png"; sourceTree = "<group>"; };
 		C29A881D13FB361100CA1FD1 /* mark-circle-wrong.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mark-circle-wrong.png"; sourceTree = "<group>"; };
 		C29A881E13FB361100CA1FD1 /* mark-circle-wrong@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mark-circle-wrong@2x.png"; sourceTree = "<group>"; };
+		C2A6340C1414F3D00022C72E /* word-set-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "word-set-bg.png"; sourceTree = "<group>"; };
+		C2A6340D1414F3D00022C72E /* word-set-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "word-set-bg@2x.png"; sourceTree = "<group>"; };
+		C2A63411141505DE0022C72E /* word-set-selected-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "word-set-selected-bg.png"; sourceTree = "<group>"; };
+		C2A63412141505DE0022C72E /* word-set-selected-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "word-set-selected-bg@2x.png"; sourceTree = "<group>"; };
 		C2A6AAA813F954E800A2B0AF /* WordTestView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordTestView.h; sourceTree = "<group>"; };
 		C2A6AAA913F954E800A2B0AF /* WordTestView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordTestView.m; sourceTree = "<group>"; };
 		C2A6AAEC13F978AC00A2B0AF /* paper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paper.png; sourceTree = "<group>"; };
@@ -259,6 +267,10 @@
 		06066C7D13D9C97A0019D945 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C2A63411141505DE0022C72E /* word-set-selected-bg.png */,
+				C2A63412141505DE0022C72E /* word-set-selected-bg@2x.png */,
+				C2A6340C1414F3D00022C72E /* word-set-bg.png */,
+				C2A6340D1414F3D00022C72E /* word-set-bg@2x.png */,
 				C285E9331413421200AAF99D /* cell-bg.png */,
 				C285E9341413421200AAF99D /* cell-bg@2x.PNG */,
 				C255A0A214123B7B00558487 /* segment-breaker.png */,
@@ -589,6 +601,10 @@
 				C255A0A514123B7C00558487 /* segment-breaker@2x.png in Resources */,
 				C285E9351413421200AAF99D /* cell-bg.png in Resources */,
 				C285E9361413421200AAF99D /* cell-bg@2x.PNG in Resources */,
+				C2A6340E1414F3D00022C72E /* word-set-bg.png in Resources */,
+				C2A6340F1414F3D00022C72E /* word-set-bg@2x.png in Resources */,
+				C2A63413141505DE0022C72E /* word-set-selected-bg.png in Resources */,
+				C2A63414141505DE0022C72E /* word-set-selected-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

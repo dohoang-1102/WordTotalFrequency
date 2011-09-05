@@ -38,7 +38,7 @@
     CGGradientRef glossGradient;
     CGColorSpaceRef rgbColorspace;
     size_t num_locations = 2;
-    CGFloat locations[2] = { 0.0, 1.0 };
+    CGFloat locations[2] = { 0.0, 0.18 };
     CGFloat components[8] = {148.0/255, 185.0/255, 209.0/255, 0.8,  // Start color
         148.0/255, 185.0/255, 209.0/255, 0}; // End color
 	
@@ -56,8 +56,8 @@
     CGPathAddLineToPoint(path, NULL, 300, 0);
     CGPathAddLineToPoint(path, NULL, 304.5, 9.5);
     CGPathAddLineToPoint(path, NULL, 600, 9.5);
-    CGPathAddLineToPoint(path, NULL, 600, CGRectGetHeight(self.bounds)-.5);
-    CGPathAddLineToPoint(path, NULL, 0, CGRectGetHeight(self.bounds)-.5);
+    CGPathAddLineToPoint(path, NULL, 600, 900);
+    CGPathAddLineToPoint(path, NULL, 0, 900);
     CGPathCloseSubpath(path);
     
     CGContextSetLineWidth(ctx, 1.f);

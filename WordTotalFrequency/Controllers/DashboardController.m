@@ -32,7 +32,7 @@
 @synthesize fetchRequest = _fetchRequest;
 
 #define SEARCH_BAR_HEIGHT 40
-#define WORDSETBRIEF_HEIGHT 132
+#define WORDSETBRIEF_HEIGHT 115
 
 - (void)dealloc
 {
@@ -48,6 +48,9 @@
     [_wordSetBrief release];
     [_searchBar release];
     [_listController release];
+    
+    [_barContainer release];
+    
     [super dealloc];
 }
 
@@ -55,7 +58,7 @@
 {
     _wordSets = [[NSMutableArray alloc] init];
     WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:3210 color:[UIColor colorWithHex:0xff4600]] autorelease];
-    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    set.description = @"Master this word set you can read some short .";
     set.iconUrl = @"Unit-1";
     set.categoryId = 0;
     [_wordSets addObject:set];
@@ -73,13 +76,13 @@
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:23219 marked:1030 color:[UIColor colorWithHex:0xffb900]] autorelease];
-    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    set.description = @"Master this word set you can read some short article.";
     set.iconUrl = @"Unit-4";
     set.categoryId = 3;
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor colorWithHex:0xffda00]] autorelease];
-    set.description = @"Master this word set you can read some short articles and have basic conversations.";
+    set.description = @"Master this word set you can read some short articles and have.";
     set.iconUrl = @"Unit-5";
     set.categoryId = 4;
     [_wordSets addObject:set];
@@ -104,11 +107,6 @@
         UnitIconView *icon = [_unitIcons objectAtIndex:i];
         [icon updateData];
     }
-}
-
-- (void)hideWordSetBrief
-{
-    _wordSetBrief.hidden = YES;
 }
 
 - (void)dismissSearchResult:(BOOL)animated
@@ -148,47 +146,24 @@
 
 - (void)presentWordSetBrief
 {
-    if (_wordSetBrief.hidden == YES)
-    {
-        _wordSetBrief.hidden = NO;
-        _wordSetBrief.alpha = 100;
-        _briefView.alpha = 0;
-        CGRect rect = _wordSetBrief.frame;
-        rect.size.height = 10;
-        _wordSetBrief.frame = rect;
-        
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        [UIView beginAnimations:nil context:context];
-        
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationDuration:.25];
-        rect.size.height = WORDSETBRIEF_HEIGHT;
-        _wordSetBrief.frame = rect;
-        
-        [UIView commitAnimations];
-    }
+    [UIView transitionWithView:_barContainer duration:.2
+                       options:UIViewAnimationOptionCurveEaseInOut
+                    animations:^ {
+                        _wordSetBrief.frame = CGRectMake(0, 0, 320, WORDSETBRIEF_HEIGHT);
+                    }
+                    completion:^(BOOL finished) {
+                    }];
 }
 
 - (void)dismissWordSetBrief
 {
-    if (_wordSetBrief.hidden == NO)
-    {
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        [UIView beginAnimations:nil context:context];
-        
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationDuration:.2];
-        CGRect rect = _wordSetBrief.frame;
-        rect.size.height = 10;
-        _wordSetBrief.frame = rect;
-        _wordSetBrief.alpha = 0;
-        _briefView.alpha = 100;
-        
-        [UIView commitAnimations];
-        
-        [self performSelector:@selector(hideWordSetBrief) withObject:nil afterDelay:.25];
-        self.selectedIconIndex = -1;
-    }
+    [UIView transitionWithView:_barContainer duration:.2
+                       options:UIViewAnimationOptionCurveEaseInOut
+                    animations:^ {
+                        _wordSetBrief.frame = CGRectMake(0, -WORDSETBRIEF_HEIGHT, 320, WORDSETBRIEF_HEIGHT);
+                    }
+                    completion:^(BOOL finished) {
+                    }];
 }
 
 - (NSInteger)selectedIconIndex
@@ -286,17 +261,20 @@
         [icon release];
     }
     
-    _briefView = [[BriefView alloc]
-                  initWithFrame:CGRectMake(10, 112, CGRectGetWidth(rect)-20, 100)
+    _barContainer = [[UIView alloc] initWithFrame:CGRectMake(0, 92, CGRectGetWidth(rect), WORDSETBRIEF_HEIGHT)];
+    _barContainer.clipsToBounds = YES;
+    [self.view addSubview:_barContainer];
+    
+    _briefView = [[BriefView alloc] 
+                  initWithFrame:CGRectMake(10, 20, CGRectGetWidth(rect)-20, 100)
                   count:1234 level:@"IV"];
-    [self.view addSubview:_briefView];
+    [_barContainer addSubview:_briefView];
 
     // word set brief
     _wordSetBrief = [[WordSetBriefView alloc]
-                     initWithFrame:CGRectMake(0, 92, CGRectGetWidth(rect), WORDSETBRIEF_HEIGHT)];
-    _wordSetBrief.hidden = YES;
+                     initWithFrame:CGRectMake(0, -WORDSETBRIEF_HEIGHT, CGRectGetWidth(rect), WORDSETBRIEF_HEIGHT)];
     _wordSetBrief.dashboardController = self;
-    [self.view addSubview:_wordSetBrief];
+    [_barContainer addSubview:_wordSetBrief];
     
     _listController = [[WordListController alloc] init];
     _listController.delegate = self;
@@ -338,9 +316,7 @@
     
     if (_selectedIconIndex > -1)
     {
-        [_wordSetBrief.tableView
-            deselectRowAtIndexPath:[_wordSetBrief.tableView indexPathForSelectedRow]
-                          animated:YES];
+        [_wordSetBrief performSelector:@selector(fadeSelectedBackground) withObject:nil afterDelay:0.15];
     }
 }
 

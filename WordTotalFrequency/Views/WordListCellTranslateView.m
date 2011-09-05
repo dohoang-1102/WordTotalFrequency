@@ -38,4 +38,14 @@
     [super dealloc];
 }
 
+- (void)setTranslate:(NSString *)translate
+{
+    if (_translate != translate)
+    {
+        [_translate release];
+        _translate = [translate retain];
+        [self setNeedsDisplay];
+    }
+}
+
 @end

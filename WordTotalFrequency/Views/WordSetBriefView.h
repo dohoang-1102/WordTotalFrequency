@@ -19,6 +19,7 @@
     UILabel *_percentLabel;
     CustomProgress *_progress;
     CAArrowShapeLayer *_arrowLayer;
+    UIImageView *_backgroundImage;
     
     WordSet *_wordSet;
 }
@@ -29,5 +30,6 @@
 
 - (void)centerArrowToX:(CGFloat)x;
 - (void)updateDisplay;
+- (void)fadeSelectedBackground;
 
 @end
