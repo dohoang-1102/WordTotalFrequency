@@ -61,30 +61,35 @@
     set.description = @"Master this word set you can read some short .";
     set.iconUrl = @"Unit-1";
     set.categoryId = 0;
+    set.arrowColor = [UIColor colorWithHex:0xbee3fd];
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor colorWithHex:0xff6600]] autorelease];
     set.description = @"Master this word set you can understand basic conversations.";
     set.iconUrl = @"Unit-2";
     set.categoryId = 1;
+    set.arrowColor = [UIColor colorWithHex:0xa1d7f9];
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:12457 marked:2348 color:[UIColor colorWithHex:0xff9800]] autorelease];
     set.description = @"Master this word set you can adfasf asdfasdf werwer asfasdf.";
     set.iconUrl = @"Unit-3";
     set.categoryId = 2;
+    set.arrowColor = [UIColor colorWithHex:0x8ecff7];
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:23219 marked:1030 color:[UIColor colorWithHex:0xffb900]] autorelease];
     set.description = @"Master this word set you can read some short article.";
     set.iconUrl = @"Unit-4";
     set.categoryId = 3;
+    set.arrowColor = [UIColor colorWithHex:0xa1d7f9];
     [_wordSets addObject:set];
     
     set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor colorWithHex:0xffda00]] autorelease];
     set.description = @"Master this word set you can read some short articles and have.";
     set.iconUrl = @"Unit-5";
     set.categoryId = 4;
+    set.arrowColor = [UIColor colorWithHex:0xbee3fd];
     [_wordSets addObject:set];
     
     // retrieve data
@@ -152,6 +157,8 @@
                         _wordSetBrief.frame = CGRectMake(0, 0, 320, WORDSETBRIEF_HEIGHT);
                     }
                     completion:^(BOOL finished) {
+                        if (finished)
+                            _briefView.hidden = YES;
                     }];
 }
 
@@ -164,6 +171,7 @@
                     }
                     completion:^(BOOL finished) {
                     }];
+    _briefView.hidden = NO;
 }
 
 - (NSInteger)selectedIconIndex
@@ -355,6 +363,7 @@
     [_searchBar resignFirstResponder];
     [self dismissSearchResult:YES];
     [self dismissWordSetBrief];
+    self.selectedIconIndex = -1;
 }
 
 #pragma mark - UISearchBarDelegate

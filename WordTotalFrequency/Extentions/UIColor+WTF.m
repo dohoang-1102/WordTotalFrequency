@@ -30,4 +30,35 @@
     return [UIColor colorWithHex:0x45738e];
 }
 
+- (CGColorSpaceModel) colorSpaceModel  
+{  
+    return CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));  
+}
+
+- (CGFloat) red  
+{  
+    const CGFloat *c = CGColorGetComponents(self.CGColor);  
+    return c[0];  
+}  
+
+- (CGFloat) green  
+{  
+    const CGFloat *c = CGColorGetComponents(self.CGColor);
+    if ([self colorSpaceModel] == kCGColorSpaceModelMonochrome) return c[0];  
+    return c[1];  
+}  
+
+- (CGFloat) blue  
+{  
+    const CGFloat *c = CGColorGetComponents(self.CGColor);  
+    if ([self colorSpaceModel] == kCGColorSpaceModelMonochrome) return c[0];  
+    return c[2];  
+}  
+
+- (CGFloat) alpha  
+{  
+    const CGFloat *c = CGColorGetComponents(self.CGColor);  
+    return c[CGColorGetNumberOfComponents(self.CGColor)-1];  
+}  
+
 @end

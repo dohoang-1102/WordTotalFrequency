@@ -17,4 +17,12 @@
 
 + (UIColor *)colorForNormalText;
 
++ (UIColor *)colorForNormalText;
+- (CGColorSpaceModel) colorSpaceModel;
+
+- (CGFloat) red;
+- (CGFloat) green;
+- (CGFloat) blue;
+- (CGFloat) alpha;
+
 @end

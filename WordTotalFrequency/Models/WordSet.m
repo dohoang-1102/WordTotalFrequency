@@ -15,6 +15,7 @@
 @synthesize markedWordCount = _markedWordCount;
 @synthesize description = _description;
 @synthesize color = _color;
+@synthesize arrowColor = _arrowColor;
 @synthesize completePercentage = _completePercentage;
 @synthesize iconUrl = _iconUrl;
 @synthesize categoryId = _categoryId;
@@ -34,6 +35,7 @@
 {
     [_description release];
     [_color release];
+    [_arrowColor release];
     [super dealloc];
 }
 

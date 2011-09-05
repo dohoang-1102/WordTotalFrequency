@@ -32,7 +32,7 @@
 {
     _backgroundImage.image = [UIImage imageNamed:@"word-set-selected-bg"];
     
-    [self performSelector:@selector(navigateToWordSetController) withObject:nil afterDelay:.15];
+    [self performSelector:@selector(navigateToWordSetController) withObject:nil afterDelay:.05];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -50,7 +50,7 @@
         [self.layer addSublayer:_arrowLayer];
         
         _backgroundImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"word-set-bg"]];
-        _backgroundImage.frame = CGRectMake(0, 8.5, frame.size.width, 106);
+        _backgroundImage.frame = CGRectMake(0, 9, frame.size.width, 106);
         [self addSubview:_backgroundImage];
         
         _countlabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -143,6 +143,7 @@
 - (void)updateDisplay
 {
     _arrowLayer.strokeColor = _wordSet.color;
+    _arrowLayer.arrowAreaColor = _wordSet.arrowColor;
     _countlabel.text = [NSString stringWithFormat:@"%d", _wordSet.markedWordCount];
     _countlabel.textColor = _wordSet.color;
     [_percentLabel setText:[NSString stringWithFormat:@"%d%%", _wordSet.completePercentage]];

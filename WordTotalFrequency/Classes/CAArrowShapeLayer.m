@@ -13,6 +13,7 @@
 @implementation CAArrowShapeLayer
 
 @synthesize strokeColor = _strokeColor;
+@synthesize arrowAreaColor = _arrowAreaColor;
 
 - (id)init
 {
@@ -33,21 +34,35 @@
     }
 }
 
+- (void)setArrowAreaColor:(UIColor *)arrowAreaColor
+{
+    if (arrowAreaColor != _arrowAreaColor)
+    {
+        [_arrowAreaColor release];
+        _arrowAreaColor = [arrowAreaColor retain];
+        [self setNeedsDisplay];
+    }
+}
+
 - (void)drawInContext:(CGContextRef)ctx
 {
     CGGradientRef glossGradient;
     CGColorSpaceRef rgbColorspace;
     size_t num_locations = 2;
-    CGFloat locations[2] = { 0.0, 0.18 };
-    CGFloat components[8] = {148.0/255, 185.0/255, 209.0/255, 0.8,  // Start color
-        148.0/255, 185.0/255, 209.0/255, 0}; // End color
+    CGFloat locations[2] = {0.0, 1.0};
+//    NSLog(@"%f, %f, %f", [_arrowAreaColor red], [_arrowAreaColor green], [_arrowAreaColor blue]);
+//    CGFloat components[8] = {148.0/255, 185.0/255, 209.0/255, 0.8,  // Start color
+//        148.0/255, 185.0/255, 209.0/255, 0}; // End color
+    CGFloat components[8] = {[_arrowAreaColor red], [_arrowAreaColor green], [_arrowAreaColor blue], 1,  // Start color
+        [_arrowAreaColor red], [_arrowAreaColor green], [_arrowAreaColor blue], 1}; // End color
+    
 	
     rgbColorspace = CGColorSpaceCreateDeviceRGB();
     glossGradient = CGGradientCreateWithColorComponents(rgbColorspace, components, locations, num_locations);
 	
     CGRect currentBounds = self.bounds;
     CGPoint topCenter = CGPointMake(CGRectGetMidX(currentBounds), 0.0f);
-    CGPoint midCenter = CGPointMake(CGRectGetMidX(currentBounds), CGRectGetMidY(currentBounds));
+    CGPoint midCenter = CGPointMake(CGRectGetMidX(currentBounds), 9.5);
     
 
     CGMutablePathRef path = CGPathCreateMutable();
@@ -79,6 +94,7 @@
 - (void)dealloc
 {
     [_strokeColor release];
+    [_arrowAreaColor release];
     [super dealloc];
 }
 
