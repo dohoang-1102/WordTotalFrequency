@@ -88,7 +88,7 @@
         [_markIcon setImage:nil forState:UIControlStateNormal];
     
     _spell.text = _word.spell;
-//    _translate.translate = _word.translate;
+    _translate.translate = _word.translate;
     
 //    const char *cstr = [_word.translate UTF8String];
 //    _translate.text = [NSString stringWithCString:cstr encoding:NSUTF8StringEncoding];
