@@ -18,4 +18,7 @@
 
 @property (nonatomic, assign) WordSetController *wordSetController;
 
+- (void)previousTestWord;
+- (void)nextTestWord;
+
 @end

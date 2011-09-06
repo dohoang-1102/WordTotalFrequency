@@ -11,6 +11,7 @@
 
 @implementation WordPaperView
 
+
 - (void)choiceTapped:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint point = [gestureRecognizer locationInView:self];
@@ -64,22 +65,45 @@
                          completion:^(BOOL finished){}];
         [right release];
         
-        [self removeGestureRecognizer:gestureRecognizer];
+        [gestureRecognizer.view removeGestureRecognizer:gestureRecognizer];
     }
 }
 
-- (id)initWithFrame:(CGRect)frame word:(NSString *)word options:(NSArray *)options answer:(NSUInteger)answer footer:(NSString *)footer
+- (id)initWithFrame:(CGRect)frame word:(NSString *)word options:(NSArray *)options answer:(NSUInteger)answer footer:(NSString *)footer testView:(WordTestView *)testView
 {
     self = [super initWithFrame:frame];
     if (self) {
         _answerIndex = answer;
+        _wordTestView = testView;
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20, 20, CGRectGetWidth(frame)-30, 30)];
+        UIButton *left = [[UIButton alloc] initWithFrame:CGRectMake(15, 15, 38, 38)];
+        [left setImage:[UIImage imageNamed:@"arrow-left"] forState:UIControlStateNormal];
+        [left addTarget:_wordTestView action:@selector(previousTestWord) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:left];
+        [left release];
+        
+        UIButton *right = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame)-15-38, 15, 38, 38)];
+        [right setImage:[UIImage imageNamed:@"arrow-right"] forState:UIControlStateNormal];
+        [right addTarget:_wordTestView action:@selector(nextTestWord) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:right];
+        [right release];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(55, 20, CGRectGetWidth(frame)-110, 30)];
         label.font = [UIFont boldSystemFontOfSize:28];
         label.text = word;
+        label.adjustsFontSizeToFitWidth = YES;
+        label.textAlignment = UITextAlignmentCenter;
         label.textColor = [UIColor colorForNormalText];
         [self addSubview:label];
         [label release];
+        
+        UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 77, CGRectGetWidth(frame), CGRectGetHeight(frame)-77-20)];
+        [self addSubview:container];
+        
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self action:@selector(choiceTapped:)];
+        [container addGestureRecognizer:gesture];
+        [gesture release];
         
         UILabel *option;
         int y = 77;
@@ -104,10 +128,7 @@
         [self addSubview:footerLabel];
         [footerLabel release];
         
-        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]
-                                           initWithTarget:self action:@selector(choiceTapped:)];
-        [self addGestureRecognizer:gesture];
-        [gesture release];
+        [container release];
     }
     return self;
 }

@@ -44,7 +44,67 @@
                                                  word:word.spell
                                               options:options
                                                answer:answerIndex
-                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]];
+                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]
+                  testView:self];
+    _paperView.backgroundColor = [UIColor whiteColor];
+    [_containerView addSubview:_paperView];
+}
+
+- (void)previousTestWord
+{
+    if (_wordSetController.currentTestWordIndex == 0) return;
+    _wordSetController.currentTestWordIndex--;
+    
+    [_paperView removeFromSuperview];
+    [_paperView release];
+    _paperView = nil;
+    
+    Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
+    WordSet *wordSet = [_wordSetController wordSet];
+    int answerIndex = rand()%4;
+    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
+    _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
+                                                 word:word.spell
+                                              options:options
+                                               answer:answerIndex
+                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]
+                                             testView:self];
+    _paperView.backgroundColor = [UIColor whiteColor];
+    
+    [UIView transitionWithView:_containerView duration:0.5
+                       options:UIViewAnimationOptionTransitionCurlDown
+                    animations:^ { [_containerView addSubview:_paperView]; }
+                    completion:nil];
+}
+
+- (void)nextTestWord
+{
+    if (_wordSetController.currentTestWordIndex == _wordSetController.wordSet.totalWordCount-1) return;
+    _wordSetController.currentTestWordIndex++;
+    
+    [UIView transitionWithView:_containerView duration:0.5
+                       options:UIViewAnimationOptionTransitionCurlUp
+                    animations:^ { [_paperView removeFromSuperview]; }
+                    completion:^(BOOL finished) {
+                        if (finished)
+                        {
+                            
+                        }
+                    }];
+    
+    [_paperView release];
+    _paperView = nil;
+    
+    Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
+    WordSet *wordSet = [_wordSetController wordSet];
+    int answerIndex = rand()%4;
+    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
+    _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
+                                                 word:word.spell
+                                              options:options
+                                               answer:answerIndex
+                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]
+                                             testView:self];
     _paperView.backgroundColor = [UIColor whiteColor];
     [_containerView addSubview:_paperView];
 }
@@ -53,58 +113,11 @@
 {
     if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft)
     {
-        if (_wordSetController.currentTestWordIndex == _wordSetController.wordSet.totalWordCount-1) return;
-        _wordSetController.currentTestWordIndex++;
-        
-        [UIView transitionWithView:_containerView duration:0.5
-                           options:UIViewAnimationOptionTransitionCurlUp
-                        animations:^ { [_paperView removeFromSuperview]; }
-                        completion:^(BOOL finished) {
-                            if (finished)
-                            {
-                                
-                            }
-                        }];
-
-        [_paperView release];
-        _paperView = nil;
-        
-        Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
-        WordSet *wordSet = [_wordSetController wordSet];
-        int answerIndex = rand()%4;
-        NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
-        _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
-                                                     word:word.spell
-                                                  options:options
-                                                   answer:answerIndex
-                                                   footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]];
-        _paperView.backgroundColor = [UIColor whiteColor];
-        [_containerView addSubview:_paperView];
+        [self nextTestWord];
     }
     else
     {
-        if (_wordSetController.currentTestWordIndex == 0) return;
-        _wordSetController.currentTestWordIndex--;
-        
-        [_paperView removeFromSuperview];
-        [_paperView release];
-        _paperView = nil;
-        
-        Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
-        WordSet *wordSet = [_wordSetController wordSet];
-        int answerIndex = rand()%4;
-        NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
-        _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
-                                                     word:word.spell
-                                                  options:options
-                                                   answer:answerIndex
-                                                   footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]];
-        _paperView.backgroundColor = [UIColor whiteColor];
-        
-        [UIView transitionWithView:_containerView duration:0.5
-                           options:UIViewAnimationOptionTransitionCurlDown
-                        animations:^ { [_containerView addSubview:_paperView]; }
-                        completion:nil];
+        [self previousTestWord];
     }
 }
 
