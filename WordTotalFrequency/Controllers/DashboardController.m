@@ -50,6 +50,7 @@
     [_listController release];
     
     [_barContainer release];
+    [_pieChart release];
     
     [super dealloc];
 }
@@ -134,18 +135,6 @@
         CGRect rect = _listController.view.frame;
         rect.origin.y = CGRectGetHeight(self.view.frame);
         _listController.view.frame = rect;
-        
-        for (UIView *view in self.view.subviews) {
-            if (view != _searchBar && view != _listController.view)
-            {
-                view.alpha = 100;
-            }
-        }
-        
-        if (_selectedIconIndex > -1)
-        {
-            _briefView.alpha = 0;
-        }
     }
 }
 
@@ -283,6 +272,11 @@
                      initWithFrame:CGRectMake(0, -WORDSETBRIEF_HEIGHT, CGRectGetWidth(rect), WORDSETBRIEF_HEIGHT)];
     _wordSetBrief.dashboardController = self;
     [_barContainer addSubview:_wordSetBrief];
+    
+    // pie chart
+    _pieChart = [[PieChart alloc] initWithFrame:CGRectMake(0, 120, 320, 360)];
+    _pieChart.backgroundColor = [UIColor clearColor];
+    [self.view insertSubview:_pieChart atIndex:1];
     
     _listController = [[WordListController alloc] init];
     _listController.delegate = self;

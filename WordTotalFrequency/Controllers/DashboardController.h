@@ -10,6 +10,7 @@
 #import "CustomSearchBar.h"
 #import "WordListController.h"
 #import "BriefView.h"
+#import "PieChart.h"
 
 @class WordSetBriefView;
 
@@ -17,6 +18,7 @@
 {
     NSInteger _selectedIconIndex;
     UIView *_barContainer;
+    PieChart *_pieChart;
 }
 
 @property (nonatomic, retain) NSMutableArray *wordSets;
