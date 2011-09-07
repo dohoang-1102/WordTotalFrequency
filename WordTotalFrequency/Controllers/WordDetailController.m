@@ -70,10 +70,15 @@ typedef enum {
 
 - (void)updateMarkOnSegmented
 {
-    UIButton *button = [self buttonFor:_segmentedControl atIndex:1];
-    UIImageView *image = (UIImageView *)[button viewWithTag:kSegmentMarkTag];
     NSString *imageName = [self.word.marked boolValue] ? @"mark-circle" : @"mark-circle-gray";
+    UIImageView *image = (UIImageView *)[self.view viewWithTag:kSegmentMarkTag];
     image.image = [UIImage imageNamed:imageName];
+}
+
+- (void)updateMarkOnTopBar
+{
+    WordDetailView *view = (WordDetailView *)[_containerView.subviews objectAtIndex:0];
+    [view updateWordData];
 }
 
 - (void)previousWordDetail
@@ -83,6 +88,7 @@ typedef enum {
         CGRect rect = _containerView.bounds;
         rect.origin.x -= CGRectGetWidth(rect);
         WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
+        view.wordDetailController = self;
         [_containerView addSubview:view];
         
         WordDetailView *oldView =  [[_containerView subviews] objectAtIndex:0];
@@ -113,6 +119,7 @@ typedef enum {
         CGRect rect = _containerView.bounds;
         rect.origin.x += CGRectGetWidth(rect);
         WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
+        view.wordDetailController = self;
         [_containerView addSubview:view];
         
         WordDetailView *oldView =  [[_containerView subviews] objectAtIndex:0];
@@ -163,6 +170,7 @@ typedef enum {
     [self.view addSubview:_containerView];
     
     WordDetailView *view = [[WordDetailView alloc] initWithFrame:_containerView.bounds];
+    view.wordDetailController = self;
     [_containerView addSubview:view];
     [view release];
         
@@ -217,6 +225,8 @@ typedef enum {
     WordDetailView *view =  [[_containerView subviews] objectAtIndex:0];
     view.word = _word;
     [view updateWordData];
+    
+    [self updateMarkOnSegmented];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -247,6 +257,7 @@ typedef enum {
         case 1:
             self.word.marked = [NSNumber numberWithBool:![self.word.marked boolValue]];
             [self updateMarkOnSegmented];
+            [self updateMarkOnTopBar];
             break;
         case 2:
             [self nextWordDetail];

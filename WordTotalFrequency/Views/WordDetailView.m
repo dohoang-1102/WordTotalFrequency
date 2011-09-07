@@ -31,6 +31,8 @@
         [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
     else
         [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
+    
+    [_wordDetailController updateMarkOnSegmented];
 }
 
 - (void)speakAction

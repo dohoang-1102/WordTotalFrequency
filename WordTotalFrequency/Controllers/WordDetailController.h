@@ -22,4 +22,6 @@
 @property (nonatomic) NSUInteger currentWordIndex;
 @property (nonatomic, assign) WordListController *wordListController;
 
+- (void)updateMarkOnSegmented;
+
 @end
