@@ -39,10 +39,7 @@
     
     UIImage     *pieTopImg[PART_NUM];
     UIImage     *pieBtmImg[PART_NUM];
-    UIImageView *pieTopImgView[PART_NUM];
-    UIImageView *pieBtmImgView[PART_NUM];
-    UIImageView *pieHighLightView;
-    
+        
     int partStartDivide[PART_NUM];
     int partEndDivide[PART_NUM];
     

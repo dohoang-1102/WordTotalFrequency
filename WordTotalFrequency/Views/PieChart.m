@@ -60,20 +60,7 @@
     for(int i=0;i<PART_NUM;i++){
         pieTopImg[i] = [UIImage imageNamed:[NSString stringWithFormat:@"pieTopImg_part%d.jpg",i+1]];
         pieBtmImg[i] = [UIImage imageNamed:[NSString stringWithFormat:@"pieBtmImg_part%d.jpg",i+1]];
-        pieTopImgView[i] =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)];
-        pieBtmImgView[i] =[[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)];
-        [self addSubview:pieBtmImgView[i]];
-        
-        
     }
-    for(int i=0;i<PART_NUM;i++){
-        [self addSubview:pieTopImgView[i]];
-    }
-    
-    pieHighLightView      = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.width)];
-    [self addSubview:pieHighLightView];
-    //UIImageView *imgview = [[UIImageView alloc] initWithImage:img];
-    //[self addSubview:imgview];
 }
 
 
@@ -212,75 +199,12 @@
     
     
     
-    //draw
-    //CGContextRef context = UIGraphicsGetCurrentContext();
-    //CGContextDrawImage(&context, CGRectMake(0, 0, self.frame.size.width, self.frame.size.height), image.CGImage);
-
-    //CGContextSetRGBStrokeColor(context, 1.0, 0.0, 0.0, 1.0);
-    //CGContextSetLineWidth(context, 1.0);
-    
-    /*for (int i=0; i<PART_NUM; i++) {
-        
-        CGContextMoveToPoint(context, centerProjVec.x+projCenter.x, centerProjVec.y+projCenter.y);
-        CGContextAddLineToPoint(context, partTopEndProjVec[i].x+projCenter.x, partTopEndProjVec[i].y+projCenter.y);
-        
-        CGContextMoveToPoint(context, partTopEndProjVec[i].x+projCenter.x, partTopEndProjVec[i].y+projCenter.y);
-        CGContextAddLineToPoint(context, partBtmEndProjVec[i].x+projCenter.x, partBtmEndProjVec[i].y+projCenter.y);
-    }
-    for (int i=0; i<DIVIDE_NUM-1; i++) {
-        CGContextMoveToPoint(context, btmProjPoint[i].x+projCenter.x, btmProjPoint[i].y+projCenter.y);
-        CGContextAddLineToPoint(context, btmProjPoint[i+1].x+projCenter.x, btmProjPoint[i+1].y+projCenter.y);
-    }
-    
-    for (int i=0; i<DIVIDE_NUM-1; i++) {
-        CGContextMoveToPoint(context, topProjPoint[i].x+projCenter.x, topProjPoint[i].y+projCenter.y);
-        CGContextAddLineToPoint(context, topProjPoint[i+1].x+projCenter.x, topProjPoint[i+1].y+projCenter.y);
-    }*/
-    
-    
+    CGContextRef context = UIGraphicsGetCurrentContext();    
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB(); 
-    
-    
-    
-    
-    //draw highlight part
-    CGContextRef highLightContext = CGBitmapContextCreate(NULL, self.frame.size.width, self.frame.size.width, 8, 4 * self.frame.size.width, colorSpace, kCGImageAlphaPremultipliedFirst);
-    
-    
-    
-    float pieTopHeight        = maxTopProjY-minTopProjY;
-    float hightLight1AlphaRange   = pieTopHeight*6;
-    float hightLight2AlphaRange   = pieTopHeight*4;
-    float hightLight1SizeRange    = pieTopHeight/8;
-    float hightLight2SizeRange    = pieTopHeight/4;
-    
-    for (int i=0; i<DIVIDE_NUM; i++) {
-        CGContextSetRGBStrokeColor(highLightContext, 1.0, 1.0, 1.0, (topProjPoint[i].y-minTopProjY)/hightLight1AlphaRange);
-        CGContextSetLineWidth(highLightContext, (topProjPoint[i].y-minTopProjY)/hightLight1SizeRange);
-        CGContextMoveToPoint(highLightContext, topProjPoint[i].x, topProjPoint[i].y);
-        CGContextAddLineToPoint(highLightContext, topProjPoint[i+1].x, topProjPoint[i+1].y);
-        CGContextStrokePath(highLightContext);
-        CGContextSetRGBStrokeColor(highLightContext, 1.0, 1.0, 1.0, (topProjPoint[i].y-minTopProjY)/hightLight2AlphaRange);
-        CGContextSetLineWidth(highLightContext, (topProjPoint[i].y-minTopProjY)/hightLight2SizeRange);
-        CGContextMoveToPoint(highLightContext, topProjPoint[i].x, topProjPoint[i].y);
-        CGContextAddLineToPoint(highLightContext, topProjPoint[i+1].x, topProjPoint[i+1].y);
-        CGContextStrokePath(highLightContext);
-    }
-    
-    
-    CGImageRef cgHightLightImage = CGBitmapContextCreateImage(highLightContext);
-    CGContextRelease(highLightContext);
-    
-    UIImage *uiHighLightImage   = [[UIImage alloc] initWithCGImage:cgHightLightImage scale:1.0 orientation:UIImageOrientationDown];
-    pieHighLightView.image      = uiHighLightImage;
-    [uiHighLightImage release];
-    CGImageRelease(cgHightLightImage);
-    
     
     //draw the bottom part
     for (int i=0; i<PART_NUM; i++) {
-        CGContextRef context = CGBitmapContextCreate(NULL, self.frame.size.width, self.frame.size.width, 8, 4 * self.frame.size.width, colorSpace, kCGImageAlphaPremultipliedFirst);
-        
+        CGContextSaveGState(context);
         CGContextBeginPath(context);
         if(i>0){
             CGContextMoveToPoint(context, partTopEndProjVec[i-1].x, partTopEndProjVec[i-1].y);
@@ -314,25 +238,29 @@
         CGContextClosePath(context);
         
         CGContextClip(context);
-        CGContextDrawImage(context,pieBtmImgView[i].frame,pieBtmImg[i].CGImage);
-        CGImageRef imageMasked = CGBitmapContextCreateImage(context); 
-        CGContextRelease(context); 
-        
-        UIImage *newImage = [UIImage imageWithCGImage:imageMasked scale:1.0 orientation:UIImageOrientationDown];
-        CGImageRelease(imageMasked);
-        
-        pieBtmImgView[i].image=newImage; 
+        CGContextDrawImage(context, self.bounds, pieBtmImg[i].CGImage);
+        CGContextRestoreGState(context);
     }
     
-    
-    //draw the top part
-    for (int i=0; i<PART_NUM; i++) {
-       
-        CGContextRef context = CGBitmapContextCreate(NULL, self.frame.size.width, self.frame.size.width, 8, 4 * self.frame.size.width, colorSpace, kCGImageAlphaPremultipliedFirst); 
-        
-        
+    //draw shadow
+    for (int i=4; i<=8; i+=4) {
+        CGContextSaveGState(context);
+        CGContextSetStrokeColorWithColor(context, [[UIColor alloc]initWithRed:.101 green:.415 blue:.725 alpha:.15].CGColor);
+        CGContextSetLineWidth(context, i);
         CGContextBeginPath(context);
         
+        CGContextMoveToPoint(context, btmProjPoint[0].x, btmProjPoint[0].y);
+        for (int i=1; i<=DIVIDE_NUM; i++) {
+            CGContextAddLineToPoint(context, btmProjPoint[i].x, btmProjPoint[i].y);
+        }
+        CGContextStrokePath(context);
+        CGContextRestoreGState(context);
+    }
+
+    //draw the top part
+    for (int i=0; i<PART_NUM; i++) {
+        CGContextSaveGState(context);
+        CGContextBeginPath(context);
         CGContextMoveToPoint(context, projCenter.x, projCenter.y);
         
         if(i>0){
@@ -353,38 +281,33 @@
         
         CGContextClip(context);
         
-        CGContextDrawImage(context,pieTopImgView[i].frame,pieTopImg[i].CGImage);
-        CGImageRef imageMasked = CGBitmapContextCreateImage(context); 
-        CGContextRelease(context); 
-        
-        UIImage *newImage = [UIImage imageWithCGImage:imageMasked scale:1.0 orientation:UIImageOrientationDown];
-        CGImageRelease(imageMasked);
-        
-        pieTopImgView[i].image = newImage; 
+        CGContextDrawImage(context, self.bounds, pieTopImg[i].CGImage);
+        CGContextRestoreGState(context);
     }
     
-    //draw shadow
-    CGContextRef context = UIGraphicsGetCurrentContext();
+    //draw highlight part
+    float pieTopHeight        = maxTopProjY-minTopProjY;
+    float hightLight1AlphaRange   = pieTopHeight*6;
+    float hightLight2AlphaRange   = pieTopHeight*4;
+    float hightLight1SizeRange    = pieTopHeight/8;
+    float hightLight2SizeRange    = pieTopHeight/4;
     
-    for (int i=4; i<=8; i+=4) {
-        CGContextSetStrokeColorWithColor(context, [[UIColor alloc]initWithRed:.101 green:.415 blue:.725 alpha:.15].CGColor);
-        CGContextSetLineWidth(context, i);
-        CGContextBeginPath(context);
-        
-        CGContextMoveToPoint(context, btmProjPoint[0].x, btmProjPoint[0].y);
-        for (int i=1; i<=DIVIDE_NUM; i++) {
-            CGContextAddLineToPoint(context, btmProjPoint[i].x, btmProjPoint[i].y);
-        }
-        
+    for (int i=0; i<DIVIDE_NUM; i++) {
+        CGContextSaveGState(context);
+        CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, (topProjPoint[i].y-minTopProjY)/hightLight1AlphaRange);
+        CGContextSetLineWidth(context, (topProjPoint[i].y-minTopProjY)/hightLight1SizeRange);
+        CGContextMoveToPoint(context, topProjPoint[i].x, topProjPoint[i].y);
+        CGContextAddLineToPoint(context, topProjPoint[i+1].x, topProjPoint[i+1].y);
         CGContextStrokePath(context);
-
+        CGContextSetRGBStrokeColor(context, 1.0, 1.0, 1.0, (topProjPoint[i].y-minTopProjY)/hightLight2AlphaRange);
+        CGContextSetLineWidth(context, (topProjPoint[i].y-minTopProjY)/hightLight2SizeRange);
+        CGContextMoveToPoint(context, topProjPoint[i].x, topProjPoint[i].y);
+        CGContextAddLineToPoint(context, topProjPoint[i+1].x, topProjPoint[i+1].y);
+        CGContextStrokePath(context);
+        CGContextRestoreGState(context);
     }
     
     CGColorSpaceRelease(colorSpace);
-    
-       // CGContextDrawImage(context,pieShadowView.frame,pieShadow.CGImage);
-    //CGContextRelease(context);  
-    
 }
 
 
