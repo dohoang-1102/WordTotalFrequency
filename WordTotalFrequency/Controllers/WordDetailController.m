@@ -12,6 +12,15 @@
 #import "WordTotalFrequencyAppDelegate.h"
 #import "WordDetailView.h"
 
+
+typedef enum {
+    CapLeft          = 0,
+    CapMiddle        = 1,
+    CapRight         = 2,
+    CapLeftAndRight  = 3
+} CapLocation;
+
+
 @implementation WordDetailController
 
 @synthesize word = _word;
@@ -24,6 +33,9 @@
 #define SPELL_LABEL_TAG 2
 #define PHONETIC_LABEL_TAG 3
 #define DETAIL_LABEL_TAG 4
+
+#define kSegmentLabelTag 99
+#define kSegmentMarkTag 97
 
 - (id)init
 {
@@ -38,6 +50,8 @@
 {
     [_word release];
     [_words release];
+    [_containerView release];
+    [_segmentedControl release];
     [super dealloc];
 }
 
@@ -54,63 +68,85 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)updateMarkOnSegmented
+{
+    UIButton *button = [self buttonFor:_segmentedControl atIndex:1];
+    UIImageView *image = (UIImageView *)[button viewWithTag:kSegmentMarkTag];
+    NSString *imageName = [self.word.marked boolValue] ? @"mark-circle" : @"mark-circle-gray";
+    image.image = [UIImage imageNamed:imageName];
+}
+
+- (void)previousWordDetail
+{
+    if (_currentWordIndex > 0)
+    {
+        CGRect rect = _containerView.bounds;
+        rect.origin.x -= CGRectGetWidth(rect);
+        WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
+        [_containerView addSubview:view];
+        
+        WordDetailView *oldView =  [[_containerView subviews] objectAtIndex:0];
+        [UIView transitionWithView:_containerView duration:0.5
+                           options:UIViewAnimationOptionCurveEaseInOut
+                        animations:^ {
+                            view.frame = _containerView.bounds;
+                            oldView.frame = CGRectMake(CGRectGetWidth(rect), rect.origin.y, CGRectGetWidth(rect), CGRectGetHeight(rect));
+                        }
+                        completion:^(BOOL finished) {
+                            if (finished)
+                                [oldView removeFromSuperview];
+                        }];
+        
+        self.word = [self.words objectAtIndex:--_currentWordIndex];
+        view.word = self.word;
+        [view updateWordData];
+        [view release];
+        
+        [self updateMarkOnSegmented];
+    }
+}
+
+- (void)nextWordDetail
+{
+    if (_currentWordIndex < [self.words count]-1)
+    {
+        CGRect rect = _containerView.bounds;
+        rect.origin.x += CGRectGetWidth(rect);
+        WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
+        [_containerView addSubview:view];
+        
+        WordDetailView *oldView =  [[_containerView subviews] objectAtIndex:0];
+        [UIView transitionWithView:_containerView duration:0.5
+                           options:UIViewAnimationOptionCurveEaseInOut
+                        animations:^ {
+                            view.frame = _containerView.bounds;
+                            oldView.frame = CGRectMake(-CGRectGetWidth(rect), rect.origin.y, CGRectGetWidth(rect), CGRectGetHeight(rect));
+                        }
+                        completion:^(BOOL finished) {
+                            if (finished)
+                                [oldView removeFromSuperview];
+                        }];
+        
+        self.word = [self.words objectAtIndex:++_currentWordIndex];
+        view.word = self.word;
+        [view updateWordData];
+        [view release];
+        
+        [self updateMarkOnSegmented];
+    }
+}
+
 - (void)swipeAction:(UISwipeGestureRecognizer *)recognizer
 {
     if (_wordSetIndex < 0) return;
     
     if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft)
     {
-        if (_currentWordIndex < [self.words count]-1)
-        {
-            CGRect rect = self.view.bounds;
-            rect.origin.x += CGRectGetWidth(rect);
-            WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
-            [self.view addSubview:view];
-            
-            WordDetailView *oldView =  [[self.view subviews] objectAtIndex:0];
-            [UIView transitionWithView:self.view duration:0.5
-                               options:UIViewAnimationOptionCurveEaseInOut
-                            animations:^ {
-                                view.frame = self.view.bounds;
-                                oldView.frame = CGRectMake(-CGRectGetWidth(rect), rect.origin.y, CGRectGetWidth(rect), CGRectGetHeight(rect));
-                            }
-                            completion:^(BOOL finished) {
-                                if (finished)
-                                    [oldView removeFromSuperview];
-                            }];
-            
-            self.word = [self.words objectAtIndex:++_currentWordIndex];
-            view.word = self.word;
-            [view updateWordData];
-            [view release];
-        }
+        [self nextWordDetail];
     }
     else
     {
-        if (_currentWordIndex > 0)
-        {
-            CGRect rect = self.view.bounds;
-            rect.origin.x -= CGRectGetWidth(rect);
-            WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
-            [self.view addSubview:view];
-            
-            WordDetailView *oldView =  [[self.view subviews] objectAtIndex:0];
-            [UIView transitionWithView:self.view duration:0.5
-                               options:UIViewAnimationOptionCurveEaseInOut
-                            animations:^ {
-                                view.frame = self.view.bounds;
-                                oldView.frame = CGRectMake(CGRectGetWidth(rect), rect.origin.y, CGRectGetWidth(rect), CGRectGetHeight(rect));
-                            }
-                            completion:^(BOOL finished) {
-                                if (finished)
-                                    [oldView removeFromSuperview];
-                            }];
-            
-            self.word = [self.words objectAtIndex:--_currentWordIndex];
-            view.word = self.word;
-            [view updateWordData];
-            [view release];
-        }
+        [self previousWordDetail];
     }
 }
 
@@ -119,26 +155,44 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    CGRect rect = [[UIScreen mainScreen] bounds];
+    CGRect rect = [UIScreen mainScreen].applicationFrame;
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
-    WordDetailView *view = [[WordDetailView alloc] initWithFrame:rect];
-    [self.view addSubview:view];
+    _containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(rect), CGRectGetHeight(rect)-49)];
+    [self.view addSubview:_containerView];
+    
+    WordDetailView *view = [[WordDetailView alloc] initWithFrame:_containerView.bounds];
+    [_containerView addSubview:view];
     [view release];
         
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
     recognizer.direction = UISwipeGestureRecognizerDirectionLeft;
     recognizer.delegate = self;
-    [self.view addGestureRecognizer:recognizer];
+    [_containerView addGestureRecognizer:recognizer];
     [recognizer release];
     
     recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
     recognizer.direction = UISwipeGestureRecognizerDirectionRight;
     recognizer.delegate = self;
-    [self.view addGestureRecognizer:recognizer];
+    [_containerView addGestureRecognizer:recognizer];
     [recognizer release];
+    
+    UIImageView *segmentBg = [[UIImageView alloc] initWithFrame:CGRectMake(6, CGRectGetHeight(rect)-49, 309, 48)];
+    segmentBg.image = [UIImage imageNamed:@"segment-bg"];
+    [self.view addSubview:segmentBg];
+    [segmentBg release];
+    
+    NSArray *titles = [NSArray arrayWithObjects:@"Last", @"Mark as\nremembered", @"Next", nil];
+    _segmentedControl = [[CustomSegmentedControl alloc]
+                         initWithSegmentCount:titles.count
+                         segmentsize:CGSizeMake(77, 48)
+                         dividerImage:[UIImage imageNamed:@"segment-breaker"]
+                         tag:1000
+                         delegate:self];
+    _segmentedControl.frame = CGRectMake(6, CGRectGetHeight(rect)-54, 308, 48);
+    [self.view addSubview:_segmentedControl];
 }
 
 /*
@@ -160,7 +214,7 @@
 {
     [super viewWillAppear:animated];
     
-    WordDetailView *view =  [[self.view subviews] objectAtIndex:0];
+    WordDetailView *view =  [[_containerView subviews] objectAtIndex:0];
     view.word = _word;
     [view updateWordData];
 }
@@ -169,6 +223,110 @@
 {
     [super viewDidDisappear:animated];
     self.words = nil;
+}
+
+#pragma mark - CustomSegmentedControlDelegate
+
+- (void)touchDownAtSegmentIndex:(NSUInteger)segmentIndex
+{
+    UIButton* button = (UIButton *)[_segmentedControl viewWithTag:segmentIndex+10];
+    UILabel *label = (UILabel *)[button viewWithTag:kSegmentLabelTag];
+    label.textColor = [UIColor darkGrayColor];
+}
+
+- (void)touchUpInsideSegmentIndex:(NSUInteger)segmentIndex
+{
+    UIButton* button = (UIButton *)[_segmentedControl viewWithTag:segmentIndex+10];
+    UILabel *label = (UILabel *)[button viewWithTag:kSegmentLabelTag];
+    label.textColor = [UIColor colorForNormalText];
+    
+    switch (segmentIndex) {
+        case 0:
+            [self previousWordDetail];
+            break;
+        case 1:
+            self.word.marked = [NSNumber numberWithBool:![self.word.marked boolValue]];
+            [self updateMarkOnSegmented];
+            break;
+        case 2:
+            [self nextWordDetail];
+            break;
+    }
+}
+
+- (UIButton *) buttonFor:(CustomSegmentedControl*)segmentedControl atIndex:(NSUInteger)segmentIndex;
+{
+    NSArray *titles = [NSArray arrayWithObjects:@"Last", @"Mark as\nremembered", @"Next", nil];
+    
+    CapLocation location;
+    if (segmentIndex == 0)
+        location = CapLeft;
+    else if (segmentIndex == titles.count - 1)
+        location = CapRight;
+    else
+        location = CapMiddle;
+    
+    UIImage* buttonImage = nil;
+    UIImage* buttonPressedImage = nil;
+    
+    CGSize buttonSize = CGSizeMake(84, 48);
+    if (segmentIndex == 1)
+        buttonSize = CGSizeMake(140, 48);
+    
+    
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.frame = CGRectMake(0.0, 0.0, buttonSize.width, buttonSize.height);
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, buttonSize.width, 40)];
+    label.tag = kSegmentLabelTag;
+    label.numberOfLines = 0;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont boldSystemFontOfSize:14];
+    label.textAlignment = UITextAlignmentLeft;
+    label.textColor = [UIColor colorForNormalText];
+    label.shadowColor = [UIColor whiteColor];
+    label.shadowOffset = CGSizeMake(.5, 1);
+    label.text = [titles objectAtIndex:segmentIndex];
+    [button addSubview:label];
+    [label release];
+
+    if (location == CapLeft)
+    {
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow-previous"]];
+        image.frame = CGRectMake(16, 23, 10, 13);
+        [button addSubview:image];
+        [image release];
+        
+        label.frame = CGRectMake(36, label.frame.origin.y, label.frame.size.width-36, label.frame.size.height);
+    }
+    else if (location == CapRight)
+    {
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow-next"]];
+        image.frame = CGRectMake(button.frame.size.width-26, 23, 10, 13);
+        [button addSubview:image];
+        [image release];        
+        
+        label.frame = CGRectMake(0, label.frame.origin.y, label.frame.size.width-36, label.frame.size.height);
+        label.textAlignment = UITextAlignmentRight;
+    }
+    else
+    {
+        NSString *imageName = [self.word.marked boolValue] ? @"mark-circle" : @"mark-circle-gray";
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+        image.tag = kSegmentMarkTag;
+        image.frame = CGRectMake(16, 23, 12, 13);
+        [button addSubview:image];
+        [image release];
+        
+        label.frame = CGRectMake(42, label.frame.origin.y, label.frame.size.width-46, label.frame.size.height);
+    }
+    
+    
+    [button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [button setBackgroundImage:buttonPressedImage forState:UIControlStateHighlighted];
+    [button setBackgroundImage:buttonPressedImage forState:UIControlStateSelected];
+    button.adjustsImageWhenHighlighted = NO;
+    return button;
 }
 
 @end

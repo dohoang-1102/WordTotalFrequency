@@ -76,12 +76,12 @@
             if (i != segmentCount - 1)
             {
                 UIImageView* divider = [[[UIImageView alloc] initWithImage:dividerImage] autorelease];
-                divider.frame = CGRectMake(horizontalOffset + segmentsize.width, 0.0, dividerImage.size.width, dividerImage.size.height);
+                divider.frame = CGRectMake(horizontalOffset + button.frame.size.width, 0.0, dividerImage.size.width, dividerImage.size.height);
                 [self addSubview:divider];
             }
             
             // Advance the horizontal offset
-            horizontalOffset = horizontalOffset + segmentsize.width + dividerImage.size.width;
+            horizontalOffset = horizontalOffset + button.frame.size.width + dividerImage.size.width;
         }
     }
     

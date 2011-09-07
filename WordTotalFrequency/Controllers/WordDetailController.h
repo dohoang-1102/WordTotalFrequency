@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Word.h"
 #import "WordListController.h"
+#import "CustomSegmentedControl.h"
 
-@interface WordDetailController : UIViewController<UIGestureRecognizerDelegate> {
+@interface WordDetailController : UIViewController<UIGestureRecognizerDelegate, CustomSegmentedControlDelegate> {
+    UIView *_containerView;
+    CustomSegmentedControl *_segmentedControl;
 }
 
 @property (nonatomic, retain) Word *word;

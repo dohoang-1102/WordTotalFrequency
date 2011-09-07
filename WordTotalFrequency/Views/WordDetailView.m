@@ -59,16 +59,19 @@
         [tapGesture release];
         
         UIButton *mark = [UIButton buttonWithType:UIButtonTypeCustom];
-        mark.frame = CGRectMake(0, 20, 8, 9);
+        mark.frame = CGRectMake(0, 16, 12, 13);
         mark.tag = MARK_ICON_TAG;
         mark.userInteractionEnabled = NO;
         [view addSubview:mark];
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18, 4, 160, 32)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(21, 4, 155, 32)];
         label.backgroundColor = [UIColor clearColor];
         label.font = [UIFont systemFontOfSize:28];
         label.textColor = [UIColor colorForNormalText];
+        label.adjustsFontSizeToFitWidth = YES;
         label.tag = SPELL_LABEL_TAG;
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(.5, 1);
         [view addSubview:label];
         [label release];
         
@@ -102,6 +105,8 @@
         detail.textColor = [UIColor colorForNormalText];
         detail.numberOfLines = 0;
         detail.tag = DETAIL_LABEL_TAG;
+        detail.shadowColor = [UIColor whiteColor];
+        detail.shadowOffset = CGSizeMake(.5, 1);
         [scrollView addSubview:detail];
         [detail release];
         [scrollView release];

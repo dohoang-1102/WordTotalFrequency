@@ -33,6 +33,8 @@ typedef enum {
 #define PERCENT_LABEL_TAG 2
 #define PROGRESS_TAG 3
 
+#define kSegmentLabelTag 99
+
 - (void)dealloc
 {
     [_fetchRequest release];
@@ -87,8 +89,7 @@ typedef enum {
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {    
-    CGRect rect = [UIScreen mainScreen].bounds;
-    rect = CGRectMake(0, 20, rect.size.width, rect.size.height-20);
+    CGRect rect = [UIScreen mainScreen].applicationFrame;
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
@@ -203,8 +204,17 @@ typedef enum {
 {
     for (int i=0; i<4; i++) {
         UIButton* button = (UIButton *)[_segmentedControl viewWithTag:i+10];
-        UILabel *label = (UILabel *)[button viewWithTag:99];
-        label.textColor = (i == segmentIndex) ? [UIColor whiteColor] : [UIColor colorForNormalText];
+        UILabel *label = (UILabel *)[button viewWithTag:kSegmentLabelTag];
+        if (i == segmentIndex)
+        {
+            label.textColor = [UIColor whiteColor];
+            label.shadowOffset = CGSizeMake(0, 0);
+        }
+        else
+        {
+            label.textColor = [UIColor colorForNormalText];
+            label.shadowOffset = CGSizeMake(.5, 1);
+        }
     }
 }
 
@@ -261,9 +271,11 @@ typedef enum {
     button.frame = CGRectMake(0.0, 0.0, buttonSize.width, buttonSize.height);
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, buttonSize.width, 40)];
-    label.tag = 99;
+    label.tag = kSegmentLabelTag;
     label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont boldSystemFontOfSize:16];
     label.textAlignment = UITextAlignmentCenter;
+    label.textColor = [UIColor colorForNormalText];
     label.shadowColor = [UIColor whiteColor];
     label.shadowOffset = CGSizeMake(.5, 1);
     label.text = [titles objectAtIndex:segmentIndex];
@@ -279,6 +291,7 @@ typedef enum {
     {
         button.selected = YES;
         label.textColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0, 0);
     }
     return button;
 }
