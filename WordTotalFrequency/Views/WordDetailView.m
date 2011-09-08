@@ -95,6 +95,8 @@
         phonetic.backgroundColor = [UIColor clearColor];
         phonetic.textColor = [UIColor colorForNormalText];
         phonetic.tag = PHONETIC_LABEL_TAG;
+        phonetic.shadowColor = [UIColor whiteColor];
+        phonetic.shadowOffset = CGSizeMake(.5, 1);
         [self addSubview:phonetic];
         [phonetic release];
         

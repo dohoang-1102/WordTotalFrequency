@@ -12,6 +12,8 @@
 #import "WordTotalFrequencyAppDelegate.h"
 #import "WordListCell.h"
 
+
+
 @implementation WordListController
 
 @synthesize delegate = _delegate;
@@ -20,20 +22,13 @@
 @synthesize fetchedResultsController = _fetchedResultsController;
 @synthesize searchString = _searchString;
 @synthesize wordSetIndex = _wordSetIndex;
+@synthesize listType = _listType;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
-- (id)init
+- (id)initWIthListType:(WordListType)listType
 {
     if ((self = [super init]))
     {
+        _listType = listType;
         self.wordSetIndex = -1;
     }
     return self;
@@ -46,14 +41,6 @@
     
     [_searchString release];
     [super dealloc];
-}
-
-- (void)didReceiveMemoryWarning
-{
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)setSearchString:(NSString *)searchString
@@ -99,8 +86,12 @@
     if (_wordSetIndex > -1)
     {
         self.tableView.backgroundColor = [UIColor clearColor];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex];
-        [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+        if (_listType == WordListTypeWordSet)
+            [self.fetchedResultsController.fetchRequest
+             setPredicate:[NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex]];
+        else
+            [self.fetchedResultsController.fetchRequest
+             setPredicate:[NSPredicate predicateWithFormat:@"category = %d and marked = true", _wordSetIndex]];
     }
     else
     {
@@ -185,10 +176,12 @@
     if (cell == nil) {
         cell = [[[WordListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         cell.wordSetController = _wordSetController;
+        cell.ownerTable = tableView;
     }
     
     Word *word = [_fetchedResultsController objectAtIndexPath:indexPath];
     cell.word = word;
+    cell.rowIndex = indexPath.row;
     
     return cell;
 }

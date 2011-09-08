@@ -28,6 +28,7 @@ typedef enum {
 @synthesize currentTestWordIndex = _currentTestWordIndex;
 @synthesize fetchRequest = _fetchRequest;
 @synthesize wordTestView = _wordTestView;
+@synthesize selectedViewIndex = _selectedViewIndex;
 
 #define ICON_IMAGE_TAG 1
 #define PERCENT_LABEL_TAG 2
@@ -52,23 +53,6 @@ typedef enum {
 - (void)backAction
 {
     [self.navigationController popViewControllerAnimated:YES];
-}
-
-- (void)switchViewAction:(id)sender
-{
-    UISegmentedControl *segmentedControl = (UISegmentedControl *)sender;
-    switch (segmentedControl.selectedSegmentIndex) {
-        case 0:
-            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
-            [_viewContainer addSubview:_listController.view];
-            break;
-        case 1:
-            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
-            [_viewContainer addSubview:self.wordTestView];
-            break;
-        default:
-            break;
-    }
 }
 
 - (void)updateMarkedCount
@@ -129,14 +113,6 @@ typedef enum {
     [self.view addSubview:_viewContainer];
     
     
-//    UISegmentedControl *segment = [[UISegmentedControl alloc]
-//                                   initWithItems:[NSArray arrayWithObjects:@"List", @"Test", @"History", @"Setting", nil]];
-//    segment.frame = CGRectMake(10, CGRectGetHeight(rect)-46, CGRectGetWidth(rect)-20, 40);
-//    segment.selectedSegmentIndex = 0;
-//    [segment addTarget:self action:@selector(switchViewAction:) forControlEvents:UIControlEventValueChanged];
-//    [self.view addSubview:segment];
-//    [segment release];
-    
     UIImageView *segmentBg = [[UIImageView alloc] initWithFrame:CGRectMake(6, CGRectGetHeight(rect)-49, 309, 48)];
     segmentBg.image = [UIImage imageNamed:@"segment-bg"];
     [self.view addSubview:segmentBg];
@@ -164,7 +140,7 @@ typedef enum {
     [progress setImageName:[NSString stringWithFormat:@"progress-fg-%d", _wordSet.categoryId+1]];
     progress.currentValue = _wordSet.completePercentage;
     
-    _listController = [[WordListController alloc] init];
+    _listController = [[WordListController alloc] initWIthListType:WordListTypeWordSet];
     _listController.wordSetIndex = _wordSet.categoryId;
     _listController.wordSetController = self;
     _listController.view.frame = _viewContainer.bounds;
@@ -176,6 +152,9 @@ typedef enum {
     [_listController viewDidUnload];
     [_listController release];
     _listController = nil;
+    
+    [_historyController release];
+    _historyController = nil;
     
     [super viewDidUnload];
 }
@@ -224,14 +203,29 @@ typedef enum {
         case 0:
             [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
             [_viewContainer addSubview:_listController.view];
+            [_listController.tableView reloadData];
             break;
         case 1:
             [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
             [_viewContainer addSubview:self.wordTestView];
             break;
+        case 2:
+            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
+            if (_historyController == nil)
+            {
+                _historyController = [[WordListController alloc] initWIthListType:WordListTypeHistory];
+                _historyController.wordSetIndex = _wordSet.categoryId;
+                _historyController.wordSetController = self;
+                _historyController.view.frame = _viewContainer.bounds;
+            }
+            [_viewContainer addSubview:_historyController.view];
+            break;
+        case 3:
+            break;
         default:
             break;
     }
+    _selectedViewIndex = segmentIndex;
 }
 
 - (UIButton *) buttonFor:(CustomSegmentedControl*)segmentedControl atIndex:(NSUInteger)segmentIndex;

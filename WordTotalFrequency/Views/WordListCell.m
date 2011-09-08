@@ -13,6 +13,8 @@
 
 @synthesize word = _word;
 @synthesize wordSetController = _wordSetController;
+@synthesize ownerTable = _ownerTable;
+@synthesize rowIndex = _rowIndex;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -41,7 +43,6 @@
         _translate.backgroundColor = [UIColor clearColor];
         [self addSubview:_translate];
         
-        // UILabel with NSUTF8StringEncoding causes memory leak when scrolling table cells
 //        _translate = [[UILabel alloc] initWithFrame:CGRectMake(144, 0, CGRectGetWidth(rect)-144, CGRectGetHeight(rect))];
 //        _translate.backgroundColor = [UIColor clearColor];
 //        _translate.adjustsFontSizeToFitWidth = NO;
@@ -117,6 +118,13 @@
         
         if (_wordSetController)
             [_wordSetController updateMarkedCount];
+        
+        if (_wordSetController.selectedViewIndex == 2)
+        {
+            NSUInteger ii[] = {0, _rowIndex};
+            NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
+//            [self.ownerTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        }
     }
     else
     {

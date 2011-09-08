@@ -278,7 +278,7 @@
     _pieChart.backgroundColor = [UIColor clearColor];
     [self.view insertSubview:_pieChart atIndex:1];
     
-    _listController = [[WordListController alloc] init];
+    _listController = [[WordListController alloc] initWIthListType:WordListTypeSearchResult];
     _listController.delegate = self;
     [self.view addSubview:_listController.view];
     

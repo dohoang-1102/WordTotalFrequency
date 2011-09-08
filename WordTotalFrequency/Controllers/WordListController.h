@@ -9,6 +9,13 @@
 #import <CoreData/CoreData.h>
 #import "Word.h"
 
+typedef enum {
+    WordListTypeWordSet         = 0,
+    WordListTypeSearchResult    = 1,
+    WordListTypeHistory         = 2
+} WordListType;
+
+
 @class WordSetController;
 
 @protocol WordListDelegate <NSObject>
@@ -27,5 +34,8 @@
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, copy) NSString *searchString;
 @property (nonatomic) NSInteger wordSetIndex;
+@property (nonatomic) WordListType listType;
+
+- (id)initWIthListType:(WordListType)listType;
 
 @end

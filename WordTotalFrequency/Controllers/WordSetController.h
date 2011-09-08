@@ -16,6 +16,7 @@
 
 @interface WordSetController : UIViewController<CustomSegmentedControlDelegate> {
     WordListController *_listController;
+    WordListController *_historyController;
     CustomSegmentedControl *_segmentedControl;
 }
 
@@ -26,6 +27,7 @@
 
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) WordTestView *wordTestView;
+@property (nonatomic, readonly) NSUInteger selectedViewIndex;
 @property (nonatomic, retain) NSFetchRequest *fetchRequest;
 
 - (void)updateMarkedCount;

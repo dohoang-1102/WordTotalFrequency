@@ -108,12 +108,12 @@
         UILabel *option;
         int y = 77;
         for (int i=0; i<[options count]; i++) {
-            option = [[UILabel alloc] initWithFrame:CGRectMake(20, y, CGRectGetWidth(frame)-20, 30)];
+            option = [[UILabel alloc] initWithFrame:CGRectMake(18, y, CGRectGetWidth(frame)-18, 30)];
             option.tag = i+1;
-            option.font = [UIFont systemFontOfSize:18];
+            option.font = [UIFont systemFontOfSize:17];
+            option.lineBreakMode = UILineBreakModeClip;
             option.textColor = [UIColor colorForNormalText];
             option.text = [NSString stringWithFormat:@"%d   %@", (i+1), [options objectAtIndex:i]];
-            option.adjustsFontSizeToFitWidth = YES;
             [self addSubview:option];
             [option release];
             
