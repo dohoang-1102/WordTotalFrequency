@@ -61,13 +61,23 @@
             [self.fetchedResultsController.fetchRequest setPredicate:predicate];
         }
         
-        NSError *error;
-        if (![[self fetchedResultsController] performFetch:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            exit(-1);  // Fail
-        }
         
-        [self.tableView reloadData];
+        dispatch_queue_t main_queue = dispatch_get_main_queue();
+        dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
+        
+        __block __typeof__(self) blockSelf = self;
+        
+        dispatch_async(request_queue, ^{
+            NSError *error;
+            if (![blockSelf.fetchedResultsController performFetch:&error]) {
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                exit(-1);  // Fail
+            }
+            
+            dispatch_sync(main_queue, ^{
+                [blockSelf.tableView reloadData];
+            });
+        });
     }
 }
 
@@ -117,8 +127,6 @@
                 blockSelf.wordSetController.testWords = blockSelf.fetchedResultsController.fetchedObjects;
             });
         });
-        
-        
     }
 }
 

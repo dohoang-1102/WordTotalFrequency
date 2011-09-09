@@ -168,7 +168,11 @@ typedef enum {
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [_listController.tableView deselectRowAtIndexPath:[_listController.tableView indexPathForSelectedRow] animated:YES];
+    
+    if (_selectedViewIndex == 0)
+        [_listController.tableView deselectRowAtIndexPath:[_listController.tableView indexPathForSelectedRow] animated:YES];
+    else if (_selectedViewIndex == 2)
+        [_historyController.tableView deselectRowAtIndexPath:[_historyController.tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -203,7 +207,6 @@ typedef enum {
         case 0:
             [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
             [_viewContainer addSubview:_listController.view];
-            [_listController.tableView reloadData];
             break;
         case 1:
             [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];

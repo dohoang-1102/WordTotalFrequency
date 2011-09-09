@@ -106,6 +106,12 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (_wordSetController.selectedViewIndex == 2)
+    {
+        [self.nextResponder touchesBegan:touches withEvent:event];
+        return;
+    }
+         
     CGSize size = [_word.spell sizeWithFont:_spell.font
                           constrainedToSize:CGSizeMake(CGRectGetWidth(_spell.bounds), CGRectGetHeight(_spell.bounds))];
     CGRect rect = CGRectMake(0, 0, 30+size.width, CGRectGetHeight(self.bounds));
@@ -118,13 +124,6 @@
         
         if (_wordSetController)
             [_wordSetController updateMarkedCount];
-        
-        if (_wordSetController.selectedViewIndex == 2)
-        {
-            NSUInteger ii[] = {0, _rowIndex};
-            NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
-//            [self.ownerTable deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        }
     }
     else
     {
