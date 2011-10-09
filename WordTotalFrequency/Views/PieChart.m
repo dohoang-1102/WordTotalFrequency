@@ -245,7 +245,9 @@
     //draw shadow
     for (int i=4; i<=8; i+=4) {
         CGContextSaveGState(context);
-        CGContextSetStrokeColorWithColor(context, [[UIColor alloc]initWithRed:.101 green:.415 blue:.725 alpha:.15].CGColor);
+        UIColor *color = [[UIColor alloc]initWithRed:.101 green:.415 blue:.725 alpha:.15];
+        CGContextSetStrokeColorWithColor(context, color.CGColor);
+        [color release];
         CGContextSetLineWidth(context, i);
         CGContextBeginPath(context);
         

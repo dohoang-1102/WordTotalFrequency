@@ -12,6 +12,7 @@
 @interface UnitIconView()
 
 - (void)drawPathWithArc:(CGFloat)arc;
+- (void)destroyDisplayLink;
 
 @end
 
@@ -90,8 +91,16 @@
     _currentArc = -M_PI/2;
     [self drawPathWithArc:_currentArc];
     
-    CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updatePath:)];
-    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updatePath:)];
+    [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+}
+
+- (void)destroyDisplayLink
+{
+    if (_displayLink != nil){
+        [_displayLink invalidate];
+        _displayLink = nil;
+    }
 }
 
 - (void)drawPathWithArc:(CGFloat)arc
@@ -116,21 +125,14 @@
     _currentArc = fminf(_currentArc + delta, _percentArc);
     [self drawPathWithArc:_currentArc];
     if (_currentArc >= _percentArc) {
-        [displayLink invalidate];
+        [self destroyDisplayLink];
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
 - (void)dealloc
 {
+    [self destroyDisplayLink];
+    
     [_imagelayer release];
     [_circleLayer release];
     [_percentLayer release];
@@ -160,6 +162,8 @@
     }
     else
     {
+        [self destroyDisplayLink];
+        
         CATransform3D currentTransform = _imagelayer.transform;
         CATransform3D scaled = CATransform3DScale(currentTransform, 1.43, 1.43, 1.43);
         _imagelayer.transform = scaled;

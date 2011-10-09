@@ -81,6 +81,7 @@ typedef enum {
     button.frame = CGRectMake(0, 2, 44, 44);
     [button setImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+    [button setShowsTouchWhenHighlighted:YES];
     [self.view addSubview:button];
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(70, 7, 30, 30)];
@@ -214,14 +215,7 @@ typedef enum {
             break;
         case 2:
             [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
-            if (_historyController == nil)
-            {
-                _historyController = [[WordListController alloc] initWIthListType:WordListTypeHistory];
-                _historyController.wordSetIndex = _wordSet.categoryId;
-                _historyController.wordSetController = self;
-                _historyController.view.frame = _viewContainer.bounds;
-            }
-            [_viewContainer addSubview:_historyController.view];
+            [_viewContainer addSubview:self.historyView];
             break;
         case 3:
             break;
@@ -323,6 +317,18 @@ typedef enum {
         _wordTestView.wordSetController = self;
     }
     return _wordTestView;
+}
+
+- (UIView *)historyView
+{
+    if (_historyController == nil)
+    {
+        _historyController = [[WordListController alloc] initWIthListType:WordListTypeHistory];
+        _historyController.wordSetIndex = _wordSet.categoryId;
+        _historyController.wordSetController = self;
+        _historyController.view.frame = _viewContainer.bounds;
+    }
+    return _historyController.view;
 }
 
 @end

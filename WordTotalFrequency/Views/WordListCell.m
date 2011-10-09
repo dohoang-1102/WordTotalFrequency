@@ -8,6 +8,7 @@
 
 #import "WordListCell.h"
 #import "UIColor+WTF.h"
+#import "WordTotalFrequencyAppDelegate.h"
 
 @implementation WordListCell
 
@@ -39,18 +40,14 @@
         _spell.shadowOffset = CGSizeMake(.5, 1);
         [self addSubview:_spell];
         
-        _translate = [[WordListCellTranslateView alloc] initWithFrame:CGRectMake(144, 0, CGRectGetWidth(rect)-144, CGRectGetHeight(rect))];
+        _translate = [[UILabel alloc] initWithFrame:CGRectMake(144, 0, CGRectGetWidth(rect)-144, CGRectGetHeight(rect))];
         _translate.backgroundColor = [UIColor clearColor];
+        _translate.adjustsFontSizeToFitWidth = NO;
+        _translate.textColor = [UIColor colorForNormalText];
+        _translate.font = [UIFont systemFontOfSize:18];
+        _translate.shadowColor = [UIColor whiteColor];
+        _translate.shadowOffset = CGSizeMake(.5, 1);
         [self addSubview:_translate];
-        
-//        _translate = [[UILabel alloc] initWithFrame:CGRectMake(144, 0, CGRectGetWidth(rect)-144, CGRectGetHeight(rect))];
-//        _translate.backgroundColor = [UIColor clearColor];
-//        _translate.adjustsFontSizeToFitWidth = NO;
-//        _translate.textColor = [UIColor colorForNormalText];
-//        _translate.font = [UIFont systemFontOfSize:18];
-//        _translate.shadowColor = [UIColor whiteColor];
-//        _translate.shadowOffset = CGSizeMake(.5, 1);
-//        [self addSubview:_translate];
     }
     return self;
 }
@@ -89,7 +86,11 @@
         [_markIcon setImage:nil forState:UIControlStateNormal];
     
     _spell.text = _word.spell;
-    _translate.translate = _word.translate;
+    _translate.text = _word.translate;
+    
+//    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+//    [[appDelegate managedObjectContext] refreshObject:_word mergeChanges:NO];
+
     
 //    const char *cstr = [_word.translate UTF8String];
 //    _translate.text = [NSString stringWithCString:cstr encoding:NSUTF8StringEncoding];

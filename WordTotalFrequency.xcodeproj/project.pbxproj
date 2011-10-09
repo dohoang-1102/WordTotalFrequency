@@ -64,7 +64,6 @@
 		06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B2F9EC13E4333C001463AC /* CoreData.framework */; };
 		06B2F9F113E433F0001463AC /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */; };
 		06B2F9F413E434D3001463AC /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9F313E434D3001463AC /* Word.m */; };
-		C222BC70141337B100961E76 /* WordListCellTranslateView.m in Sources */ = {isa = PBXBuildFile; fileRef = C222BC6F141337B100961E76 /* WordListCellTranslateView.m */; };
 		C2559FE214113CD700558487 /* down-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FE114113CD700558487 /* down-button.png */; };
 		C2559FF41411A80A00558487 /* search-bg-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FF21411A80A00558487 /* search-bg-highlight.png */; };
 		C2559FF51411A80A00558487 /* search-bg-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FF31411A80A00558487 /* search-bg-highlight@2x.png */; };
@@ -211,8 +210,6 @@
 		06B2F9F013E433F0001463AC /* WordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordModel.xcdatamodel; sourceTree = "<group>"; };
 		06B2F9F213E434D3001463AC /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		06B2F9F313E434D3001463AC /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
-		C222BC6E141337B100961E76 /* WordListCellTranslateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordListCellTranslateView.h; sourceTree = "<group>"; };
-		C222BC6F141337B100961E76 /* WordListCellTranslateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordListCellTranslateView.m; sourceTree = "<group>"; };
 		C2559FE114113CD700558487 /* down-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down-button.png"; sourceTree = "<group>"; };
 		C2559FF21411A80A00558487 /* search-bg-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg-highlight.png"; sourceTree = "<group>"; };
 		C2559FF31411A80A00558487 /* search-bg-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg-highlight@2x.png"; sourceTree = "<group>"; };
@@ -536,8 +533,6 @@
 				C255A0251411DBDE00558487 /* WordListCell.m */,
 				C255A08714122DE600558487 /* CustomSegmentedControl.h */,
 				C255A08814122DE600558487 /* CustomSegmentedControl.m */,
-				C222BC6E141337B100961E76 /* WordListCellTranslateView.h */,
-				C222BC6F141337B100961E76 /* WordListCellTranslateView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -734,7 +729,6 @@
 				C255A0181411B89100558487 /* CustomProgress.m in Sources */,
 				C255A0261411DBDF00558487 /* WordListCell.m in Sources */,
 				C255A08914122DE700558487 /* CustomSegmentedControl.m in Sources */,
-				C222BC70141337B100961E76 /* WordListCellTranslateView.m in Sources */,
 				C28F5E8E14158EC900FCAD22 /* Matrix.c in Sources */,
 				C28F5E8F14158EC900FCAD22 /* PieChart.m in Sources */,
 				C28F5E9014158EC900FCAD22 /* Vector.c in Sources */,

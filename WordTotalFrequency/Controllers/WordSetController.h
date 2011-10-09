@@ -26,9 +26,11 @@
 @property (nonatomic) NSUInteger currentTestWordIndex;
 
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain, readonly) WordTestView *wordTestView;
 @property (nonatomic, readonly) NSUInteger selectedViewIndex;
 @property (nonatomic, retain) NSFetchRequest *fetchRequest;
+
+@property (nonatomic, retain, readonly) WordTestView *wordTestView;
+@property (nonatomic, retain, readonly) UIView *historyView;
 
 - (void)updateMarkedCount;
 

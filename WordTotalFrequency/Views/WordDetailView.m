@@ -51,6 +51,7 @@
         button.frame = CGRectMake(0, 2, 44, 44);
         [button setImage:[UIImage imageNamed:@"arrow-back"] forState:UIControlStateNormal];
         [button addTarget:self.wordDetailController action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+        [button setShowsTouchWhenHighlighted:YES];
         [self addSubview:button];
         
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(92, 0, 170, 44)];

@@ -9,13 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "Word.h"
 #import "WordSetController.h"
-#import "WordListCellTranslateView.h"
 
 @interface WordListCell : UITableViewCell {
     UIButton *_markIcon;
     UILabel *_spell;
-//    UILabel *_translate;
-    WordListCellTranslateView *_translate;
+    UILabel *_translate;
     
     CGPoint _lastHitPoint;
 }

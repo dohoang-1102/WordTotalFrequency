@@ -13,6 +13,7 @@
 @interface UnitIconView : UIView {
     CGFloat _currentArc;
     BOOL _isSelected;
+    CADisplayLink *_displayLink;
 }
 
 @property (nonatomic, retain) CALayer *imageLayer;

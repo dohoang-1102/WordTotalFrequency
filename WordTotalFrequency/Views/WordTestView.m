@@ -8,6 +8,7 @@
 
 #import "WordTestView.h"
 #import "WordSetController.h"
+#import "WordTotalFrequencyAppDelegate.h"
 
 
 @implementation WordTestView
@@ -16,11 +17,17 @@
 
 - (NSArray *)getTestOptionsWithAnswer:(NSString *)answer atIndex:(NSUInteger)answerIndex
 {
+    int total = _wordSetController.wordSet.totalWordCount;
     NSMutableArray *array = [NSMutableArray arrayWithObjects:
-                             [[_wordSetController.testWords objectAtIndex:rand()%_wordSetController.wordSet.totalWordCount] translate],
-                             [[_wordSetController.testWords objectAtIndex:rand()%_wordSetController.wordSet.totalWordCount] translate],
-                             [[_wordSetController.testWords objectAtIndex:rand()%_wordSetController.wordSet.totalWordCount] translate],
+                             [[_wordSetController.testWords objectAtIndex:rand()%total] translate],
+                             [[_wordSetController.testWords objectAtIndex:rand()%total] translate],
+                             [[_wordSetController.testWords objectAtIndex:rand()%total] translate],
                              nil];
+    
+//    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+//    [[appDelegate managedObjectContext] refreshObject:_word mergeChanges:NO];
+
+    
     [array insertObject:answer atIndex:answerIndex];
     return array;
 }

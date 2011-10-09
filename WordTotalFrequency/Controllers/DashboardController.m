@@ -311,6 +311,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.managedObjectContext reset];
     
     for (UnitIconView *icon in _unitIcons) {
         [icon addCADisplayLink];

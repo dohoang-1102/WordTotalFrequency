@@ -50,6 +50,7 @@
         [_searchString release];
         _searchString = [searchString copy];
         
+        [NSFetchedResultsController deleteCacheWithName:nil];
         if ([searchString isEqualToString:@""])
         {
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"1 != -1"];
@@ -124,7 +125,10 @@
             
             dispatch_sync(main_queue, ^{
                 [blockSelf.tableView reloadData];
-                blockSelf.wordSetController.testWords = blockSelf.fetchedResultsController.fetchedObjects;
+                if (_listType == WordListTypeWordSet)
+                    blockSelf.wordSetController.testWords = blockSelf.fetchedResultsController.fetchedObjects;
+                
+                dispatch_release(request_queue);
             });
         });
     }
@@ -134,16 +138,6 @@
 {
     _fetchedResultsController = nil;
     [super viewDidUnload];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -232,7 +226,7 @@
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:descriptor]];
     [descriptor release];
 
-    NSArray *propertiesToFetch = [[NSArray alloc] initWithObjects:@"spell", @"translate", nil];
+    NSArray *propertiesToFetch = [[NSArray alloc] initWithObjects:@"marked", @"spell", @"translate", nil];
     [fetchRequest setPropertiesToFetch:propertiesToFetch];
     [propertiesToFetch release];
 
