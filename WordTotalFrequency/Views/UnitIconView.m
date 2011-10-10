@@ -91,8 +91,10 @@
     _currentArc = -M_PI/2;
     [self drawPathWithArc:_currentArc];
     
-    _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updatePath:)];
-    [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    if (_displayLink == nil){
+        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updatePath:)];
+        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    }
 }
 
 - (void)destroyDisplayLink

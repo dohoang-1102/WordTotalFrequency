@@ -44,7 +44,7 @@
         self.frame = CGRectMake(0, 0, (segmentsize.width * segmentCount) + (dividerImage.size.width * (segmentCount - 1)), segmentsize.height);
         
         // Initalize the array we use to store our buttons
-        self.buttons = [[NSMutableArray alloc] initWithCapacity:segmentCount];
+        self.buttons = [[[NSMutableArray alloc] initWithCapacity:segmentCount] autorelease];
         
         // horizontalOffset tracks the proper x value as we add buttons as subviews
         CGFloat horizontalOffset = 0;
