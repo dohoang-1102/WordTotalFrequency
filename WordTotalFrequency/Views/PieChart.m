@@ -21,21 +21,22 @@
     }
     return self;
 }
+
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
-       NSLog(@"initWithCoder");
        [self initPie];
     }
     return self;
 }
 
-
--(void)viewDidLoad{
-     NSLog(@"pie view did load");
+- (void)appDidEnterBackground:(NSNotification *)note {
+    isPieInited = false;
 }
 
 -(void)initPie
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    
     if(isPieInited){
         return;
     }
@@ -55,20 +56,15 @@
 
 -(void) initPieTexture
 {
-    
-    
     for(int i=0;i<PART_NUM;i++){
         pieTopImg[i] = [UIImage imageNamed:[NSString stringWithFormat:@"pieTopImg_part%d.jpg",i+1]];
         pieBtmImg[i] = [UIImage imageNamed:[NSString stringWithFormat:@"pieBtmImg_part%d.jpg",i+1]];
     }
 }
 
-
-
 -(void)initPieModel
 {
     //equally divide parts
-
     float partPercent   = 1.0/PART_NUM;
     for(int i=0;i<PART_NUM;i++){
         partData[i] = partPercent;
