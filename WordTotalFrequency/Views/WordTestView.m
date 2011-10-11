@@ -18,18 +18,34 @@
 - (NSArray *)getTestOptionsWithAnswer:(NSString *)answer atIndex:(NSUInteger)answerIndex
 {
     int total = _wordSetController.wordSet.totalWordCount;
-    NSMutableArray *array = [NSMutableArray arrayWithObjects:
-                             [[_wordSetController.testWords objectAtIndex:rand()%total] translate],
-                             [[_wordSetController.testWords objectAtIndex:rand()%total] translate],
-                             [[_wordSetController.testWords objectAtIndex:rand()%total] translate],
-                             nil];
-    
-//    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-//    [[appDelegate managedObjectContext] refreshObject:_word mergeChanges:NO];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    for (int i=0; i<3; i++){
+        Word *word = [_wordSetController.testWords objectAtIndex:rand()%total];
+        [array addObject:word.translate];
+        [[appDelegate managedObjectContext] refreshObject:word mergeChanges:NO];
+    }
 
-    
     [array insertObject:answer atIndex:answerIndex];
-    return array;
+    return [array autorelease];
+}
+
+- (void)getPaperView
+{
+    Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
+    WordSet *wordSet = [_wordSetController wordSet];
+    int answerIndex = rand()%4;
+    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
+    _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
+                                                 word:word.spell
+                                              options:options
+                                               answer:answerIndex
+                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]
+                                             testView:self];
+    _paperView.backgroundColor = [UIColor whiteColor];
+    
+    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    [appDelegate.managedObjectContext refreshObject:word mergeChanges:NO];
 }
 
 - (void)setWordSetController:(WordSetController *)wordSetController
@@ -43,17 +59,7 @@
         _paperView = nil;
     }
     
-    Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
-    WordSet *wordSet = [_wordSetController wordSet];
-    int answerIndex = rand()%4;
-    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
-    _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
-                                                 word:word.spell
-                                              options:options
-                                               answer:answerIndex
-                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]
-                  testView:self];
-    _paperView.backgroundColor = [UIColor whiteColor];
+    [self getPaperView];
     [_containerView addSubview:_paperView];
 }
 
@@ -66,18 +72,8 @@
     [_paperView release];
     _paperView = nil;
     
-    Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
-    WordSet *wordSet = [_wordSetController wordSet];
-    int answerIndex = rand()%4;
-    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
-    _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
-                                                 word:word.spell
-                                              options:options
-                                               answer:answerIndex
-                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]
-                                             testView:self];
-    _paperView.backgroundColor = [UIColor whiteColor];
     
+    [self getPaperView];
     [UIView transitionWithView:_containerView duration:0.5
                        options:UIViewAnimationOptionTransitionCurlDown
                     animations:^ { [_containerView addSubview:_paperView]; }
@@ -93,26 +89,12 @@
                        options:UIViewAnimationOptionTransitionCurlUp
                     animations:^ { [_paperView removeFromSuperview]; }
                     completion:^(BOOL finished) {
-                        if (finished)
-                        {
-                            
-                        }
                     }];
     
     [_paperView release];
     _paperView = nil;
     
-    Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
-    WordSet *wordSet = [_wordSetController wordSet];
-    int answerIndex = rand()%4;
-    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
-    _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
-                                                 word:word.spell
-                                              options:options
-                                               answer:answerIndex
-                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]
-                                             testView:self];
-    _paperView.backgroundColor = [UIColor whiteColor];
+    [self getPaperView];
     [_containerView addSubview:_paperView];
 }
 
@@ -158,15 +140,6 @@
     }
     return self;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
 
 - (void)dealloc
 {

@@ -38,6 +38,16 @@ typedef enum {
 
 - (void)dealloc
 {
+//    [self.managedObjectContext reset];
+//    [NSFetchedResultsController deleteCacheWithName:nil];
+    
+    [_listController release];
+    _listController = nil;
+    
+    [_historyController release];
+    _historyController = nil;
+
+    
     [_fetchRequest release];
     _fetchRequest = nil;
     [_wordTestView release];
@@ -150,13 +160,6 @@ typedef enum {
 
 - (void)viewDidUnload
 {
-    [_listController viewDidUnload];
-    [_listController release];
-    _listController = nil;
-    
-    [_historyController release];
-    _historyController = nil;
-    
     [super viewDidUnload];
 }
 

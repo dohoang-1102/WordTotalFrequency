@@ -134,12 +134,6 @@
     }
 }
 
-- (void)viewDidUnload
-{
-    _fetchedResultsController = nil;
-    [super viewDidUnload];
-}
-
 - (void)viewDidDisappear:(BOOL)animated
 {
     WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;

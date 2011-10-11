@@ -12,6 +12,7 @@
 #import "WordTotalFrequencyAppDelegate.h"
 #import "WordDetailView.h"
 #import "WordListCell.h"
+#import "WordTotalFrequencyAppDelegate.h"
 
 
 typedef enum {
@@ -105,8 +106,12 @@ typedef enum {
                             oldView.frame = CGRectMake(CGRectGetWidth(rect), rect.origin.y, CGRectGetWidth(rect), CGRectGetHeight(rect));
                         }
                         completion:^(BOOL finished) {
-                            if (finished)
-                                [oldView removeFromSuperview];
+                            // turn word back into a fault
+                            WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+                            [appDelegate saveAction];
+                            [appDelegate.managedObjectContext refreshObject:oldView.word mergeChanges:NO];
+                            
+                            [oldView removeFromSuperview];
                         }];
         
         self.word = [self.words objectAtIndex:--_currentWordIndex];
@@ -136,8 +141,12 @@ typedef enum {
                             oldView.frame = CGRectMake(-CGRectGetWidth(rect), rect.origin.y, CGRectGetWidth(rect), CGRectGetHeight(rect));
                         }
                         completion:^(BOOL finished) {
-                            if (finished)
-                                [oldView removeFromSuperview];
+                            // turn word back into a fault
+                            WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+                            [appDelegate saveAction];
+                            [appDelegate.managedObjectContext refreshObject:oldView.word mergeChanges:NO];
+                            
+                            [oldView removeFromSuperview];
                         }];
         
         self.word = [self.words objectAtIndex:++_currentWordIndex];
