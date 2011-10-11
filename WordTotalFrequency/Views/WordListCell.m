@@ -23,7 +23,7 @@
     if (self) {
         CGRect rect = self.bounds;
         
-        self.selectedBackgroundView = [[UIView alloc] initWithFrame:rect];
+        self.selectedBackgroundView = [[[UIView alloc] initWithFrame:rect] autorelease];
         self.selectedBackgroundView.backgroundColor = [UIColor colorWithRed:148.0/255 green:199.0/255 blue:231.0/255 alpha:1.0];
 
         _markIcon = [[UIButton buttonWithType:UIButtonTypeCustom] retain];

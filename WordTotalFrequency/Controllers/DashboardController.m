@@ -6,6 +6,7 @@
 //  Copyright 2011年 __MyCompanyName__. All rights reserved.
 //
 
+#import "DataUtil.h"
 #import "DashboardController.h"
 #import "Common.h"
 #import "DashboardView.h"
@@ -58,60 +59,42 @@
 - (void)loadData
 {
     _wordSets = [[NSMutableArray alloc] init];
-    WordSet *set = [[[WordSet alloc] initWithTotal:5765 marked:3210 color:[UIColor colorWithHex:0xff4600]] autorelease];
-    set.description = @"Master this word set you can read some short .";
-    set.iconUrl = @"Unit-1";
-    set.categoryId = 0;
-    set.arrowColor = [UIColor colorWithHex:0xbee3fd];
-    [_wordSets addObject:set];
     
-    set = [[[WordSet alloc] initWithTotal:9233 marked:235 color:[UIColor colorWithHex:0xff6600]] autorelease];
-    set.description = @"Master this word set you can understand basic conversations.";
-    set.iconUrl = @"Unit-2";
-    set.categoryId = 1;
-    set.arrowColor = [UIColor colorWithHex:0xa1d7f9];
-    [_wordSets addObject:set];
-    
-    set = [[[WordSet alloc] initWithTotal:12457 marked:2348 color:[UIColor colorWithHex:0xff9800]] autorelease];
-    set.description = @"Master this word set you can adfasf asdfasdf werwer asfasdf.";
-    set.iconUrl = @"Unit-3";
-    set.categoryId = 2;
-    set.arrowColor = [UIColor colorWithHex:0x8ecff7];
-    [_wordSets addObject:set];
-    
-    set = [[[WordSet alloc] initWithTotal:23219 marked:1030 color:[UIColor colorWithHex:0xffb900]] autorelease];
-    set.description = @"Master this word set you can read some short article.";
-    set.iconUrl = @"Unit-4";
-    set.categoryId = 3;
-    set.arrowColor = [UIColor colorWithHex:0xa1d7f9];
-    [_wordSets addObject:set];
-    
-    set = [[[WordSet alloc] initWithTotal:49346 marked:0 color:[UIColor colorWithHex:0xffda00]] autorelease];
-    set.description = @"Master this word set you can read some short articles and have.";
-    set.iconUrl = @"Unit-5";
-    set.categoryId = 4;
-    set.arrowColor = [UIColor colorWithHex:0xbee3fd];
-    [_wordSets addObject:set];
-    
-    // retrieve data
-    for (int i=0; i<5; i++) {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", i];
+    NSArray *array = [[DataUtil readDictionaryFromFile:@"WordSets"] objectForKey:@"WordSets"];
+    for (NSDictionary *dict in array) {
+        WordSet *set    = [[WordSet alloc] init];
+        
+        // ***********
+        // value from plist
+        // ***********
+        set.color       = [UIColor colorWithHex:[[dict objectForKey:@"color"] intValue]];
+        set.description = [dict objectForKey:@"description"];
+        set.iconUrl     = [dict objectForKey:@"iconUrl"];
+        set.categoryId  = [[dict objectForKey:@"categoryId"] intValue];
+        set.arrowColor  = [UIColor colorWithHex:[[dict objectForKey:@"arrowColor"] intValue]];
+        
+        // ***********
+        // value from database
+        // ***********
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d", set.categoryId];
         [self.fetchRequest setPredicate:predicate];
         
         NSError *error;
         NSUInteger total = [self.managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
         
         // marked count
-        predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", i];
+        predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", set.categoryId];
         [self.fetchRequest setPredicate:predicate];
         
         NSUInteger marked = [self.managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
-        WordSet *wordSet = [_wordSets objectAtIndex:i];
-        wordSet.totalWordCount = total;
-        wordSet.markedWordCount = marked;
+        set.totalWordCount = total;
+        set.markedWordCount = marked;
         
-        UnitIconView *icon = [_unitIcons objectAtIndex:i];
+        UnitIconView *icon = [_unitIcons objectAtIndex:set.categoryId];
         [icon updateData];
+        
+        [_wordSets addObject:set];
+        [set release];
     }
 }
 
@@ -191,6 +174,7 @@
         {
             icon = [_unitIcons objectAtIndex:oldIndex];
             [icon toggleDisplayState:icon affectDashboard:NO];
+            [self dismissWordSetBrief];
         }
     }
 }
@@ -233,8 +217,7 @@
 // Implement loadView to create a view hierarchy programmatically, without using a nib.
 - (void)loadView
 {
-    CGRect rect = [UIScreen mainScreen].bounds;
-    rect = CGRectMake(0, 20, rect.size.width, rect.size.height-20);
+    CGRect rect = [UIScreen mainScreen].applicationFrame;
     
     self.view = [[[DashboardView alloc] initWithFrame:rect] autorelease];
     
@@ -253,6 +236,7 @@
                               initWithFrame:CGRectMake(20 + i * 61, 50, 36, 36)
                               image:[NSString stringWithFormat:@"Unit-%d", (i+1)]];
         icon.dashboard = self;
+        icon.index = i;
         [self.view addSubview:icon];
         [_unitIcons addObject:icon];
         [icon release];
@@ -263,10 +247,10 @@
     [self.view addSubview:_barContainer];
     
     _briefView = [[BriefView alloc] 
-                  initWithFrame:CGRectMake(10, 20, CGRectGetWidth(rect)-20, 100)
-                  count:1234 level:@"IV"];
+                  initWithFrame:CGRectMake(10, 20, CGRectGetWidth([UIScreen mainScreen].applicationFrame)-20, 100)];
     [_barContainer addSubview:_briefView];
 
+    
     // word set brief
     _wordSetBrief = [[WordSetBriefView alloc]
                      initWithFrame:CGRectMake(0, -WORDSETBRIEF_HEIGHT, CGRectGetWidth(rect), WORDSETBRIEF_HEIGHT)];
@@ -306,12 +290,18 @@
     
     if (_selectedIconIndex > -1)
         [_wordSetBrief updateDisplay];
+    
+    // update total marked count
+    int total = 0;
+    for (WordSet *wordSet in _wordSets) {
+        total += wordSet.markedWordCount;
+    }
+    [_briefView updateTotalMarkedCount:total];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.managedObjectContext reset];
     
     for (UnitIconView *icon in _unitIcons) {
         [icon addCADisplayLink];

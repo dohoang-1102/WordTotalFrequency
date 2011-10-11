@@ -22,6 +22,7 @@
 @property (nonatomic, assign) DashboardController *dashboard;
 @property (nonatomic, assign) WordSet *wordSet;
 @property (nonatomic) CGFloat percentArc;
+@property (nonatomic) NSUInteger index;
 
 - (id)initWithFrame:(CGRect)frame image:(NSString *)image;
 - (void)toggleDisplayState:(UnitIconView *)iconView affectDashboard:(BOOL)affect;

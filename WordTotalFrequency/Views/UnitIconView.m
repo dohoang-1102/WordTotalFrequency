@@ -24,6 +24,7 @@
 @synthesize dashboard = _dashboard;
 @synthesize wordSet = _wordSet;
 @synthesize percentArc = _percentArc;
+@synthesize index = _index;
 
 - (id)initWithFrame:(CGRect)frame image:(NSString *)image
 {
@@ -143,8 +144,7 @@
                                            
 - (void)iconTapped:(UIGestureRecognizer *)gestureRecognizer
 {
-    if (!_isSelected)
-        [self toggleDisplayState:self affectDashboard:YES];
+    [self toggleDisplayState:self affectDashboard:YES];
 }
 
 - (void)toggleDisplayState:(UnitIconView *)iconView affectDashboard:(BOOL)affect
@@ -152,8 +152,14 @@
     // toggle previous selected
     if (_dashboard.selectedIconIndex > -1 && affect)
     {
-        UnitIconView *icon = [_dashboard.unitIcons objectAtIndex:_dashboard.selectedIconIndex];
-        [icon toggleDisplayState:icon affectDashboard:NO];
+        if (_dashboard.selectedIconIndex != _index){
+            UnitIconView *icon = [_dashboard.unitIcons objectAtIndex:_dashboard.selectedIconIndex];
+            [icon toggleDisplayState:icon affectDashboard:NO];
+        }
+        else{
+            _dashboard.selectedIconIndex = -1;
+            return;
+        }
     }
     
     // toggle self

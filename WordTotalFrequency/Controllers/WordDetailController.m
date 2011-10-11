@@ -11,6 +11,7 @@
 #import "UIColor+WTF.h"
 #import "WordTotalFrequencyAppDelegate.h"
 #import "WordDetailView.h"
+#import "WordListCell.h"
 
 
 typedef enum {
@@ -62,8 +63,13 @@ typedef enum {
     {
         NSUInteger ii[2] = {0, _currentWordIndex};
         NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
-        [self.wordListController.tableView reloadData];
         [self.wordListController.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+    }
+    else{
+        NSArray *cells = [self.wordListController.tableView visibleCells];
+        for (WordListCell *cell in cells) {
+            [cell setNeedsLayout];
+        }
     }
     [self.navigationController popViewControllerAnimated:YES];
 }

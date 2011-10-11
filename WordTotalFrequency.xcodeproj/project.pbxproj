@@ -130,6 +130,8 @@
 		C2A6AAEF13F978AC00A2B0AF /* paper@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2A6AAED13F978AC00A2B0AF /* paper@2x.png */; };
 		C2A6AAF213F97D4400A2B0AF /* WordPaperView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2A6AAF113F97D4400A2B0AF /* WordPaperView.m */; };
 		C2BA9AF213F2CFA700655182 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BA9AF113F2CFA700655182 /* AVFoundation.framework */; };
+		C2BF7D5E1444464E00C8894F /* WordSets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2BF7D5D1444464E00C8894F /* WordSets.plist */; };
+		C2BF7D6214444A0700C8894F /* DataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF7D6114444A0700C8894F /* DataUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -285,6 +287,9 @@
 		C2A6AAF013F97D4400A2B0AF /* WordPaperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordPaperView.h; sourceTree = "<group>"; };
 		C2A6AAF113F97D4400A2B0AF /* WordPaperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordPaperView.m; sourceTree = "<group>"; };
 		C2BA9AF113F2CFA700655182 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C2BF7D5D1444464E00C8894F /* WordSets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WordSets.plist; sourceTree = "<group>"; };
+		C2BF7D6014444A0700C8894F /* DataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUtil.h; sourceTree = "<group>"; };
+		C2BF7D6114444A0700C8894F /* DataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -447,6 +452,7 @@
 				0632420D13D87C7F00388D3E /* WordTotalFrequency-Prefix.pch */,
 				0632420E13D87C7F00388D3E /* main.m */,
 				0632421313D87C8000388D3E /* MainWindow.xib */,
+				C2BF7D5D1444464E00C8894F /* WordSets.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -478,6 +484,8 @@
 		067A0DFC13D8918B003589DA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C2BF7D6014444A0700C8894F /* DataUtil.h */,
+				C2BF7D6114444A0700C8894F /* DataUtil.m */,
 				067A0E1113D8E469003589DA /* Common.h */,
 			);
 			path = Common;
@@ -695,6 +703,7 @@
 				C28FF06E1417C1550069B252 /* arrow-next@2x.png in Resources */,
 				C28FF06F1417C1550069B252 /* arrow-previous.png in Resources */,
 				C28FF0701417C1550069B252 /* arrow-previous@2x.png in Resources */,
+				C2BF7D5E1444464E00C8894F /* WordSets.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -732,6 +741,7 @@
 				C28F5E8E14158EC900FCAD22 /* Matrix.c in Sources */,
 				C28F5E8F14158EC900FCAD22 /* PieChart.m in Sources */,
 				C28F5E9014158EC900FCAD22 /* Vector.c in Sources */,
+				C2BF7D6214444A0700C8894F /* DataUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,8 +10,10 @@
 
 
 @interface BriefView : UIView {
+    UILabel *_totalLabel;
+    UILabel *_levelLabel;
 }
 
-- (id)initWithFrame:(CGRect)frame count:(NSInteger)count level:(NSString *)level;
+- (void)updateTotalMarkedCount:(NSUInteger)total;
 
 @end

@@ -16,7 +16,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        
         [self initPie];
     }
     return self;
@@ -24,9 +25,17 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     if ((self = [super initWithCoder:aDecoder])) {
-       [self initPie];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+        
+        [self initPie];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super dealloc];
 }
 
 - (void)appDidEnterBackground:(NSNotification *)note {
@@ -35,8 +44,6 @@
 
 -(void)initPie
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    
     if(isPieInited){
         return;
     }
