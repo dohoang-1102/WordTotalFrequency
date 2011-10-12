@@ -140,6 +140,7 @@ sqlite3 *database;
     if (coordinator != nil) {
         managedObjectContext = [[NSManagedObjectContext alloc] init];
         [managedObjectContext setPersistentStoreCoordinator: coordinator];
+        [managedObjectContext setUndoManager:nil];
     }
     return managedObjectContext;
 }

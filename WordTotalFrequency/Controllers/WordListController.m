@@ -77,6 +77,8 @@
             
             dispatch_sync(main_queue, ^{
                 [blockSelf.tableView reloadData];
+                
+                dispatch_release(request_queue);
             });
         });
     }
@@ -117,6 +119,9 @@
         __block __typeof__(self) blockSelf = self;
         
         dispatch_async(request_queue, ^{
+            if (_wordSetIndex > -1)
+                [blockSelf.fetchedResultsController.fetchRequest setFetchLimit:20];
+            
             NSError *error;
             if (![blockSelf.fetchedResultsController performFetch:&error]) {
                 NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
@@ -125,10 +130,28 @@
             
             dispatch_sync(main_queue, ^{
                 [blockSelf.tableView reloadData];
-                if (_listType == WordListTypeWordSet)
-                    blockSelf.wordSetController.testWords = blockSelf.fetchedResultsController.fetchedObjects;
                 
-                dispatch_release(request_queue);
+                if (_listType == WordListTypeWordSet){
+                    dispatch_async(request_queue, ^{
+                        //[blockSelf.fetchedResultsController.fetchRequest setFetchOffset:20];
+                        [blockSelf.fetchedResultsController.fetchRequest setFetchLimit:0];
+                        
+                        NSError *error;
+                        if (![blockSelf.fetchedResultsController performFetch:&error]) {
+                            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                            exit(-1);  // Fail
+                        }
+                        
+                        dispatch_sync(main_queue, ^{
+                            blockSelf.wordSetController.testWords = blockSelf.fetchedResultsController.fetchedObjects;
+                            [blockSelf.tableView reloadData];
+                            dispatch_release(request_queue);
+                        });
+                    });
+                }
+                else{
+                    dispatch_release(request_queue);
+                }
             });
         });
     }
