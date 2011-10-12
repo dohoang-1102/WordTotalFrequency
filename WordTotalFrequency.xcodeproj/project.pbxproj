@@ -58,7 +58,6 @@
 		0693087413E566DD00FBF949 /* tag-toefl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0693086E13E566DD00FBF949 /* tag-toefl@2x.png */; };
 		0693087513E566DD00FBF949 /* tag-yelts.png in Resources */ = {isa = PBXBuildFile; fileRef = 0693086F13E566DD00FBF949 /* tag-yelts.png */; };
 		0693087613E566DD00FBF949 /* tag-yelts@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0693087013E566DD00FBF949 /* tag-yelts@2x.png */; };
-		06AE715A13E4E65000653717 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AE715913E4E65000653717 /* libsqlite3.dylib */; };
 		06B1F22F13E0E0BF00864971 /* check-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 06B1F22D13E0E0BF00864971 /* check-mark.png */; };
 		06B1F23013E0E0BF00864971 /* check-mark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 06B1F22E13E0E0BF00864971 /* check-mark@2x.png */; };
 		06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B2F9EC13E4333C001463AC /* CoreData.framework */; };
@@ -92,9 +91,13 @@
 		C255A0A114123AC100558487 /* segment-middle-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A09F14123AC100558487 /* segment-middle-pressed@2x.png */; };
 		C255A0A414123B7C00558487 /* segment-breaker.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A0A214123B7B00558487 /* segment-breaker.png */; };
 		C255A0A514123B7C00558487 /* segment-breaker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C255A0A314123B7C00558487 /* segment-breaker@2x.png */; };
+		C2625BFB1445CE5E00175227 /* mysql2sqlite.sh in Resources */ = {isa = PBXBuildFile; fileRef = C2625BF71445CE5E00175227 /* mysql2sqlite.sh */; };
+		C2625BFC1445CE5E00175227 /* mysqldump in Resources */ = {isa = PBXBuildFile; fileRef = C2625BF81445CE5E00175227 /* mysqldump */; };
+		C2625BFD1445CE5E00175227 /* sqlite2coredata.py in Resources */ = {isa = PBXBuildFile; fileRef = C2625BF91445CE5E00175227 /* sqlite2coredata.py */; };
+		C2625BFE1445CE5E00175227 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C2625BFA1445CE5E00175227 /* WordTotalFrequency.sqlite */; };
+		C2803BDA1445B81B009D2CF1 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C2803BD91445B81B009D2CF1 /* WordTotalFrequency.sqlite */; };
 		C285E9351413421200AAF99D /* cell-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C285E9331413421200AAF99D /* cell-bg.png */; };
 		C285E9361413421200AAF99D /* cell-bg@2x.PNG in Resources */ = {isa = PBXBuildFile; fileRef = C285E9341413421200AAF99D /* cell-bg@2x.PNG */; };
-		C28CFCEC13F4232A0081B2C0 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */; };
 		C28CFD2E13F4A43E0081B2C0 /* WordDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */; };
 		C28F5E8214158EB400FCAD22 /* pieBtmImg_part1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C28F5E7C14158EB400FCAD22 /* pieBtmImg_part1.jpg */; };
 		C28F5E8314158EB400FCAD22 /* pieBtmImg_part2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C28F5E7D14158EB400FCAD22 /* pieBtmImg_part2.jpg */; };
@@ -205,7 +208,6 @@
 		0693086E13E566DD00FBF949 /* tag-toefl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tag-toefl@2x.png"; sourceTree = "<group>"; };
 		0693086F13E566DD00FBF949 /* tag-yelts.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tag-yelts.png"; sourceTree = "<group>"; };
 		0693087013E566DD00FBF949 /* tag-yelts@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tag-yelts@2x.png"; sourceTree = "<group>"; };
-		06AE715913E4E65000653717 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		06B1F22D13E0E0BF00864971 /* check-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-mark.png"; sourceTree = "<group>"; };
 		06B1F22E13E0E0BF00864971 /* check-mark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check-mark@2x.png"; sourceTree = "<group>"; };
 		06B2F9EC13E4333C001463AC /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -243,9 +245,13 @@
 		C255A09F14123AC100558487 /* segment-middle-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-middle-pressed@2x.png"; sourceTree = "<group>"; };
 		C255A0A214123B7B00558487 /* segment-breaker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-breaker.png"; sourceTree = "<group>"; };
 		C255A0A314123B7C00558487 /* segment-breaker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "segment-breaker@2x.png"; sourceTree = "<group>"; };
+		C2625BF71445CE5E00175227 /* mysql2sqlite.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = mysql2sqlite.sh; sourceTree = "<group>"; };
+		C2625BF81445CE5E00175227 /* mysqldump */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = mysqldump; sourceTree = "<group>"; };
+		C2625BF91445CE5E00175227 /* sqlite2coredata.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = sqlite2coredata.py; sourceTree = "<group>"; };
+		C2625BFA1445CE5E00175227 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
+		C2803BD91445B81B009D2CF1 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = WordTotalFrequency.sqlite; path = "Data Importer/WordTotalFrequency.sqlite"; sourceTree = "<group>"; };
 		C285E9331413421200AAF99D /* cell-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-bg.png"; sourceTree = "<group>"; };
 		C285E9341413421200AAF99D /* cell-bg@2x.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-bg@2x.PNG"; sourceTree = "<group>"; };
-		C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
 		C28CFD2C13F4A43D0081B2C0 /* WordDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordDetailView.h; sourceTree = "<group>"; };
 		C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordDetailView.m; sourceTree = "<group>"; };
 		C28F5E7C14158EB400FCAD22 /* pieBtmImg_part1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pieBtmImg_part1.jpg; sourceTree = "<group>"; };
@@ -298,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C2BA9AF213F2CFA700655182 /* AVFoundation.framework in Frameworks */,
-				06AE715A13E4E65000653717 /* libsqlite3.dylib in Frameworks */,
 				06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */,
 				06066CF113DA97710019D945 /* CoreText.framework in Frameworks */,
 				067A0DF013D88991003589DA /* QuartzCore.framework in Frameworks */,
@@ -413,7 +418,6 @@
 		0632420013D87C7F00388D3E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				06AE715913E4E65000653717 /* libsqlite3.dylib */,
 				C2BA9AF113F2CFA700655182 /* AVFoundation.framework */,
 				06B2F9EC13E4333C001463AC /* CoreData.framework */,
 				06066CF013DA97710019D945 /* CoreText.framework */,
@@ -428,6 +432,7 @@
 		0632420713D87C7F00388D3E /* WordTotalFrequency */ = {
 			isa = PBXGroup;
 			children = (
+				C2625BEE1445CE1900175227 /* Data Importer */,
 				067A0DFB13D8918A003589DA /* Classes */,
 				067A0DFC13D8918B003589DA /* Common */,
 				067A0E0113D8918B003589DA /* Controllers */,
@@ -444,7 +449,7 @@
 		0632420813D87C7F00388D3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C28CFCEB13F4232A0081B2C0 /* WordTotalFrequency.sqlite */,
+				C2803BD91445B81B009D2CF1 /* WordTotalFrequency.sqlite */,
 				06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */,
 				06066C7D13D9C97A0019D945 /* Images */,
 				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
@@ -543,6 +548,17 @@
 				C255A08814122DE600558487 /* CustomSegmentedControl.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		C2625BEE1445CE1900175227 /* Data Importer */ = {
+			isa = PBXGroup;
+			children = (
+				C2625BF71445CE5E00175227 /* mysql2sqlite.sh */,
+				C2625BF81445CE5E00175227 /* mysqldump */,
+				C2625BF91445CE5E00175227 /* sqlite2coredata.py */,
+				C2625BFA1445CE5E00175227 /* WordTotalFrequency.sqlite */,
+			);
+			path = "Data Importer";
 			sourceTree = "<group>";
 		};
 		C28F5E7A14158E8000FCAD22 /* PieChart */ = {
@@ -647,7 +663,6 @@
 				0693087413E566DD00FBF949 /* tag-toefl@2x.png in Resources */,
 				0693087513E566DD00FBF949 /* tag-yelts.png in Resources */,
 				0693087613E566DD00FBF949 /* tag-yelts@2x.png in Resources */,
-				C28CFCEC13F4232A0081B2C0 /* WordTotalFrequency.sqlite in Resources */,
 				C2A6AAEE13F978AC00A2B0AF /* paper.png in Resources */,
 				C2A6AAEF13F978AC00A2B0AF /* paper@2x.png in Resources */,
 				C29A881F13FB361100CA1FD1 /* mark-circle-right.png in Resources */,
@@ -704,6 +719,11 @@
 				C28FF06F1417C1550069B252 /* arrow-previous.png in Resources */,
 				C28FF0701417C1550069B252 /* arrow-previous@2x.png in Resources */,
 				C2BF7D5E1444464E00C8894F /* WordSets.plist in Resources */,
+				C2803BDA1445B81B009D2CF1 /* WordTotalFrequency.sqlite in Resources */,
+				C2625BFB1445CE5E00175227 /* mysql2sqlite.sh in Resources */,
+				C2625BFC1445CE5E00175227 /* mysqldump in Resources */,
+				C2625BFD1445CE5E00175227 /* sqlite2coredata.py in Resources */,
+				C2625BFE1445CE5E00175227 /* WordTotalFrequency.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,6 @@
 #import "WordTotalFrequencyAppDelegate.h"
 #import "WordDetailView.h"
 #import "WordListCell.h"
-#import "WordTotalFrequencyAppDelegate.h"
 
 
 typedef enum {

@@ -11,7 +11,6 @@
 #import "Common.h"
 #import "UIColor+WTF.h"
 #import "Word.h"
-#import <sqlite3.h>
 
 @implementation WordTotalFrequencyAppDelegate
 
@@ -19,65 +18,6 @@
 @synthesize window=_window;
 @synthesize navigationController=_navigationController;
 
-
-#define DB_NAME @"MySql.sqlite"
-
-sqlite3 *database;
-
-- (BOOL)initDatabase {
-    BOOL success;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSError *error;
-    NSString *defaultDBPath;
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:DB_NAME];
-    
-    NSLog(@"==== DB: %@ ====", writableDBPath);
-    
-    if (![fileManager fileExistsAtPath:writableDBPath]){
-		// The writable database does not exist, so copy the default to the appropriate location.
-		defaultDBPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:DB_NAME];
-		success = [fileManager copyItemAtPath:defaultDBPath toPath:writableDBPath error:&error];
-		if (!success) {
-			NSAssert1(0, @"Failed to create writable database file with message '%@'.", [error localizedDescription]);
-			return NO;
-		}
-	}
-	
-	//Open the database
-	if (sqlite3_open([writableDBPath UTF8String], &database) == SQLITE_OK) {
-		NSLog(@"Database initialized");
-	} else {
-		// Even though the open failed, call close to properly clean up resources.
-		sqlite3_close(database);
-		database = NULL;
-		return NO;
-	}
-	return YES;
-}
-
-- (void)syncData
-{
-    const char *sql = "SELECT spell, phonetic, soundFile, translate, tags, detail, category, frequency FROM word";
-    sqlite3_stmt *statement;
-    if (sqlite3_prepare_v2(database, sql, -1, &statement, NULL) == SQLITE_OK) {
-        while (sqlite3_step(statement) == SQLITE_ROW) {
-            Word *word = [NSEntityDescription insertNewObjectForEntityForName:@"Word" inManagedObjectContext:[self managedObjectContext]];
-            [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 0)] forKey:@"spell"];
-            [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 1)] forKey:@"phonetic"];
-            [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 2)] forKey:@"soundFile"];
-            [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 3)] forKey:@"translate"];
-            [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 4)] forKey:@"tags"];
-            [word setValue:[NSString stringWithUTF8String:(char *)sqlite3_column_text(statement, 5)] forKey:@"detail"];
-            [word setValue:[NSNumber numberWithInt:sqlite3_column_int(statement, 6)] forKey:@"category"];
-            [word setValue:[NSNumber numberWithBool:NO] forKey:@"marked"];
-            [word setValue:[NSNumber numberWithInt:sqlite3_column_int(statement, 7)] forKey:@"rank"];
-        }
-        [self saveAction];
-    }
-    sqlite3_finalize(statement);
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -88,8 +28,12 @@ sqlite3 *database;
     [dc release];
     self.window.rootViewController = self.navigationController;
     
-//    [self initDatabase];
-//    [self syncData];
+//    NSError *error;
+//    if (![[self managedObjectContext] save:&error]) {
+//		// Update to handle the error appropriately.
+//		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//		exit(-1);  // Fail
+//    }
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -188,7 +132,7 @@ sqlite3 *database;
     
 	NSURL *storeUrl = [NSURL fileURLWithPath:storePath];
 	
-	NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];	
+	NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
     
 	NSError *error;
