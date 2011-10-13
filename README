@@ -1,1 +1,6 @@
-some descriptions to go here...
+How to import mysql data to Core Data:
+1.  run mysql service (it's XAMPP in my case)
+2.  open Terminal, go to "/Users/Perry/projects/WordTotalFrequency2/WordTotalFrequency/Data Importer"
+3.  run command: "./mysql2sqlite.sh -u root wtf_cn | sqlite3 mysql.sqlite"
+    (note: if exception thrown, check if mysql.sqlite exists under Data Importer, delete it if it exists)
+4.  run command: "python sqlite2coredata.py"
