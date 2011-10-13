@@ -9,7 +9,7 @@
 #import "WordDetailController.h"
 #import "DashboardView.h"
 #import "UIColor+WTF.h"
-#import "WordTotalFrequencyAppDelegate.h"
+#import "DataController.h"
 #import "WordDetailView.h"
 #import "WordListCell.h"
 
@@ -106,9 +106,8 @@ typedef enum {
                         }
                         completion:^(BOOL finished) {
                             // turn word back into a fault
-                            WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-                            [appDelegate saveAction];
-                            [appDelegate.managedObjectContext refreshObject:oldView.word mergeChanges:NO];
+                            [[DataController sharedDataController] saveFromSource:@"save word marked status"];
+                            [[DataController sharedDataController].managedObjectContext refreshObject:oldView.word mergeChanges:NO];
                             
                             [oldView removeFromSuperview];
                         }];
@@ -141,9 +140,8 @@ typedef enum {
                         }
                         completion:^(BOOL finished) {
                             // turn word back into a fault
-                            WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-                            [appDelegate saveAction];
-                            [appDelegate.managedObjectContext refreshObject:oldView.word mergeChanges:NO];
+                            [[DataController sharedDataController] saveFromSource:@"save word marked status"];
+                            [[DataController sharedDataController].managedObjectContext refreshObject:oldView.word mergeChanges:NO];
                             
                             [oldView removeFromSuperview];
                         }];

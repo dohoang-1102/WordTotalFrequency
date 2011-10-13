@@ -8,7 +8,7 @@
 
 #import "WordTestView.h"
 #import "WordSetController.h"
-#import "WordTotalFrequencyAppDelegate.h"
+#import "DataController.h"
 
 
 @implementation WordTestView
@@ -19,11 +19,10 @@
 {
     int total = _wordSetController.wordSet.totalWordCount;
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
     for (int i=0; i<3; i++){
         Word *word = [_wordSetController.testWords objectAtIndex:rand()%total];
         [array addObject:word.translate];
-        [[appDelegate managedObjectContext] refreshObject:word mergeChanges:NO];
+        [[DataController sharedDataController].managedObjectContext refreshObject:word mergeChanges:NO];
     }
 
     [array insertObject:answer atIndex:answerIndex];
@@ -44,8 +43,7 @@
                                              testView:self];
     _paperView.backgroundColor = [UIColor whiteColor];
     
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate.managedObjectContext refreshObject:word mergeChanges:NO];
+    [[DataController sharedDataController].managedObjectContext refreshObject:word mergeChanges:NO];
 }
 
 - (void)setWordSetController:(WordSetController *)wordSetController

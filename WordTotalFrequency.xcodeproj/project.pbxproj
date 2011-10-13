@@ -63,6 +63,8 @@
 		06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B2F9EC13E4333C001463AC /* CoreData.framework */; };
 		06B2F9F113E433F0001463AC /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */; };
 		06B2F9F413E434D3001463AC /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9F313E434D3001463AC /* Word.m */; };
+		C24F48E1144687AE003886F3 /* DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24F48DD144687AE003886F3 /* DataController.m */; };
+		C24F48E2144687AE003886F3 /* NSManagedObjectContext+insert.m in Sources */ = {isa = PBXBuildFile; fileRef = C24F48DF144687AE003886F3 /* NSManagedObjectContext+insert.m */; };
 		C2559FE214113CD700558487 /* down-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FE114113CD700558487 /* down-button.png */; };
 		C2559FF41411A80A00558487 /* search-bg-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FF21411A80A00558487 /* search-bg-highlight.png */; };
 		C2559FF51411A80A00558487 /* search-bg-highlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FF31411A80A00558487 /* search-bg-highlight@2x.png */; };
@@ -95,7 +97,6 @@
 		C2625BFC1445CE5E00175227 /* mysqldump in Resources */ = {isa = PBXBuildFile; fileRef = C2625BF81445CE5E00175227 /* mysqldump */; };
 		C2625BFD1445CE5E00175227 /* sqlite2coredata.py in Resources */ = {isa = PBXBuildFile; fileRef = C2625BF91445CE5E00175227 /* sqlite2coredata.py */; };
 		C2625BFE1445CE5E00175227 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C2625BFA1445CE5E00175227 /* WordTotalFrequency.sqlite */; };
-		C2803BDA1445B81B009D2CF1 /* WordTotalFrequency.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = C2803BD91445B81B009D2CF1 /* WordTotalFrequency.sqlite */; };
 		C285E9351413421200AAF99D /* cell-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C285E9331413421200AAF99D /* cell-bg.png */; };
 		C285E9361413421200AAF99D /* cell-bg@2x.PNG in Resources */ = {isa = PBXBuildFile; fileRef = C285E9341413421200AAF99D /* cell-bg@2x.PNG */; };
 		C28CFD2E13F4A43E0081B2C0 /* WordDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = C28CFD2D13F4A43E0081B2C0 /* WordDetailView.m */; };
@@ -214,6 +215,11 @@
 		06B2F9F013E433F0001463AC /* WordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordModel.xcdatamodel; sourceTree = "<group>"; };
 		06B2F9F213E434D3001463AC /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		06B2F9F313E434D3001463AC /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
+		C24F48DC144687AE003886F3 /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataController.h; sourceTree = "<group>"; };
+		C24F48DD144687AE003886F3 /* DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataController.m; sourceTree = "<group>"; };
+		C24F48DE144687AE003886F3 /* NSManagedObjectContext+insert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+insert.h"; sourceTree = "<group>"; };
+		C24F48DF144687AE003886F3 /* NSManagedObjectContext+insert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObjectContext+insert.m"; sourceTree = "<group>"; };
+		C24F48E0144687AE003886F3 /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
 		C2559FE114113CD700558487 /* down-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "down-button.png"; sourceTree = "<group>"; };
 		C2559FF21411A80A00558487 /* search-bg-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg-highlight.png"; sourceTree = "<group>"; };
 		C2559FF31411A80A00558487 /* search-bg-highlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search-bg-highlight@2x.png"; sourceTree = "<group>"; };
@@ -249,7 +255,6 @@
 		C2625BF81445CE5E00175227 /* mysqldump */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = mysqldump; sourceTree = "<group>"; };
 		C2625BF91445CE5E00175227 /* sqlite2coredata.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = sqlite2coredata.py; sourceTree = "<group>"; };
 		C2625BFA1445CE5E00175227 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = WordTotalFrequency.sqlite; sourceTree = "<group>"; };
-		C2803BD91445B81B009D2CF1 /* WordTotalFrequency.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; name = WordTotalFrequency.sqlite; path = "Data Importer/WordTotalFrequency.sqlite"; sourceTree = "<group>"; };
 		C285E9331413421200AAF99D /* cell-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-bg.png"; sourceTree = "<group>"; };
 		C285E9341413421200AAF99D /* cell-bg@2x.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cell-bg@2x.PNG"; sourceTree = "<group>"; };
 		C28CFD2C13F4A43D0081B2C0 /* WordDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordDetailView.h; sourceTree = "<group>"; };
@@ -449,7 +454,6 @@
 		0632420813D87C7F00388D3E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C2803BD91445B81B009D2CF1 /* WordTotalFrequency.sqlite */,
 				06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */,
 				06066C7D13D9C97A0019D945 /* Images */,
 				0632420913D87C7F00388D3E /* WordTotalFrequency-Info.plist */,
@@ -489,6 +493,11 @@
 		067A0DFC13D8918B003589DA /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C24F48DC144687AE003886F3 /* DataController.h */,
+				C24F48DD144687AE003886F3 /* DataController.m */,
+				C24F48DE144687AE003886F3 /* NSManagedObjectContext+insert.h */,
+				C24F48DF144687AE003886F3 /* NSManagedObjectContext+insert.m */,
+				C24F48E0144687AE003886F3 /* SynthesizeSingleton.h */,
 				C2BF7D6014444A0700C8894F /* DataUtil.h */,
 				C2BF7D6114444A0700C8894F /* DataUtil.m */,
 				067A0E1113D8E469003589DA /* Common.h */,
@@ -719,7 +728,6 @@
 				C28FF06F1417C1550069B252 /* arrow-previous.png in Resources */,
 				C28FF0701417C1550069B252 /* arrow-previous@2x.png in Resources */,
 				C2BF7D5E1444464E00C8894F /* WordSets.plist in Resources */,
-				C2803BDA1445B81B009D2CF1 /* WordTotalFrequency.sqlite in Resources */,
 				C2625BFB1445CE5E00175227 /* mysql2sqlite.sh in Resources */,
 				C2625BFC1445CE5E00175227 /* mysqldump in Resources */,
 				C2625BFD1445CE5E00175227 /* sqlite2coredata.py in Resources */,
@@ -762,6 +770,8 @@
 				C28F5E8F14158EC900FCAD22 /* PieChart.m in Sources */,
 				C28F5E9014158EC900FCAD22 /* Vector.c in Sources */,
 				C2BF7D6214444A0700C8894F /* DataUtil.m in Sources */,
+				C24F48E1144687AE003886F3 /* DataController.m in Sources */,
+				C24F48E2144687AE003886F3 /* NSManagedObjectContext+insert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

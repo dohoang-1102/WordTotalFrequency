@@ -25,7 +25,6 @@
 @property (nonatomic, retain) NSArray *testWords;
 @property (nonatomic) NSUInteger currentTestWordIndex;
 
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly) NSUInteger selectedViewIndex;
 @property (nonatomic, retain) NSFetchRequest *fetchRequest;
 

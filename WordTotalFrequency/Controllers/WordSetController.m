@@ -10,7 +10,7 @@
 #import "DashboardView.h"
 #import "CustomProgress.h"
 #import "UIColor+WTF.h"
-#import "WordTotalFrequencyAppDelegate.h"
+#import "DataController.h"
 
 typedef enum {
     CapLeft          = 0,
@@ -71,7 +71,7 @@ typedef enum {
     [self.fetchRequest setPredicate:predicate];
     
     NSError *error;
-    NSUInteger count = [self.managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+    NSUInteger count = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
     _wordSet.markedWordCount = count;
 
     // update control
@@ -290,12 +290,6 @@ typedef enum {
     return button;
 }
 
-- (NSManagedObjectContext *)managedObjectContext
-{
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-    return appDelegate.managedObjectContext;
-}
-
 - (NSFetchRequest *)fetchRequest
 {
     if (_fetchRequest != nil)
@@ -303,9 +297,9 @@ typedef enum {
         return _fetchRequest;
     }
     
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
     _fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word"
+                                              inManagedObjectContext:[DataController sharedDataController].managedObjectContext];
     [_fetchRequest setEntity:entity];
     return _fetchRequest;
 }

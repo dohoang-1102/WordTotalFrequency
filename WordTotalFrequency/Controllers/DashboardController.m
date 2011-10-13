@@ -15,7 +15,7 @@
 #import "UnitIconView.h"
 #import "WordSetBriefView.h"
 #import "UIColor+WTF.h"
-#import "WordTotalFrequencyAppDelegate.h"
+#import "DataController.h"
 
 @interface DashboardController()
 - (void)dismissSearchResult:(BOOL)animated;
@@ -80,13 +80,13 @@
         [self.fetchRequest setPredicate:predicate];
         
         NSError *error;
-        NSUInteger total = [self.managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+        NSUInteger total = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
         
         // marked count
         predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", set.categoryId];
         [self.fetchRequest setPredicate:predicate];
         
-        NSUInteger marked = [self.managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+        NSUInteger marked = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
         set.totalWordCount = total;
         set.markedWordCount = marked;
         
@@ -392,12 +392,6 @@
 {
 }
 
-- (NSManagedObjectContext *)managedObjectContext
-{
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-    return appDelegate.managedObjectContext;
-}
-
 - (NSFetchRequest *)fetchRequest
 {
     if (_fetchRequest != nil)
@@ -405,9 +399,9 @@
         return _fetchRequest;
     }
     
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
     _fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word"
+                                              inManagedObjectContext:[DataController sharedDataController].managedObjectContext];
     [_fetchRequest setEntity:entity];
     return _fetchRequest;
 }

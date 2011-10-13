@@ -9,7 +9,7 @@
 #import "WordListController.h"
 #import "WordDetailController.h"
 #import "Word.h"
-#import "WordTotalFrequencyAppDelegate.h"
+#import "DataController.h"
 #import "WordListCell.h"
 
 
@@ -159,8 +159,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-    [appDelegate saveAction];
+    [[DataController sharedDataController] saveFromSource:@"save word marked status"];
     [super viewDidDisappear:animated];
 }
 
@@ -231,11 +230,10 @@
         return _fetchedResultsController;
     }
     
-    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-
 	// Create and configure a fetch request with the Book entity.
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:appDelegate.managedObjectContext];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word"
+                                              inManagedObjectContext:[DataController sharedDataController].managedObjectContext];
 	[fetchRequest setEntity:entity];
     
     // Create the sort descriptors array.
@@ -252,7 +250,7 @@
 	// Create and initialize the fetch results controller.
 	NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
-                                                             managedObjectContext:appDelegate.managedObjectContext
+                                                             managedObjectContext:[DataController sharedDataController].managedObjectContext
                                                              sectionNameKeyPath:nil cacheName:nil];
 	self.fetchedResultsController = aFetchedResultsController;
 	_fetchedResultsController.delegate = self;
