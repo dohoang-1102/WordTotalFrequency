@@ -154,4 +154,53 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DataController);
 }
 
 
+#pragma mark - handy methods
+
+- (NSFetchRequest *)fetchHistoryRequest
+{
+    if (_fetchRequest != nil)
+    {
+        return _fetchRequest;
+    }
+    
+    _fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"History"
+                                              inManagedObjectContext:[DataController sharedDataController].managedObjectContext];
+    [_fetchRequest setEntity:entity];
+    return _fetchRequest;
+}
+
+- (void)markWord:(Word *)word
+{
+    NSManagedObject *history = [MANAGED_OBJECT_CONTEXT insertNewObjectForEntityForName:@"History"];
+    [history setValue:word.category forKey:@"category"];
+    [history setValue:word.spell forKey:@"spell"];
+    [history setValue:word.translate forKey:@"translate"];
+    [history setValue:[NSDate date] forKey:@"date"];
+    
+    NSURL *uri = [[word objectID] URIRepresentation];
+    NSData *uriData = [NSKeyedArchiver archivedDataWithRootObject:uri];
+    [history setValue:uriData forKey:@"uriRepresentation"];
+    
+    [self saveFromSource:@"mark word"];
+    [MANAGED_OBJECT_CONTEXT refreshObject:word mergeChanges:NO];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryChanged" object:self];
+}
+
+- (void)unmarkWord:(NSString *)spell
+{
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"spell = %@", spell];
+    [[self fetchHistoryRequest] setPredicate:predicate];
+    NSArray *items = [MANAGED_OBJECT_CONTEXT  executeFetchRequest:[self fetchHistoryRequest] error:nil];
+    if ([items count] > 0){
+        [MANAGED_OBJECT_CONTEXT deleteObject:[items objectAtIndex:0]];
+        [self saveFromSource:@"unmark word"];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryChanged" object:self];
+    }
+}
+
+
+
 @end

@@ -104,7 +104,7 @@
              setPredicate:[NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex]];
         else
             [self.fetchedResultsController.fetchRequest
-             setPredicate:[NSPredicate predicateWithFormat:@"category = %d and marked = true", _wordSetIndex]];
+             setPredicate:[NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex]];
     }
     else
     {
@@ -131,7 +131,8 @@
             dispatch_sync(main_queue, ^{
                 [blockSelf.tableView reloadData];
                 
-                if (_listType == WordListTypeWordSet){
+                if (_wordSetIndex > -1 && 
+                    [blockSelf.fetchedResultsController.fetchedObjects count] == 20){
                     dispatch_async(request_queue, ^{
                         //[blockSelf.fetchedResultsController.fetchRequest setFetchOffset:20];
                         [blockSelf.fetchedResultsController.fetchRequest setFetchLimit:0];
@@ -143,7 +144,8 @@
                         }
                         
                         dispatch_sync(main_queue, ^{
-                            blockSelf.wordSetController.testWords = blockSelf.fetchedResultsController.fetchedObjects;
+                            if (_listType == WordListTypeWordSet)
+                                blockSelf.wordSetController.testWords = blockSelf.fetchedResultsController.fetchedObjects;
                             [blockSelf.tableView reloadData];
                             dispatch_release(request_queue);
                         });
@@ -197,8 +199,11 @@
         cell.ownerTable = tableView;
     }
     
-    Word *word = [_fetchedResultsController objectAtIndexPath:indexPath];
-    cell.word = word;
+    NSManagedObject *obj = [_fetchedResultsController objectAtIndexPath:indexPath];
+    if (_listType == WordListTypeHistory)
+        cell.history = (History *)obj;
+    else
+        cell.word = (Word *)obj;
     cell.rowIndex = indexPath.row;
     
     return cell;
@@ -206,12 +211,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Word *word = (Word *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+    Word *word;
+    if (_listType == WordListTypeHistory){
+        History *history = (History *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+        
+        NSData *uriData = history.uriRepresentation;
+        NSURL *uri = [NSKeyedUnarchiver unarchiveObjectWithData:uriData];
+        NSManagedObjectID *moID = [[DataController sharedDataController].persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+        word = (Word *)[[DataController sharedDataController].managedObjectContext objectWithID:moID];
+    }
+    else{
+        word = (Word *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
+    }
     [self.delegate willSelectWord:word];
     
     WordDetailController *controller = [[WordDetailController alloc] init];
     controller.word = word;
-    controller.words = self.fetchedResultsController.fetchedObjects;
+    controller.words = _wordSetController.fetchedWordResultsController.fetchedObjects;
     controller.wordSetIndex = self.wordSetIndex;
     controller.currentWordIndex = indexPath.row;
     controller.wordListController = self;
@@ -230,20 +246,28 @@
         return _fetchedResultsController;
     }
     
+    NSString *entityName = (_listType == WordListTypeHistory ? @"History" : @"Word");
 	// Create and configure a fetch request with the Book entity.
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word"
+	NSEntityDescription *entity = [NSEntityDescription entityForName:entityName
                                               inManagedObjectContext:[DataController sharedDataController].managedObjectContext];
 	[fetchRequest setEntity:entity];
     
     // Create the sort descriptors array.
-	NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:NO];
-	[fetchRequest setSortDescriptors:[NSArray arrayWithObject:descriptor]];
-    [descriptor release];
+    if (_listType == WordListTypeWordSet){
+        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:descriptor]];
+        [descriptor release];
 
-    NSArray *propertiesToFetch = [[NSArray alloc] initWithObjects:@"marked", @"spell", @"translate", nil];
-    [fetchRequest setPropertiesToFetch:propertiesToFetch];
-    [propertiesToFetch release];
+        NSArray *propertiesToFetch = [[NSArray alloc] initWithObjects:@"marked", @"spell", @"translate", nil];
+        [fetchRequest setPropertiesToFetch:propertiesToFetch];
+        [propertiesToFetch release];
+    }
+    else{
+        NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"date" ascending:NO];
+        [fetchRequest setSortDescriptors:[NSArray arrayWithObject:descriptor]];
+        [descriptor release];
+    }
 
     [fetchRequest setFetchBatchSize:20];
     	
@@ -258,7 +282,6 @@
 	// Memory management.
 	[aFetchedResultsController release];
 	[fetchRequest release];
-	
 	return _fetchedResultsController;
 }
 

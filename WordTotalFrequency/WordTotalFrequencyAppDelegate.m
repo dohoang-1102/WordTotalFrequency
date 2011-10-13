@@ -29,7 +29,7 @@
     [dc release];
     self.window.rootViewController = self.navigationController;
     
-//    [[DataController sharedDataController] saveFromSource:@"save data free sqlite"];
+    [[DataController sharedDataController] saveFromSource:@"save data free sqlite"];
     
     [self.window makeKeyAndVisible];
     return YES;

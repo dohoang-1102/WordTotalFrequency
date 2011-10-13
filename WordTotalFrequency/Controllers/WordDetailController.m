@@ -58,17 +58,19 @@ typedef enum {
 
 - (void)backAction
 {
-    if (self.wordListController &&
-        _currentWordIndex != [self.wordListController.tableView indexPathForSelectedRow].row)
-    {
-        NSUInteger ii[2] = {0, _currentWordIndex};
-        NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
-        [self.wordListController.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
-    }
-    else{
-        NSArray *cells = [self.wordListController.tableView visibleCells];
-        for (WordListCell *cell in cells) {
-            [cell setNeedsLayout];
+    if (self.wordListController.listType != WordListTypeHistory){
+        if (self.wordListController &&
+            _currentWordIndex != [self.wordListController.tableView indexPathForSelectedRow].row)
+        {
+            NSUInteger ii[2] = {0, _currentWordIndex};
+            NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
+            [self.wordListController.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+        }
+        else{
+            NSArray *cells = [self.wordListController.tableView visibleCells];
+            for (WordListCell *cell in cells) {
+                [cell setNeedsLayout];
+            }
         }
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -268,6 +270,12 @@ typedef enum {
             break;
         case 1:
             self.word.marked = [NSNumber numberWithBool:![self.word.marked boolValue]];
+            if ([self.word.marked boolValue]){
+                [[DataController sharedDataController] markWord:_word];
+            }
+            else{
+                [[DataController sharedDataController] unmarkWord:_word.spell];
+            }
             [self updateMarkOnSegmented];
             [self updateMarkOnTopBar];
             break;

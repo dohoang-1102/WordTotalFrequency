@@ -63,6 +63,7 @@
 		06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B2F9EC13E4333C001463AC /* CoreData.framework */; };
 		06B2F9F113E433F0001463AC /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */; };
 		06B2F9F413E434D3001463AC /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9F313E434D3001463AC /* Word.m */; };
+		C2190D9314476255004C38FA /* History.m in Sources */ = {isa = PBXBuildFile; fileRef = C2190D9214476255004C38FA /* History.m */; };
 		C24F48E1144687AE003886F3 /* DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24F48DD144687AE003886F3 /* DataController.m */; };
 		C24F48E2144687AE003886F3 /* NSManagedObjectContext+insert.m in Sources */ = {isa = PBXBuildFile; fileRef = C24F48DF144687AE003886F3 /* NSManagedObjectContext+insert.m */; };
 		C2559FE214113CD700558487 /* down-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FE114113CD700558487 /* down-button.png */; };
@@ -215,6 +216,8 @@
 		06B2F9F013E433F0001463AC /* WordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordModel.xcdatamodel; sourceTree = "<group>"; };
 		06B2F9F213E434D3001463AC /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		06B2F9F313E434D3001463AC /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
+		C2190D9114476255004C38FA /* History.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = History.h; sourceTree = "<group>"; };
+		C2190D9214476255004C38FA /* History.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = History.m; sourceTree = "<group>"; };
 		C24F48DC144687AE003886F3 /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataController.h; sourceTree = "<group>"; };
 		C24F48DD144687AE003886F3 /* DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataController.m; sourceTree = "<group>"; };
 		C24F48DE144687AE003886F3 /* NSManagedObjectContext+insert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+insert.h"; sourceTree = "<group>"; };
@@ -473,6 +476,8 @@
 				067A0DF913D890D2003589DA /* WordSet.m */,
 				06B2F9F213E434D3001463AC /* Word.h */,
 				06B2F9F313E434D3001463AC /* Word.m */,
+				C2190D9114476255004C38FA /* History.h */,
+				C2190D9214476255004C38FA /* History.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -772,6 +777,7 @@
 				C2BF7D6214444A0700C8894F /* DataUtil.m in Sources */,
 				C24F48E1144687AE003886F3 /* DataController.m in Sources */,
 				C24F48E2144687AE003886F3 /* NSManagedObjectContext+insert.m in Sources */,
+				C2190D9314476255004C38FA /* History.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

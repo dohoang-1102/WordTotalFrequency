@@ -8,11 +8,15 @@
 
 #import "WordListCell.h"
 #import "UIColor+WTF.h"
-#import "WordTotalFrequencyAppDelegate.h"
+#import "DataController.h"
+#import "NSManagedObjectContext+insert.h"
+#import "History.h"
 
 @implementation WordListCell
 
 @synthesize word = _word;
+@synthesize history = _history;
+
 @synthesize wordSetController = _wordSetController;
 @synthesize ownerTable = _ownerTable;
 @synthesize rowIndex = _rowIndex;
@@ -60,6 +64,8 @@
 - (void)dealloc
 {
     [_word release];
+    [_history release];
+    
     [_markIcon release];
     [_spell release];
     [_translate release];
@@ -80,46 +86,48 @@
 {
     [super layoutSubviews];
     
-    if ([_word.marked boolValue])
+    if (_word != nil){
+        if ([_word.marked boolValue])
+            [_markIcon setImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
+        else
+            [_markIcon setImage:nil forState:UIControlStateNormal];
+        
+        _spell.text = _word.spell;
+        _translate.text = _word.translate;
+        
+    //    const char *cstr = [_word.translate UTF8String];
+    //    _translate.text = [NSString stringWithCString:cstr encoding:NSUTF8StringEncoding];
+    }
+    else if (_history != nil){
         [_markIcon setImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
-    else
-        [_markIcon setImage:nil forState:UIControlStateNormal];
-    
-    _spell.text = _word.spell;
-    _translate.text = _word.translate;
-    
-//    WordTotalFrequencyAppDelegate *appDelegate = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
-//    [[appDelegate managedObjectContext] refreshObject:_word mergeChanges:NO];
-
-    
-//    const char *cstr = [_word.translate UTF8String];
-//    _translate.text = [NSString stringWithCString:cstr encoding:NSUTF8StringEncoding];
-}
-
-- (void)setWord:(Word *)word
-{
-    if (_word != word)
-    {
-        [_word release];
-        _word = [word retain];
+        _spell.text = _history.spell;
+        _translate.text = _history.translate;
     }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (_wordSetController.selectedViewIndex == 2)
+    if (_word == nil)
     {
         [self.nextResponder touchesBegan:touches withEvent:event];
         return;
     }
          
-    CGSize size = [_word.spell sizeWithFont:_spell.font
+    CGSize size = [_spell.text sizeWithFont:_spell.font
                           constrainedToSize:CGSizeMake(CGRectGetWidth(_spell.bounds), CGRectGetHeight(_spell.bounds))];
     CGRect rect = CGRectMake(0, 0, 30+size.width, CGRectGetHeight(self.bounds));
     if (CGRectContainsPoint(rect, _lastHitPoint))
     {
         BOOL marked = [_word.marked boolValue];
         _word.marked = [NSNumber numberWithBool:!marked];
+        
+        // save NSManagedObject
+        if ([_word.marked boolValue]){
+            [[DataController sharedDataController] markWord:_word];
+        }
+        else{
+            [[DataController sharedDataController] unmarkWord:_word.spell];
+        }
         
         [self setNeedsLayout];
         

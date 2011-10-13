@@ -29,6 +29,7 @@ typedef enum {
 @synthesize fetchRequest = _fetchRequest;
 @synthesize wordTestView = _wordTestView;
 @synthesize selectedViewIndex = _selectedViewIndex;
+@synthesize fetchedWordResultsController = _fetchedWordResultsController;
 
 #define ICON_IMAGE_TAG 1
 #define PERCENT_LABEL_TAG 2
@@ -38,6 +39,8 @@ typedef enum {
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 //    [self.managedObjectContext reset];
 //    [NSFetchedResultsController deleteCacheWithName:nil];
     
@@ -76,6 +79,12 @@ typedef enum {
 
     // update control
     [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
+}
+
+- (void)historyChanged:(NSNotification *)note
+{
+    [_historyController release];
+    _historyController = nil;
 }
 
 #pragma mark - View lifecycle
@@ -138,6 +147,10 @@ typedef enum {
                                                     delegate:self];
     _segmentedControl.frame = CGRectMake(6, CGRectGetHeight(rect)-54, 308, 48);
     [self.view addSubview:_segmentedControl];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyChanged:) name:@"HistoryChanged" object:nil];
+
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -302,6 +315,10 @@ typedef enum {
                                               inManagedObjectContext:[DataController sharedDataController].managedObjectContext];
     [_fetchRequest setEntity:entity];
     return _fetchRequest;
+}
+
+- (NSFetchedResultsController *)fetchedWordResultsController{
+    return _listController.fetchedResultsController;
 }
 
 #pragma mark - segmented views

@@ -8,6 +8,7 @@
 
 #import "WordDetailView.h"
 #import "UIColor+WTF.h"
+#import "DataController.h"
 
 @implementation WordDetailView
 
@@ -27,10 +28,14 @@
     BOOL marked = [_word.marked boolValue];
     _word.marked = [NSNumber numberWithBool:!marked];
     
-    if ([_word.marked boolValue])
+    if ([_word.marked boolValue]){
         [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
-    else
+        [[DataController sharedDataController] markWord:_word];
+    }
+    else{
         [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
+        [[DataController sharedDataController] unmarkWord:_word.spell];
+    }
     
     [_wordDetailController updateMarkOnSegmented];
 }

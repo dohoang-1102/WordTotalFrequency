@@ -31,6 +31,8 @@
 @property (nonatomic, retain, readonly) WordTestView *wordTestView;
 @property (nonatomic, retain, readonly) UIView *historyView;
 
+@property (nonatomic, retain) NSFetchedResultsController *fetchedWordResultsController;
+
 - (void)updateMarkedCount;
 
 @end

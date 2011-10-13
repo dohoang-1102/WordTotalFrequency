@@ -11,6 +11,7 @@
 //  Based from Apple's provided Navigation-Controller CoreData template
 
 #import "NSManagedObjectContext+insert.h"
+#import "Word.h"
 
 #define MANAGED_OBJECT_CONTEXT [[DataController sharedDataController] managedObjectContext]
 #define SQL_DATABASE_NAME @"WordTotalFrequency"
@@ -19,6 +20,8 @@
     NSManagedObjectModel *_managedObjectModel;
     NSManagedObjectContext *_managedObjectContext;	    
     NSPersistentStoreCoordinator *_persistentStoreCoordinator;
+    
+    NSFetchRequest *_fetchRequest;
 }
 
 @property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -44,5 +47,9 @@
  Singleton accessor 
  */
 + (DataController *)sharedDataController;
+
+
+- (void)markWord:(Word *)word;
+- (void)unmarkWord:(NSString *)spell;
 
 @end
