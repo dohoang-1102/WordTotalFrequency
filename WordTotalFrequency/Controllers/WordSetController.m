@@ -83,8 +83,18 @@ typedef enum {
 
 - (void)historyChanged:(NSNotification *)note
 {
-    [_historyController release];
-    _historyController = nil;
+    if (_selectedViewIndex == 2){
+        [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
+        
+        [_historyController release];
+        _historyController = nil;
+        
+        [_viewContainer addSubview:self.historyView];
+    }
+    else{
+        [_historyController release];
+        _historyController = nil;
+    }
 }
 
 #pragma mark - View lifecycle
