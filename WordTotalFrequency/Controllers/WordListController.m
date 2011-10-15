@@ -254,7 +254,7 @@
 	[fetchRequest setEntity:entity];
     
     // Create the sort descriptors array.
-    if (_listType == WordListTypeWordSet){
+    if (_listType == WordListTypeWordSet || _listType == WordListTypeSearchResult){
         NSSortDescriptor *descriptor = [[NSSortDescriptor alloc] initWithKey:@"rank" ascending:NO];
         [fetchRequest setSortDescriptors:[NSArray arrayWithObject:descriptor]];
         [descriptor release];
