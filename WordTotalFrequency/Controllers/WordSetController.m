@@ -202,12 +202,6 @@ typedef enum {
         [_historyController.tableView deselectRowAtIndexPath:[_historyController.tableView indexPathForSelectedRow] animated:YES];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [_listController viewDidDisappear:NO];
-    [super viewDidDisappear:animated];
-}
-
 #pragma mark - CustomSegmentedControlDelegate
 
 - (void)touchDownAtSegmentIndex:(NSUInteger)segmentIndex

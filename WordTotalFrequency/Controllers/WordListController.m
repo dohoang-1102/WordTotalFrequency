@@ -159,12 +159,6 @@
     }
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [[DataController sharedDataController] saveFromSource:@"save word marked status"];
-    [super viewDidDisappear:animated];
-}
-
 #pragma mark - table view
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

@@ -108,7 +108,6 @@ typedef enum {
                         }
                         completion:^(BOOL finished) {
                             // turn word back into a fault
-                            [[DataController sharedDataController] saveFromSource:@"save word marked status"];
                             [[DataController sharedDataController].managedObjectContext refreshObject:oldView.word mergeChanges:NO];
                             
                             [oldView removeFromSuperview];
@@ -142,7 +141,6 @@ typedef enum {
                         }
                         completion:^(BOOL finished) {
                             // turn word back into a fault
-                            [[DataController sharedDataController] saveFromSource:@"save word marked status"];
                             [[DataController sharedDataController].managedObjectContext refreshObject:oldView.word mergeChanges:NO];
                             
                             [oldView removeFromSuperview];
