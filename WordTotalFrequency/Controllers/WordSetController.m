@@ -28,6 +28,7 @@ typedef enum {
 @synthesize currentTestWordIndex = _currentTestWordIndex;
 @synthesize fetchRequest = _fetchRequest;
 @synthesize wordTestView = _wordTestView;
+@synthesize settingsView = _settingsView;
 @synthesize selectedViewIndex = _selectedViewIndex;
 @synthesize fetchedWordResultsController = _fetchedWordResultsController;
 
@@ -49,6 +50,9 @@ typedef enum {
     
     [_historyController release];
     _historyController = nil;
+    
+    [_settingsView release];
+    _settingsView = nil;
 
     
     [_fetchRequest release];
@@ -181,11 +185,6 @@ typedef enum {
     [_viewContainer addSubview:_listController.view];
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];    
@@ -224,22 +223,19 @@ typedef enum {
 
 - (void)touchUpInsideSegmentIndex:(NSUInteger)segmentIndex
 {
+    [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
     switch (segmentIndex) {
         case 0:
-            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
             [_viewContainer addSubview:_listController.view];
             break;
         case 1:
-            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
             [_viewContainer addSubview:self.wordTestView];
             break;
         case 2:
-            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
             [_viewContainer addSubview:self.historyView];
             break;
         case 3:
-            break;
-        default:
+            [_viewContainer addSubview:self.settingsView];
             break;
     }
     _selectedViewIndex = segmentIndex;
@@ -347,6 +343,16 @@ typedef enum {
         _historyController.view.frame = _viewContainer.bounds;
     }
     return _historyController.view;
+}
+
+- (SettingsView *)settingsView
+{
+    if (_settingsView == nil)
+    {
+        _settingsView = [[SettingsView alloc] initWithFrame:_viewContainer.bounds];
+        _settingsView.wordSetController = self;
+    }
+    return _settingsView;
 }
 
 @end

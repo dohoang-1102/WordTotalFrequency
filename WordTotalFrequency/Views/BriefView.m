@@ -19,12 +19,14 @@
     if (self) {
         CGFloat top = 10;
         
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, top, 80, 48)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, top-2, 80, 48)];
         label.backgroundColor = [UIColor clearColor];
         label.font = [UIFont boldSystemFontOfSize:40];
         label.adjustsFontSizeToFitWidth = YES;
         label.textColor = [UIColor colorForNormalText];
         label.textAlignment = UITextAlignmentRight;
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0, 1.5f);
         [self addSubview:label];
         [label release];
         _totalLabel = label;
@@ -59,6 +61,8 @@
         label.font = [UIFont boldSystemFontOfSize:34];
         label.adjustsFontSizeToFitWidth = YES;
         label.textColor = [UIColor colorForNormalText];
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0, 1.5f);
         [self addSubview:label];
         [label release];
         _levelLabel = label;

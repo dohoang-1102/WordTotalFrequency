@@ -137,6 +137,9 @@
 		C2BA9AF213F2CFA700655182 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2BA9AF113F2CFA700655182 /* AVFoundation.framework */; };
 		C2BF7D5E1444464E00C8894F /* WordSets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C2BF7D5D1444464E00C8894F /* WordSets.plist */; };
 		C2BF7D6214444A0700C8894F /* DataUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = C2BF7D6114444A0700C8894F /* DataUtil.m */; };
+		C2C47BCF144B2B0900DBBA79 /* SettingsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C2C47BCE144B2B0900DBBA79 /* SettingsView.m */; };
+		C2C47BE2144B396F00DBBA79 /* button-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C47BE0144B396F00DBBA79 /* button-bg.png */; };
+		C2C47BE3144B396F00DBBA79 /* button-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C2C47BE1144B396F00DBBA79 /* button-bg@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -304,6 +307,10 @@
 		C2BF7D5D1444464E00C8894F /* WordSets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WordSets.plist; sourceTree = "<group>"; };
 		C2BF7D6014444A0700C8894F /* DataUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataUtil.h; sourceTree = "<group>"; };
 		C2BF7D6114444A0700C8894F /* DataUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataUtil.m; sourceTree = "<group>"; };
+		C2C47BCD144B2B0900DBBA79 /* SettingsView.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SettingsView.h; sourceTree = "<group>"; };
+		C2C47BCE144B2B0900DBBA79 /* SettingsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsView.m; sourceTree = "<group>"; };
+		C2C47BE0144B396F00DBBA79 /* button-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-bg.png"; sourceTree = "<group>"; };
+		C2C47BE1144B396F00DBBA79 /* button-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "button-bg@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +334,8 @@
 		06066C7D13D9C97A0019D945 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C2C47BE0144B396F00DBBA79 /* button-bg.png */,
+				C2C47BE1144B396F00DBBA79 /* button-bg@2x.png */,
 				C28FF0691417C1550069B252 /* arrow-next.png */,
 				C28FF06A1417C1550069B252 /* arrow-next@2x.png */,
 				C28FF06B1417C1550069B252 /* arrow-previous.png */,
@@ -560,6 +569,8 @@
 				C255A0251411DBDE00558487 /* WordListCell.m */,
 				C255A08714122DE600558487 /* CustomSegmentedControl.h */,
 				C255A08814122DE600558487 /* CustomSegmentedControl.m */,
+				C2C47BCD144B2B0900DBBA79 /* SettingsView.h */,
+				C2C47BCE144B2B0900DBBA79 /* SettingsView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -737,6 +748,8 @@
 				C2625BFC1445CE5E00175227 /* mysqldump in Resources */,
 				C2625BFD1445CE5E00175227 /* sqlite2coredata.py in Resources */,
 				C2625BFE1445CE5E00175227 /* WordTotalFrequency.sqlite in Resources */,
+				C2C47BE2144B396F00DBBA79 /* button-bg.png in Resources */,
+				C2C47BE3144B396F00DBBA79 /* button-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -778,6 +791,7 @@
 				C24F48E1144687AE003886F3 /* DataController.m in Sources */,
 				C24F48E2144687AE003886F3 /* NSManagedObjectContext+insert.m in Sources */,
 				C2190D9314476255004C38FA /* History.m in Sources */,
+				C2C47BCF144B2B0900DBBA79 /* SettingsView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

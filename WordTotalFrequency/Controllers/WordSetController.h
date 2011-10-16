@@ -10,6 +10,7 @@
 #import "WordListController.h"
 #import "WordSet.h"
 #import "WordTestView.h"
+#import "SettingsView.h"
 #import "CustomSegmentedControl.h"
 
 @class WordListController;
@@ -30,6 +31,7 @@
 
 @property (nonatomic, retain, readonly) WordTestView *wordTestView;
 @property (nonatomic, retain, readonly) UIView *historyView;
+@property (nonatomic, retain, readonly) SettingsView *settingsView;
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedWordResultsController;
 
