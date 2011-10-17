@@ -15,6 +15,7 @@
 + (NSDictionary *)readDictionaryFromFile: (NSString *)fileName;
 + (NSArray *)readArrayFromDataFile: (NSString *)fileName;
 + (BOOL) writeArray: (NSArray *)array toDataFile: (NSString *)fileName;
++ (BOOL)writeDictionary: (NSDictionary *)dictionary toDataFile: (NSString *)fileName;
 
 + (UIImage *) readImageFromDataFile: (NSString *)fileName;
 + (BOOL) writeImage: (UIImage *)image toDataFile: (NSString *)fileName;

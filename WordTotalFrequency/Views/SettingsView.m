@@ -10,6 +10,7 @@
 #import "UIColor+WTF.h"
 #import "DataController.h"
 #import "WordSetController.h"
+#import "DataUtil.h"
 
 @interface SettingsView ()
 
@@ -46,6 +47,13 @@
     [super dealloc];
 }
 
+- (void)setWordSetController:(WordSetController *)wordSetController
+{
+    _wordSetController = wordSetController;
+    
+    
+    
+}
 
 #pragma mark - table view datasource & delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -108,6 +116,11 @@
     else if (indexPath.row == 2){
         cell.textLabel.text = @"Only test unmarked words";
         UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectMake(200, 0, 94, 30)];
+        NSArray *array = [[DataUtil readDictionaryFromFile:@"WordSets"] objectForKey:@"WordSets"];
+        NSDictionary *dict = [array objectAtIndex:_wordSetController.wordSet.categoryId];
+        toggle.on = [[dict valueForKey:@"testMarked"] boolValue];
+        [toggle addTarget:self action:@selector(toggleMarkedOnly:) forControlEvents:UIControlEventValueChanged];
+        
         cell.accessoryView = toggle;
         [toggle release];
     }
@@ -158,6 +171,15 @@
             button.enabled = YES;
         });
     });
+}
+
+- (void)toggleMarkedOnly:(UISwitch *)toggle
+{
+    NSDictionary *alldict = [DataUtil readDictionaryFromFile:@"WordSets"];
+    NSArray *array = [alldict objectForKey:@"WordSets"];
+    NSDictionary *dict = [array objectAtIndex:_wordSetController.wordSet.categoryId];
+    [dict setValue:[NSNumber numberWithBool:toggle.on] forKey:@"testMarked"];
+    [DataUtil writeDictionary:alldict toDataFile:@"WordSets"];
 }
 
 @end

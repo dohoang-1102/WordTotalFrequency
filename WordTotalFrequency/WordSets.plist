@@ -5,64 +5,74 @@
 	<key>WordSets</key>
 	<array>
 		<dict>
+			<key>arrowColor</key>
+			<integer>12510205</integer>
+			<key>categoryId</key>
+			<integer>0</integer>
 			<key>color</key>
 			<integer>16729600</integer>
 			<key>description</key>
 			<string>Master this word set you can read some short.</string>
 			<key>iconUrl</key>
 			<string>Unit-1</string>
-			<key>categoryId</key>
-			<integer>0</integer>
-			<key>arrowColor</key>
-			<integer>12510205</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 		<dict>
+			<key>arrowColor</key>
+			<integer>10606585</integer>
+			<key>categoryId</key>
+			<integer>1</integer>
 			<key>color</key>
 			<integer>16737792</integer>
 			<key>description</key>
 			<string>Master this word set you can understand basic conversations.</string>
 			<key>iconUrl</key>
 			<string>Unit-2</string>
-			<key>categoryId</key>
-			<integer>1</integer>
-			<key>arrowColor</key>
-			<integer>10606585</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 		<dict>
+			<key>arrowColor</key>
+			<integer>9359351</integer>
+			<key>categoryId</key>
+			<integer>2</integer>
 			<key>color</key>
 			<integer>16750592</integer>
 			<key>description</key>
 			<string>Master this word set you can adfasf asdfasdf werwer asfasdf.</string>
 			<key>iconUrl</key>
 			<string>Unit-3</string>
-			<key>categoryId</key>
-			<integer>2</integer>
-			<key>arrowColor</key>
-			<integer>9359351</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 		<dict>
+			<key>arrowColor</key>
+			<integer>10606585</integer>
+			<key>categoryId</key>
+			<integer>3</integer>
 			<key>color</key>
 			<integer>16759040</integer>
 			<key>description</key>
 			<string>Master this word set you can read some short article.</string>
 			<key>iconUrl</key>
 			<string>Unit-4</string>
-			<key>categoryId</key>
-			<integer>3</integer>
-			<key>arrowColor</key>
-			<integer>10606585</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 		<dict>
+			<key>arrowColor</key>
+			<integer>12510205</integer>
+			<key>categoryId</key>
+			<integer>4</integer>
 			<key>color</key>
 			<integer>16767488</integer>
 			<key>description</key>
 			<string>Master this word set you can read some short articles and have.</string>
 			<key>iconUrl</key>
 			<string>Unit-5</string>
-			<key>categoryId</key>
-			<integer>4</integer>
-			<key>arrowColor</key>
-			<integer>12510205</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 	</array>
 </dict>
