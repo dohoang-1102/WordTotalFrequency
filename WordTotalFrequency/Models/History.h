@@ -17,6 +17,6 @@
 @property (nonatomic, retain) NSString * spell;
 @property (nonatomic, retain) NSData * uriRepresentation;
 @property (nonatomic, retain) NSString * translate;
-@property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSString * date;
 
 @end

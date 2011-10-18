@@ -22,7 +22,7 @@ for row in inCursor:
 	# Create ZWORD entry
 	vals = []
 	vals.append(count+1)			# Z_PK	row[0]
-	vals.append(1)					# Z_ENT
+	vals.append(2)					# Z_ENT
 	vals.append(1)					# Z_OPT
 	vals.append(row[3])				# ZRANK
 	vals.append(0)					# ZMARKED
@@ -36,7 +36,7 @@ for row in inCursor:
 	outConn.execute("insert into ZWORD values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", vals)
     
     
- 
-outConn.execute("update Z_PRIMARYKEY set Z_MAX=?", [maxId])
+print count+1 
+outConn.execute("update Z_PRIMARYKEY set Z_MAX=? where Z_NAME = 'Word'", [count+1])
  
 outConn.commit()

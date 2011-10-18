@@ -176,7 +176,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DataController);
     [history setValue:word.category forKey:@"category"];
     [history setValue:word.spell forKey:@"spell"];
     [history setValue:word.translate forKey:@"translate"];
-    [history setValue:[NSDate date] forKey:@"date"];
+    
+    NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];  
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss.SSSS"];
+    NSString *dateString = [dateFormatter stringFromDate:[NSDate date]];
+    [history setValue:dateString forKey:@"date"];
     
     NSURL *uri = [[word objectID] URIRepresentation];
     NSData *uriData = [NSKeyedArchiver archivedDataWithRootObject:uri];
