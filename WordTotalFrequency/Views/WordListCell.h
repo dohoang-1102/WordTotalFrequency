@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "Word.h"
-#import "History.h"
 #import "WordSetController.h"
 
 @interface WordListCell : UITableViewCell {
@@ -20,7 +19,6 @@
 }
 
 @property (nonatomic, retain) Word *word;
-@property (nonatomic, retain) History *history;
 
 @property (nonatomic, assign) WordSetController *wordSetController;
 @property (nonatomic, assign) UITableView *ownerTable;

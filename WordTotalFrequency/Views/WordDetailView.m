@@ -25,19 +25,11 @@
 
 - (void)markAction:(UIGestureRecognizer *)gestureRecognizer
 {
-    BOOL marked = [_word.marked boolValue];
-    _word.marked = [NSNumber numberWithBool:!marked];
-    
-    if ([_word.marked boolValue]){
-        [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
-        [[DataController sharedDataController] markWord:_word];
-    }
-    else{
-        [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
-        [[DataController sharedDataController] unmarkWord:_word.spell];
-    }
-    
+    [[DataController sharedDataController] markWordToNextLevel:_word];
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"mark-circle-%d", [self.word.markStatus intValue]]];
+    [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:image forState:UIControlStateNormal];
     [_wordDetailController updateMarkOnSegmented];
+    [_wordDetailController setHistoryListDirty:YES];
 }
 
 - (void)speakAction
@@ -142,10 +134,8 @@
 
 - (void)updateWordData
 {
-    if ([_word.marked boolValue])
-        [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle"] forState:UIControlStateNormal];
-    else
-        [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:[UIImage imageNamed:@"mark-circle-gray"] forState:UIControlStateNormal];
+    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"mark-circle-%d", [_word.markStatus intValue]]];
+    [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:image forState:UIControlStateNormal];
     
     [(UILabel *)[self viewWithTag:SPELL_LABEL_TAG] setText:_word.spell];
     [(UILabel *)[self viewWithTag:PHONETIC_LABEL_TAG] setText:_word.phonetic];

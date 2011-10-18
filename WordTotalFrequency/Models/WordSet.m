@@ -20,17 +20,6 @@
 @synthesize iconUrl = _iconUrl;
 @synthesize categoryId = _categoryId;
 
-- (id)initWithTotal:(NSInteger)total marked:(NSInteger)marked color:(UIColor *)color
-{
-    if ((self = [super init]))
-    {
-        self.totalWordCount = total;
-        self.markedWordCount= marked;
-        self.color          = color;
-    }
-    return self;
-}
-
 - (void)dealloc
 {
     [_description release];

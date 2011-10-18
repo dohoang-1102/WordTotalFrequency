@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Word.h"
 #import "WordListController.h"
+#import "WordSetController.h"
 #import "CustomSegmentedControl.h"
 
 @interface WordDetailController : UIViewController<UIGestureRecognizerDelegate, CustomSegmentedControlDelegate> {
@@ -20,7 +21,9 @@
 @property (nonatomic, retain) NSArray *words;
 @property (nonatomic) NSInteger wordSetIndex;
 @property (nonatomic) NSUInteger currentWordIndex;
+@property (nonatomic, assign) WordSetController *wordSetController;
 @property (nonatomic, assign) WordListController *wordListController;
+@property (nonatomic) BOOL historyListDirty;
 
 - (void)updateMarkOnSegmented;
 

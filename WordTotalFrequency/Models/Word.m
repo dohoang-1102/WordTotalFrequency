@@ -19,6 +19,7 @@
 @dynamic tags;
 @dynamic detail;
 @dynamic category;
-@dynamic marked;
+@dynamic markStatus;
+@dynamic markDate;
 
 @end

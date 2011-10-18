@@ -11,6 +11,7 @@
 #import "DataController.h"
 #import "WordSetController.h"
 #import "DataUtil.h"
+#import "NSDate+Ext.h"
 
 @interface SettingsView ()
 
@@ -133,6 +134,7 @@
 - (void)markAll:(UIButton *)button
 {
     button.enabled = NO;
+    NSString *now = [[NSDate date] formatLongDate];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -140,7 +142,8 @@
     dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
     
     dispatch_async(request_queue, ^{
-        [_wordSetController.testWords setValue:[NSNumber numberWithBool:YES] forKey:@"marked"];
+        [_wordSetController.testWords setValue:[NSNumber numberWithInt:2] forKey:@"markStatus"];
+        [_wordSetController.testWords setValue:now forKey:@"markDate"];
         [[DataController sharedDataController] saveFromSource:@"mark all"];
         
         dispatch_sync(main_queue, ^{
@@ -161,7 +164,7 @@
     dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
     
     dispatch_async(request_queue, ^{
-        [_wordSetController.testWords setValue:[NSNumber numberWithBool:NO] forKey:@"marked"];
+        [_wordSetController.testWords setValue:[NSNumber numberWithInt:0] forKey:@"markStatus"];
         [[DataController sharedDataController] saveFromSource:@"unmark all"];
         
         dispatch_sync(main_queue, ^{

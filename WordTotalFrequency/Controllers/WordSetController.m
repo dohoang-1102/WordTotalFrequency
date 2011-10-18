@@ -74,7 +74,7 @@ typedef enum {
 
 - (void)updateMarkedCount
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", _wordSet.categoryId];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d and markStatus > 0", _wordSet.categoryId];
     [self.fetchRequest setPredicate:predicate];
     
     NSError *error;

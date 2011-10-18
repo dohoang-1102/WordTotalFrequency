@@ -83,7 +83,7 @@
         NSUInteger total = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
         
         // marked count
-        predicate = [NSPredicate predicateWithFormat:@"category = %d and marked = 1", set.categoryId];
+        predicate = [NSPredicate predicateWithFormat:@"category = %d and markStatus <> 0", set.categoryId];
         [self.fetchRequest setPredicate:predicate];
         
         NSUInteger marked = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];

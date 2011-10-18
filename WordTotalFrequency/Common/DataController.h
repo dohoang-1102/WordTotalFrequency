@@ -20,8 +20,6 @@
     NSManagedObjectModel *_managedObjectModel;
     NSManagedObjectContext *_managedObjectContext;	    
     NSPersistentStoreCoordinator *_persistentStoreCoordinator;
-    
-    NSFetchRequest *_fetchRequest;
 }
 
 @property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
@@ -49,7 +47,7 @@
 + (DataController *)sharedDataController;
 
 
-- (void)markWord:(Word *)word;
-- (void)unmarkWord:(NSString *)spell;
+- (void)markWord:(Word *)word status:(NSUInteger)status;
+- (void)markWordToNextLevel:(Word *)word;
 
 @end

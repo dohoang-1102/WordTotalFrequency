@@ -22,6 +22,4 @@
 @property (nonatomic, copy) NSString *iconUrl;
 @property (nonatomic) NSInteger categoryId;
 
-- (id)initWithTotal:(NSInteger)total marked:(NSInteger)marked color:(UIColor *)color;
-
 @end

@@ -28,7 +28,9 @@ typedef enum {
 @synthesize words = _words;
 @synthesize wordSetIndex = _wordSetIndex;
 @synthesize currentWordIndex = _currentWordIndex;
+@synthesize wordSetController = _wordSetController;
 @synthesize wordListController = _wordListController;
+@synthesize historyListDirty = _historyListDirty;
 
 #define MARK_ICON_TAG 1
 #define SPELL_LABEL_TAG 2
@@ -58,19 +60,23 @@ typedef enum {
 
 - (void)backAction
 {
-    if (self.wordListController.listType != WordListTypeHistory){
-        if (self.wordListController &&
-            _currentWordIndex != [self.wordListController.tableView indexPathForSelectedRow].row)
+    BOOL check = YES;
+    if (_wordSetController.selectedViewIndex == 2 && self.historyListDirty){
+        check = NO;
+    }
+    
+    
+    if (check && self.wordListController &&
+        self.wordListController.listType != WordListTypeHistory){
+        if (_currentWordIndex != [self.wordListController.tableView indexPathForSelectedRow].row)
         {
             NSUInteger ii[2] = {0, _currentWordIndex};
             NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
             [self.wordListController.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
         }
-        else{
-            NSArray *cells = [self.wordListController.tableView visibleCells];
-            for (WordListCell *cell in cells) {
-                [cell setNeedsLayout];
-            }
+        NSArray *cells = [self.wordListController.tableView visibleCells];
+        for (WordListCell *cell in cells) {
+            [cell setNeedsLayout];
         }
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -78,7 +84,7 @@ typedef enum {
 
 - (void)updateMarkOnSegmented
 {
-    NSString *imageName = [self.word.marked boolValue] ? @"mark-circle" : @"mark-circle-gray";
+    NSString *imageName = [NSString stringWithFormat:@"mark-circle-%d", [self.word.markStatus intValue]];
     UIImageView *image = (UIImageView *)[self.view viewWithTag:kSegmentMarkTag];
     image.image = [UIImage imageNamed:imageName];
 }
@@ -267,15 +273,10 @@ typedef enum {
             [self previousWordDetail];
             break;
         case 1:
-            self.word.marked = [NSNumber numberWithBool:![self.word.marked boolValue]];
-            if ([self.word.marked boolValue]){
-                [[DataController sharedDataController] markWord:_word];
-            }
-            else{
-                [[DataController sharedDataController] unmarkWord:_word.spell];
-            }
+            [[DataController sharedDataController] markWordToNextLevel:self.word];
             [self updateMarkOnSegmented];
             [self updateMarkOnTopBar];
+            [self setHistoryListDirty:YES];
             break;
         case 2:
             [self nextWordDetail];
@@ -340,7 +341,7 @@ typedef enum {
     }
     else
     {
-        NSString *imageName = [self.word.marked boolValue] ? @"mark-circle" : @"mark-circle-gray";
+        NSString *imageName = [NSString stringWithFormat:@"mark-circle-%d", [self.word.markStatus intValue]];
         UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
         image.tag = kSegmentMarkTag;
         image.frame = CGRectMake(16, 23, 12, 13);
