@@ -134,6 +134,13 @@ typedef enum {
         [_historyController release];
         _historyController = nil;
     }
+    
+    [self testSettingChanged:NULL];
+}
+
+- (void)batchMarkUpdated:(NSNotification *)note
+{
+    [_listController forceUpdateDataSource];
 }
 
 #pragma mark - View lifecycle
@@ -200,7 +207,7 @@ typedef enum {
     // notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(testSettingChanged:) name:@"TestSettingChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyChanged:) name:@"HistoryChanged" object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batchMarkUpdated:) name:@"BatchMarkUpdated" object:nil];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

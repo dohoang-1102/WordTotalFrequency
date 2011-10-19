@@ -12,7 +12,7 @@
 #import "WordSetController.h"
 #import "DataUtil.h"
 #import "NSDate+Ext.h"
-
+#import <sqlite3.h>
 
 @interface SettingsView ()
 
@@ -136,29 +136,26 @@
 
 - (void)markAll:(UIButton *)button
 {
-    // TODO:
-    /*
-    button.enabled = NO;
-    NSString *now = [[NSDate date] formatLongDate];
+    sqlite3 *database;
+    NSString *dbPath = [[DataController sharedDataController] dbPath];
+    if (sqlite3_open([dbPath UTF8String], &database) == SQLITE_OK) {
+        NSString *sql = [NSString stringWithFormat:@"UPDATE ZWORD SET ZMARKSTATUS=2, ZMARKDATE='%@' WHERE ZCATEGORY=%d AND ZMARKSTATUS=0",
+                         [[NSDate date] formatLongDate],
+                         _wordSetController.wordSet.categoryId];
+        sqlite3_stmt *statement;
+        if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+            sqlite3_step(statement);
+        }
+        sqlite3_finalize(statement);
+	} else {
+		NSLog(@"failed open db");
+	}
+    sqlite3_close(database);
+    database = NULL;
     
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
-    dispatch_queue_t main_queue = dispatch_get_main_queue();
-    dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
-    
-    dispatch_async(request_queue, ^{
-        [_wordSetController.testWords setValue:[NSNumber numberWithInt:2] forKey:@"markStatus"];
-        [_wordSetController.testWords setValue:now forKey:@"markDate"];
-        [[DataController sharedDataController] saveFromSource:@"mark all"];
-        
-        dispatch_sync(main_queue, ^{
-            [_wordSetController updateMarkedCount];
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            dispatch_release(request_queue);
-            button.enabled = YES;
-        });
-    });
-     */
+    [_wordSetController updateMarkedCount];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryChanged" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"BatchMarkUpdated" object:self];
 }
 
 - (void)unmarkAll:(UIButton *)button
@@ -183,27 +180,24 @@
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-        // TODO:
-        /*
-        UIButton *button = (UIButton *)[self viewWithTag:1];
-		button.enabled = NO;
+        sqlite3 *database;
+        NSString *dbPath = [[DataController sharedDataController] dbPath];
+        if (sqlite3_open([dbPath UTF8String], &database) == SQLITE_OK) {
+            NSString *sql = [NSString stringWithFormat:@"UPDATE ZWORD SET ZMARKSTATUS=0, ZMARKDATE='' WHERE ZCATEGORY=%d AND ZMARKSTATUS>0", _wordSetController.wordSet.categoryId];
+            sqlite3_stmt *statement;
+            if (sqlite3_prepare_v2(database, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+                sqlite3_step(statement);
+            }
+            sqlite3_finalize(statement);
+        } else {
+            NSLog(@"failed open db");
+        }
+        sqlite3_close(database);
+        database = NULL;
         
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-        dispatch_queue_t main_queue = dispatch_get_main_queue();
-        dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
-        
-        dispatch_async(request_queue, ^{
-            [_wordSetController.testWords setValue:[NSNumber numberWithInt:0] forKey:@"markStatus"];
-            [[DataController sharedDataController] saveFromSource:@"unmark all"];
-            
-            dispatch_sync(main_queue, ^{
-                [_wordSetController updateMarkedCount];
-                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-                dispatch_release(request_queue);
-                button.enabled = YES;
-            });
-        });
-         */
+        [_wordSetController updateMarkedCount];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryChanged" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"BatchMarkUpdated" object:self];
 	}
 }
 

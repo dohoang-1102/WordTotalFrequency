@@ -38,5 +38,6 @@ typedef enum {
 @property (nonatomic) WordListType listType;
 
 - (id)initWIthListType:(WordListType)listType;
+- (void)forceUpdateDataSource;
 
 @end

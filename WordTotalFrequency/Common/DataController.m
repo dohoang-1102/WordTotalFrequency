@@ -212,4 +212,11 @@ static NSDictionary *alldict = nil;
     [DataUtil writeDictionary:self.settingsDictionary toDataFile:@"WordSets"];
 }
 
+- (NSString *)dbPath
+{
+    NSString *storePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent: SQL_DATABASE_NAME];
+	storePath = [storePath stringByAppendingString: @".sqlite"];
+    return storePath;
+}
+
 @end

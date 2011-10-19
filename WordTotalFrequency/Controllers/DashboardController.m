@@ -289,8 +289,11 @@
     [_searchBar resignFirstResponder];
     [self dismissSearchResult:NO];
     
-    if (_selectedIconIndex > -1)
+    if (_selectedIconIndex > -1){
         [_wordSetBrief updateDisplay];
+        UnitIconView *icon = [_unitIcons objectAtIndex:_selectedIconIndex];
+        [icon updateData];
+    }
     
     // update total marked count
     int total = 0;

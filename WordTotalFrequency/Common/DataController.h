@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
 
 @property (nonatomic, readonly) NSDictionary *settingsDictionary;
+@property (nonatomic, readonly) NSString *dbPath;
 
 /**
  Print a log message and exit the application.  Called whenever a CoreData related method fails.

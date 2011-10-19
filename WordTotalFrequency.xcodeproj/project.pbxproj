@@ -63,6 +63,7 @@
 		06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B2F9EC13E4333C001463AC /* CoreData.framework */; };
 		06B2F9F113E433F0001463AC /* WordModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9EF13E433F0001463AC /* WordModel.xcdatamodeld */; };
 		06B2F9F413E434D3001463AC /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 06B2F9F313E434D3001463AC /* Word.m */; };
+		C20E9FF8144EBBE4003165F7 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C20E9FF7144EBBE4003165F7 /* libsqlite3.dylib */; };
 		C24F48E1144687AE003886F3 /* DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = C24F48DD144687AE003886F3 /* DataController.m */; };
 		C24F48E2144687AE003886F3 /* NSManagedObjectContext+insert.m in Sources */ = {isa = PBXBuildFile; fileRef = C24F48DF144687AE003886F3 /* NSManagedObjectContext+insert.m */; };
 		C2559FE214113CD700558487 /* down-button.png in Resources */ = {isa = PBXBuildFile; fileRef = C2559FE114113CD700558487 /* down-button.png */; };
@@ -221,6 +222,7 @@
 		06B2F9F013E433F0001463AC /* WordModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WordModel.xcdatamodel; sourceTree = "<group>"; };
 		06B2F9F213E434D3001463AC /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		06B2F9F313E434D3001463AC /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
+		C20E9FF7144EBBE4003165F7 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		C24F48DC144687AE003886F3 /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataController.h; sourceTree = "<group>"; };
 		C24F48DD144687AE003886F3 /* DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataController.m; sourceTree = "<group>"; };
 		C24F48DE144687AE003886F3 /* NSManagedObjectContext+insert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObjectContext+insert.h"; sourceTree = "<group>"; };
@@ -322,6 +324,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C20E9FF8144EBBE4003165F7 /* libsqlite3.dylib in Frameworks */,
 				C2BA9AF213F2CFA700655182 /* AVFoundation.framework in Frameworks */,
 				06B2F9ED13E4333C001463AC /* CoreData.framework in Frameworks */,
 				06066CF113DA97710019D945 /* CoreText.framework in Frameworks */,
@@ -441,6 +444,7 @@
 		0632420013D87C7F00388D3E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C20E9FF7144EBBE4003165F7 /* libsqlite3.dylib */,
 				C2BA9AF113F2CFA700655182 /* AVFoundation.framework */,
 				06B2F9EC13E4333C001463AC /* CoreData.framework */,
 				06066CF013DA97710019D945 /* CoreText.framework */,

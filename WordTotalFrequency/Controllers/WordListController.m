@@ -54,59 +54,8 @@
     [super dealloc];
 }
 
-- (void)setSearchString:(NSString *)searchString
+- (void)forceUpdateDataSource
 {
-    if (_searchString != searchString)
-    {
-        [_searchString release];
-        _searchString = [searchString copy];
-        
-        [NSFetchedResultsController deleteCacheWithName:nil];
-        if ([searchString isEqualToString:@""])
-        {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"1 != -1"];
-            [self.fetchedResultsController.fetchRequest setPredicate:predicate];
-        }
-        else
-        {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"spell contains[cd] %@", searchString];
-            [self.fetchedResultsController.fetchRequest setPredicate:predicate];
-        }
-        
-        
-        dispatch_queue_t main_queue = dispatch_get_main_queue();
-        dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
-        
-        __block __typeof__(self) blockSelf = self;
-        
-        dispatch_async(request_queue, ^{
-            NSError *error;
-            if (![blockSelf.fetchedResultsController performFetch:&error]) {
-                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-                exit(-1);  // Fail
-            }
-            
-            dispatch_sync(main_queue, ^{
-                [blockSelf.tableView reloadData];
-                
-                dispatch_release(request_queue);
-            });
-        });
-    }
-}
-
-#pragma mark - View lifecycle
-
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.separatorColor = [UIColor colorWithWhite:1.f alpha:.5f];
-    
     if (_wordSetIndex > -1)
     {
         self.tableView.backgroundColor = [UIColor clearColor];
@@ -166,6 +115,61 @@
             });
         });
     }
+}
+
+- (void)setSearchString:(NSString *)searchString
+{
+    if (_searchString != searchString)
+    {
+        [_searchString release];
+        _searchString = [searchString copy];
+        
+        [NSFetchedResultsController deleteCacheWithName:nil];
+        if ([searchString isEqualToString:@""])
+        {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"1 != -1"];
+            [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+        }
+        else
+        {
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"spell contains[cd] %@", searchString];
+            [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+        }
+        
+        
+        dispatch_queue_t main_queue = dispatch_get_main_queue();
+        dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
+        
+        __block __typeof__(self) blockSelf = self;
+        
+        dispatch_async(request_queue, ^{
+            NSError *error;
+            if (![blockSelf.fetchedResultsController performFetch:&error]) {
+                NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+                exit(-1);  // Fail
+            }
+            
+            dispatch_sync(main_queue, ^{
+                [blockSelf.tableView reloadData];
+                
+                dispatch_release(request_queue);
+            });
+        });
+    }
+}
+
+#pragma mark - View lifecycle
+
+// Implement loadView to create a view hierarchy programmatically, without using a nib.
+
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    self.tableView.separatorColor = [UIColor colorWithWhite:1.f alpha:.5f];
+    
+    [self forceUpdateDataSource];
 }
 
 #pragma mark - table view
