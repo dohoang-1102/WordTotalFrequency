@@ -39,10 +39,26 @@ typedef enum {
 
 - (NSArray *)testingWords
 {
-    @synchronized(self){
-        
+    NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSet.categoryId];
+    if ([[dict valueForKey:@"testMarked"] boolValue]){
+        if (_testingWords == nil){
+            NSFetchRequest *_fetchTestingRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word"
+                                                      inManagedObjectContext:[DataController sharedDataController].managedObjectContext];
+            [_fetchTestingRequest setEntity:entity];
+            [_fetchTestingRequest setPredicate:[NSPredicate predicateWithFormat:@"category = %d and markStatus = 0", _wordSet.categoryId]];
+            
+            NSError *error = nil;
+            NSAutoreleasePool *ap = [[NSAutoreleasePool alloc] init];
+            _testingWords = [[MANAGED_OBJECT_CONTEXT executeFetchRequest:_fetchTestingRequest error:&error] retain];
+            [ap release];
+            [_fetchTestingRequest release];
+        }
+        return _testingWords;
     }
-    return _listController.wordsArray;
+    else{
+        return _listController.wordsArray;
+    }
 }
 
 - (void)dealloc
@@ -92,6 +108,17 @@ typedef enum {
 }
 
 #pragma mark - notification handler
+
+- (void)testSettingChanged:(NSNotification *)note
+{
+    _currentTestWordIndex = 0;
+    
+    [_testingWords release];
+    _testingWords = nil;
+
+    [_wordTestView release];
+    _wordTestView = nil;
+}
 
 - (void)historyChanged:(NSNotification *)note
 {
@@ -170,7 +197,8 @@ typedef enum {
     _segmentedControl.frame = CGRectMake(6, CGRectGetHeight(rect)-54, 308, 48);
     [self.view addSubview:_segmentedControl];
     
-    
+    // notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(testSettingChanged:) name:@"TestSettingChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyChanged:) name:@"HistoryChanged" object:nil];
 
 }

@@ -17,7 +17,7 @@
 
 - (NSArray *)getTestOptionsWithAnswer:(NSString *)answer atIndex:(NSUInteger)answerIndex
 {
-    int total = _wordSetController.wordSet.totalWordCount;
+    int total = [_wordSetController.testingWords count];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i=0; i<3; i++){
         Word *word = [_wordSetController.testingWords objectAtIndex:rand()%total];
@@ -31,19 +31,23 @@
 
 - (void)getPaperView
 {
-    Word *word = [_wordSetController.testingWords objectAtIndex:_wordSetController.currentTestWordIndex];
-    WordSet *wordSet = [_wordSetController wordSet];
-    int answerIndex = rand()%4;
-    NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
-    _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
-                                                 word:word.spell
-                                              options:options
-                                               answer:answerIndex
-                                               footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, wordSet.totalWordCount]
-                                             testView:self];
-    _paperView.backgroundColor = [UIColor whiteColor];
-    
-    [[DataController sharedDataController].managedObjectContext refreshObject:word mergeChanges:NO];
+    if ([_wordSetController.testingWords count] > 0){
+        Word *word = [_wordSetController.testingWords objectAtIndex:_wordSetController.currentTestWordIndex];
+        int answerIndex = rand()%4;
+        NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
+        _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
+                                                     word:word.spell
+                                                  options:options
+                                                   answer:answerIndex
+                                                   footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, [_wordSetController.testingWords count]]
+                                                 testView:self];
+        _paperView.backgroundColor = [UIColor whiteColor];
+        [[DataController sharedDataController].managedObjectContext refreshObject:word mergeChanges:NO];
+    }
+    else{
+        _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds];
+        _paperView.backgroundColor = [UIColor whiteColor];
+    }
 }
 
 - (void)setWordSetController:(WordSetController *)wordSetController

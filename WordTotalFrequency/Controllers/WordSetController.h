@@ -19,6 +19,8 @@
     WordListController *_listController;
     WordListController *_historyController;
     CustomSegmentedControl *_segmentedControl;
+    
+    NSArray *_testingWords;
 }
 
 @property (nonatomic, retain) UIView *viewContainer;

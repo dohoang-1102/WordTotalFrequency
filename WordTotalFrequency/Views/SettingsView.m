@@ -176,6 +176,8 @@
     NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSetController.wordSet.categoryId];
     [dict setValue:[NSNumber numberWithBool:toggle.on] forKey:@"testMarked"];
     [[DataController sharedDataController] saveSettingsDictionary];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"TestSettingChanged" object:self];
 }
 
 #pragma mark - UIAlertViewDelegate
