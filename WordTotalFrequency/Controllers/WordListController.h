@@ -31,7 +31,8 @@ typedef enum {
 
 @property (nonatomic, assign) id<WordListDelegate> delegate;
 @property (nonatomic, assign) WordSetController *wordSetController;
-@property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, readonly) NSArray *wordsArray;
 @property (nonatomic, copy) NSString *searchString;
 @property (nonatomic) NSInteger wordSetIndex;
 @property (nonatomic) WordListType listType;

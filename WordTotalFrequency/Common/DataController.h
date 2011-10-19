@@ -26,6 +26,8 @@
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
 
+@property (nonatomic, readonly) NSDictionary *settingsDictionary;
+
 /**
  Print a log message and exit the application.  Called whenever a CoreData related method fails.
  @parm error NSError object describing the issue
@@ -49,5 +51,8 @@
 
 - (void)markWord:(Word *)word status:(NSUInteger)status;
 - (void)markWordToNextLevel:(Word *)word;
+
+- (NSDictionary *)dictionaryForCategoryId:(NSUInteger)categoryId;
+- (void)saveSettingsDictionary;
 
 @end

@@ -20,7 +20,7 @@
     int total = _wordSetController.wordSet.totalWordCount;
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i=0; i<3; i++){
-        Word *word = [_wordSetController.testWords objectAtIndex:rand()%total];
+        Word *word = [_wordSetController.testingWords objectAtIndex:rand()%total];
         [array addObject:word.translate];
         [[DataController sharedDataController].managedObjectContext refreshObject:word mergeChanges:NO];
     }
@@ -31,7 +31,7 @@
 
 - (void)getPaperView
 {
-    Word *word = [_wordSetController.testWords objectAtIndex:_wordSetController.currentTestWordIndex];
+    Word *word = [_wordSetController.testingWords objectAtIndex:_wordSetController.currentTestWordIndex];
     WordSet *wordSet = [_wordSetController wordSet];
     int answerIndex = rand()%4;
     NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];

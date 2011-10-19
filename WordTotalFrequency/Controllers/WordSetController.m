@@ -24,7 +24,6 @@ typedef enum {
 
 @synthesize viewContainer = _viewContainer;
 @synthesize wordSet = _wordSet;
-@synthesize testWords = _testWords;
 @synthesize currentTestWordIndex = _currentTestWordIndex;
 @synthesize fetchRequest = _fetchRequest;
 @synthesize wordTestView = _wordTestView;
@@ -37,6 +36,14 @@ typedef enum {
 #define PROGRESS_TAG 3
 
 #define kSegmentLabelTag 99
+
+- (NSArray *)testingWords
+{
+    @synchronized(self){
+        
+    }
+    return _listController.wordsArray;
+}
 
 - (void)dealloc
 {
@@ -63,7 +70,6 @@ typedef enum {
     [_segmentedControl release];
     [_viewContainer release];
     [_wordSet release];
-    [_testWords release];
     [super dealloc];
 }
 
@@ -84,6 +90,8 @@ typedef enum {
     // update control
     [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
 }
+
+#pragma mark - notification handler
 
 - (void)historyChanged:(NSNotification *)note
 {
@@ -171,7 +179,6 @@ typedef enum {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Word Set";
     
     [(UIImageView *)[self.view viewWithTag:ICON_IMAGE_TAG] setImage:[UIImage imageNamed:_wordSet.iconUrl]];
     CustomProgress *progress = (CustomProgress *)[self.view viewWithTag:PROGRESS_TAG];
@@ -241,7 +248,7 @@ typedef enum {
     _selectedViewIndex = segmentIndex;
 }
 
-- (UIButton *) buttonFor:(CustomSegmentedControl*)segmentedControl atIndex:(NSUInteger)segmentIndex;
+- (UIButton *)buttonFor:(CustomSegmentedControl*)segmentedControl atIndex:(NSUInteger)segmentIndex;
 {
 //    NSUInteger dataOffset = segmentedControl.tag - TAG_VALUE ;
 //    NSDictionary* data = [buttons objectAtIndex:dataOffset];

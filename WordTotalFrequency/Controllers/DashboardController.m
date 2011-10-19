@@ -60,7 +60,8 @@
 {
     _wordSets = [[NSMutableArray alloc] init];
     
-    NSArray *array = [[DataUtil readDictionaryFromFile:@"WordSets"] objectForKey:@"WordSets"];
+    NSDictionary *dict = [[DataController sharedDataController] settingsDictionary];
+    NSArray *array = [dict objectForKey:@"WordSets"];
     for (NSDictionary *dict in array) {
         WordSet *set    = [[WordSet alloc] init];
         

@@ -24,6 +24,14 @@
 @synthesize wordSetIndex = _wordSetIndex;
 @synthesize listType = _listType;
 
+- (NSArray *)wordsArray
+{
+    if (_fetchedResultsController != nil){
+        return _fetchedResultsController.fetchedObjects;
+    }
+    return nil;
+}
+
 - (id)initWIthListType:(WordListType)listType
 {
     if ((self = [super init]))
@@ -36,8 +44,11 @@
 
 - (void)dealloc
 {
-    self.fetchedResultsController.delegate = nil;
-    self.fetchedResultsController = nil;
+    if (_fetchedResultsController != nil){
+        _fetchedResultsController.delegate = nil;
+        [_fetchedResultsController release];
+        _fetchedResultsController = nil;
+    }
     
     [_searchString release];
     [super dealloc];
@@ -144,8 +155,6 @@
                         }
                         
                         dispatch_sync(main_queue, ^{
-                            if (_listType == WordListTypeWordSet)
-                                blockSelf.wordSetController.testWords = blockSelf.fetchedResultsController.fetchedObjects;
                             [blockSelf.tableView reloadData];
                             dispatch_release(request_queue);
                         });
@@ -256,7 +265,7 @@
                                                              initWithFetchRequest:fetchRequest
                                                              managedObjectContext:[DataController sharedDataController].managedObjectContext
                                                              sectionNameKeyPath:nil cacheName:nil];
-	self.fetchedResultsController = aFetchedResultsController;
+	_fetchedResultsController = [aFetchedResultsController retain];
 	_fetchedResultsController.delegate = self;
 	
 	// Memory management.

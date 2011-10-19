@@ -13,6 +13,7 @@
 #import "DataUtil.h"
 #import "NSDate+Ext.h"
 
+
 @interface SettingsView ()
 
 - (void)markAll:(UIButton *)button;
@@ -23,6 +24,8 @@
 @implementation SettingsView
 
 @synthesize wordSetController = _wordSetController;
+
+#define BTN_CLEAN_HISTORY 1;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -100,15 +103,16 @@
         cell.accessoryView = btn;
     }
     else if (indexPath.row == 1){
-        cell.textLabel.text = @"Unmark all words";
+        cell.textLabel.text = @"Clean history of words";
 
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.tag = BTN_CLEAN_HISTORY;
         UIImage *buttonBackground = [UIImage imageNamed:@"button-bg"];
         UIImage *newImage = [buttonBackground stretchableImageWithLeftCapWidth:7.f topCapHeight:0.f];
         [btn setBackgroundImage:newImage forState:UIControlStateNormal];
         
         btn.frame = CGRectMake(200, 0, 94, 30);
-        [btn setTitle:@"Unmark All" forState:UIControlStateNormal];
+        [btn setTitle:@"Clean" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(unmarkAll:) forControlEvents:UIControlEventTouchUpInside];
         btn.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
@@ -117,8 +121,7 @@
     else if (indexPath.row == 2){
         cell.textLabel.text = @"Only test unmarked words";
         UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectMake(200, 0, 94, 30)];
-        NSArray *array = [[DataUtil readDictionaryFromFile:@"WordSets"] objectForKey:@"WordSets"];
-        NSDictionary *dict = [array objectAtIndex:_wordSetController.wordSet.categoryId];
+        NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSetController.wordSet.categoryId];
         toggle.on = [[dict valueForKey:@"testMarked"] boolValue];
         [toggle addTarget:self action:@selector(toggleMarkedOnly:) forControlEvents:UIControlEventValueChanged];
         
@@ -133,6 +136,8 @@
 
 - (void)markAll:(UIButton *)button
 {
+    // TODO:
+    /*
     button.enabled = NO;
     NSString *now = [[NSDate date] formatLongDate];
     
@@ -153,36 +158,51 @@
             button.enabled = YES;
         });
     });
+     */
 }
 
 - (void)unmarkAll:(UIButton *)button
 {
-    button.enabled = NO;
-    
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    dispatch_queue_t main_queue = dispatch_get_main_queue();
-    dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
-    
-    dispatch_async(request_queue, ^{
-        [_wordSetController.testWords setValue:[NSNumber numberWithInt:0] forKey:@"markStatus"];
-        [[DataController sharedDataController] saveFromSource:@"unmark all"];
-        
-        dispatch_sync(main_queue, ^{
-            [_wordSetController updateMarkedCount];
-            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-            dispatch_release(request_queue);
-            button.enabled = YES;
-        });
-    });
+    UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@""
+                                                     message:@"Are you sure you want to clean history?"
+                                                    delegate:self
+                                           cancelButtonTitle:@"Yes, I'm Sure"
+                                           otherButtonTitles:@"No, thanks", nil] autorelease];
+    [alert show];
 }
 
 - (void)toggleMarkedOnly:(UISwitch *)toggle
 {
-    NSDictionary *alldict = [DataUtil readDictionaryFromFile:@"WordSets"];
-    NSArray *array = [alldict objectForKey:@"WordSets"];
-    NSDictionary *dict = [array objectAtIndex:_wordSetController.wordSet.categoryId];
+    NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSetController.wordSet.categoryId];
     [dict setValue:[NSNumber numberWithBool:toggle.on] forKey:@"testMarked"];
-    [DataUtil writeDictionary:alldict toDataFile:@"WordSets"];
+    [[DataController sharedDataController] saveSettingsDictionary];
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+        // TODO:
+        /*
+        UIButton *button = (UIButton *)[self viewWithTag:1];
+		button.enabled = NO;
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        dispatch_queue_t main_queue = dispatch_get_main_queue();
+        dispatch_queue_t request_queue = dispatch_queue_create("com.app.biterice", NULL);
+        
+        dispatch_async(request_queue, ^{
+            [_wordSetController.testWords setValue:[NSNumber numberWithInt:0] forKey:@"markStatus"];
+            [[DataController sharedDataController] saveFromSource:@"unmark all"];
+            
+            dispatch_sync(main_queue, ^{
+                [_wordSetController updateMarkedCount];
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+                dispatch_release(request_queue);
+                button.enabled = YES;
+            });
+        });
+         */
+	}
 }
 
 @end

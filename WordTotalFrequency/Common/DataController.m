@@ -11,6 +11,7 @@
 #import "DataController.h"
 #import "SynthesizeSingleton.h"
 #import "NSDate+Ext.h"
+#import "DataUtil.h"
 
 @implementation DataController
 
@@ -187,6 +188,28 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DataController);
             break;
     }
     [self markWord:word status:k];
+}
+
+static NSDictionary *alldict = nil;
+
+- (NSDictionary *)settingsDictionary
+{
+    if (alldict == nil){
+        alldict = [[DataUtil readDictionaryFromFile:@"WordSets"] retain];
+    }
+    return alldict;
+}
+
+- (NSDictionary *)dictionaryForCategoryId:(NSUInteger)categoryId
+{
+    NSArray *array = [self.settingsDictionary objectForKey:@"WordSets"];
+    NSDictionary *dict = [array objectAtIndex:categoryId];
+    return dict;
+}
+
+- (void)saveSettingsDictionary
+{
+    [DataUtil writeDictionary:self.settingsDictionary toDataFile:@"WordSets"];
 }
 
 @end

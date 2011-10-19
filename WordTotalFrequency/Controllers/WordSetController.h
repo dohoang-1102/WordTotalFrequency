@@ -23,7 +23,7 @@
 
 @property (nonatomic, retain) UIView *viewContainer;
 @property (nonatomic, retain) WordSet *wordSet;
-@property (nonatomic, retain) NSArray *testWords;
+@property (nonatomic, readonly) NSArray *testingWords;
 @property (nonatomic) NSUInteger currentTestWordIndex;
 
 @property (nonatomic, readonly) NSUInteger selectedViewIndex;
