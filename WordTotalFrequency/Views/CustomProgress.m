@@ -62,7 +62,7 @@
         if (w < 12)
             w = 12;
     }
-    [_percentImage setFrame:CGRectMake(0, 0, w, 12)];
+    [_percentImage setFrame:CGRectMake(0, -0.5, w, 12)];
 }
 
 - (void)dealloc
