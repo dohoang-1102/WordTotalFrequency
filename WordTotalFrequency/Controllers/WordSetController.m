@@ -74,11 +74,11 @@ typedef enum {
 
 - (void)dealloc
 {
+    [MANAGED_OBJECT_CONTEXT reset];
+    [NSFetchedResultsController deleteCacheWithName:nil];
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-//    [self.managedObjectContext reset];
-//    [NSFetchedResultsController deleteCacheWithName:nil];
-    
     [_listController release];
     _listController = nil;
     

@@ -54,7 +54,12 @@ static NSPredicate *searchPredicate;
     }
     
     [_searchString release];
-    [searchPredicate release]; 
+    
+    [predicateString release];
+    predicateString = nil;
+    [searchPredicate release];
+    searchPredicate = nil;
+    
     [super dealloc];
 }
 
@@ -124,7 +129,7 @@ static NSPredicate *searchPredicate;
 - (void)setSearchString:(NSString *)searchString
 {
     if (predicateString == nil){
-        predicateString = [NSString stringWithFormat:@"spell contains[cd] $SEARCH_TEXT"];
+        predicateString = [[NSString stringWithFormat:@"spell contains[cd] $SEARCH_TEXT"] retain];
         searchPredicate = [[NSPredicate predicateWithFormat:predicateString] retain];
     }
     
