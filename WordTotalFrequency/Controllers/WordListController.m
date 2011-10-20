@@ -24,6 +24,9 @@
 @synthesize wordSetIndex = _wordSetIndex;
 @synthesize listType = _listType;
 
+static NSString *predicateString;
+static NSPredicate *searchPredicate;
+
 - (NSArray *)wordsArray
 {
     if (_fetchedResultsController != nil){
@@ -51,6 +54,7 @@
     }
     
     [_searchString release];
+    [searchPredicate release]; 
     [super dealloc];
 }
 
@@ -119,6 +123,11 @@
 
 - (void)setSearchString:(NSString *)searchString
 {
+    if (predicateString == nil){
+        predicateString = [NSString stringWithFormat:@"spell contains[cd] $SEARCH_TEXT"];
+        searchPredicate = [[NSPredicate predicateWithFormat:predicateString] retain];
+    }
+    
     if (_searchString != searchString)
     {
         [_searchString release];
@@ -132,8 +141,9 @@
         }
         else
         {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"spell contains[cd] %@", searchString];
-            [self.fetchedResultsController.fetchRequest setPredicate:predicate];
+            NSDictionary *variables = [NSDictionary dictionaryWithObject:searchString forKey:@"SEARCH_TEXT"];
+            NSPredicate *localPredicate = [searchPredicate predicateWithSubstitutionVariables:variables];
+            [self.fetchedResultsController.fetchRequest setPredicate:localPredicate];
         }
         
         
