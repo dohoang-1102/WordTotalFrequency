@@ -26,6 +26,7 @@
 @property (nonatomic, retain) UIView *viewContainer;
 @property (nonatomic, retain) WordSet *wordSet;
 @property (nonatomic, readonly) NSArray *testingWords;
+@property (nonatomic, readonly) NSArray *listingWords;
 @property (nonatomic) NSUInteger currentTestWordIndex;
 
 @property (nonatomic, readonly) NSUInteger selectedViewIndex;
@@ -36,7 +37,5 @@
 @property (nonatomic, retain, readonly) SettingsView *settingsView;
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedWordResultsController;
-
-- (void)updateMarkedCount;
 
 @end

@@ -16,6 +16,8 @@
     WordTestView *_wordTestView;
 }
 
-- (id)initWithFrame:(CGRect)frame word:(NSString *)word options:(NSArray *)options answer:(NSUInteger)answer footer:(NSString *)footer testView:(WordTestView *)testView;
+@property (nonatomic, retain) Word *word;
+
+- (id)initWithFrame:(CGRect)frame word:(Word *)word options:(NSArray *)options answer:(NSUInteger)answer footer:(NSString *)footer testView:(WordTestView *)testView;
 
 @end

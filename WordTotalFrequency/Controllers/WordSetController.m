@@ -11,6 +11,7 @@
 #import "CustomProgress.h"
 #import "UIColor+WTF.h"
 #import "DataController.h"
+#import "Constant.h"
 
 typedef enum {
     CapLeft          = 0,
@@ -19,6 +20,10 @@ typedef enum {
     CapLeftAndRight  = 3
 } CapLocation;
 
+
+@interface WordSetController ()
+- (void)updateMarkedCount;
+@end
 
 @implementation WordSetController
 
@@ -59,6 +64,11 @@ typedef enum {
     else{
         return _listController.wordsArray;
     }
+}
+
+- (NSArray *)listingWords
+{
+    return _listController.wordsArray;
 }
 
 - (void)dealloc
@@ -118,29 +128,38 @@ typedef enum {
 
     [_wordTestView release];
     _wordTestView = nil;
+    
+    [self updateMarkedCount];
 }
 
 - (void)historyChanged:(NSNotification *)note
 {
-    if (_selectedViewIndex == 2){
-        [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
-        
-        [_historyController release];
-        _historyController = nil;
-        
-        [_viewContainer addSubview:self.historyView];
+    switch (_selectedViewIndex) {
+        case 1:
+            [_historyController release];
+            _historyController = nil;
+            [self updateMarkedCount];
+            break;
+        case 2:
+            [[_viewContainer.subviews objectAtIndex:0] removeFromSuperview];
+            [_historyController release];
+            _historyController = nil;
+            [_viewContainer addSubview:self.historyView];
+            [self testSettingChanged:NULL];
+            break;
+        default:
+            [_historyController release];
+            _historyController = nil;
+            [self testSettingChanged:NULL];
+            break;
     }
-    else{
-        [_historyController release];
-        _historyController = nil;
-    }
-    
-    [self testSettingChanged:NULL];
 }
 
 - (void)batchMarkUpdated:(NSNotification *)note
 {
+    [MANAGED_OBJECT_CONTEXT reset];
     [_listController forceUpdateDataSource];
+    [self testSettingChanged:NULL];
 }
 
 #pragma mark - View lifecycle
@@ -205,9 +224,18 @@ typedef enum {
     [self.view addSubview:_segmentedControl];
     
     // notification
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(testSettingChanged:) name:@"TestSettingChanged" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyChanged:) name:@"HistoryChanged" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(batchMarkUpdated:) name:@"BatchMarkUpdated" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(testSettingChanged:)
+                                                 name:TEST_SETTING_CHANGED_NOTIFICATION
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(historyChanged:)
+                                                 name:HISTORY_CHANGED_NOTIFICATION
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(batchMarkUpdated:)
+                                                 name:BATCH_MARKED_NOTIFICATION
+                                               object:nil];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

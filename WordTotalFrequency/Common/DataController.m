@@ -12,6 +12,7 @@
 #import "SynthesizeSingleton.h"
 #import "NSDate+Ext.h"
 #import "DataUtil.h"
+#import "Constant.h"
 
 @implementation DataController
 
@@ -170,7 +171,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(DataController);
             break;
     }
     [self saveFromSource:@"mark word"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryChanged" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:HISTORY_CHANGED_NOTIFICATION object:self];
 }
 
 - (void)markWordToNextLevel:(Word *)word

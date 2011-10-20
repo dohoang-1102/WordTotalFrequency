@@ -12,6 +12,7 @@
 #import "WordSetController.h"
 #import "DataUtil.h"
 #import "NSDate+Ext.h"
+#import "Constant.h"
 #import <sqlite3.h>
 
 @interface SettingsView ()
@@ -153,9 +154,8 @@
     sqlite3_close(database);
     database = NULL;
     
-    [_wordSetController updateMarkedCount];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryChanged" object:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"BatchMarkUpdated" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:HISTORY_CHANGED_NOTIFICATION object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:BATCH_MARKED_NOTIFICATION object:self];
 }
 
 - (void)unmarkAll:(UIButton *)button
@@ -174,7 +174,7 @@
     [dict setValue:[NSNumber numberWithBool:toggle.on] forKey:@"testMarked"];
     [[DataController sharedDataController] saveSettingsDictionary];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"TestSettingChanged" object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:TEST_SETTING_CHANGED_NOTIFICATION object:self];
 }
 
 #pragma mark - UIAlertViewDelegate
@@ -195,9 +195,8 @@
         sqlite3_close(database);
         database = NULL;
         
-        [_wordSetController updateMarkedCount];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"HistoryChanged" object:self];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"BatchMarkUpdated" object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:HISTORY_CHANGED_NOTIFICATION object:self];
+        [[NSNotificationCenter defaultCenter] postNotificationName:BATCH_MARKED_NOTIFICATION object:self];
 	}
 }
 

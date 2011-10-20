@@ -17,10 +17,10 @@
 
 - (NSArray *)getTestOptionsWithAnswer:(NSString *)answer atIndex:(NSUInteger)answerIndex
 {
-    int total = [_wordSetController.testingWords count];
+    int total = [_wordSetController.listingWords count];
     NSMutableArray *array = [[NSMutableArray alloc] init];
     for (int i=0; i<3; i++){
-        Word *word = [_wordSetController.testingWords objectAtIndex:rand()%total];
+        Word *word = [_wordSetController.listingWords objectAtIndex:rand()%total];
         [array addObject:word.translate];
         [[DataController sharedDataController].managedObjectContext refreshObject:word mergeChanges:NO];
     }
@@ -36,7 +36,7 @@
         int answerIndex = rand()%4;
         NSArray *options = [self getTestOptionsWithAnswer:word.translate atIndex:answerIndex];
         _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds
-                                                     word:word.spell
+                                                     word:word
                                                   options:options
                                                    answer:answerIndex
                                                    footer:[NSString stringWithFormat:@"%d/%d", _wordSetController.currentTestWordIndex+1, [_wordSetController.testingWords count]]
@@ -84,9 +84,10 @@
 
 - (void)nextTestWord
 {
-    if (_wordSetController.currentTestWordIndex == _wordSetController.wordSet.totalWordCount-1) return;
-    _wordSetController.currentTestWordIndex++;
+    if (_wordSetController.currentTestWordIndex == [_wordSetController.testingWords count]-1)
+        return;
     
+    _wordSetController.currentTestWordIndex++;
     [UIView transitionWithView:_containerView duration:0.5
                        options:UIViewAnimationOptionTransitionCurlUp
                     animations:^ { [_paperView removeFromSuperview]; }

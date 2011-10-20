@@ -99,7 +99,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (_word == nil)
+    if (_wordSetController.selectedViewIndex == 2)
     {
         [self.nextResponder touchesBegan:touches withEvent:event];
         return;
@@ -112,9 +112,6 @@
     {
         [[DataController sharedDataController] markWordToNextLevel:_word];
         [self setNeedsLayout];
-        
-        if (_wordSetController)
-            [_wordSetController updateMarkedCount];
     }
     else
     {
