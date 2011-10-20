@@ -12,6 +12,7 @@
 #import "UIColor+WTF.h"
 #import "DataController.h"
 #import "Constant.h"
+#import "WordListCell.h"
 
 typedef enum {
     CapLeft          = 0,
@@ -297,6 +298,10 @@ typedef enum {
     switch (segmentIndex) {
         case 0:
             [_viewContainer addSubview:_listController.view];
+            NSArray *cells = [_listController.tableView visibleCells];
+            for (WordListCell *cell in cells) {
+                [cell setNeedsLayout];
+            }
             break;
         case 1:
             [_viewContainer addSubview:self.wordTestView];
