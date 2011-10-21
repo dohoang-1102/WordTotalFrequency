@@ -22,6 +22,5 @@
 
 @property (nonatomic, assign) WordSetController *wordSetController;
 @property (nonatomic, assign) UITableView *ownerTable;
-@property (nonatomic) NSUInteger rowIndex;
 
 @end

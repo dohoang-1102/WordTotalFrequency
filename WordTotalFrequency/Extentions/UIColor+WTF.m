@@ -30,6 +30,11 @@
     return [UIColor colorWithHex:0x45738e];
 }
 
++ (UIColor *)colorForTheme
+{
+    return [UIColor colorWithRed:193.0/255 green:231.0/255 blue:1.0 alpha:1.0];
+}
+
 - (CGColorSpaceModel) colorSpaceModel  
 {  
     return CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));  

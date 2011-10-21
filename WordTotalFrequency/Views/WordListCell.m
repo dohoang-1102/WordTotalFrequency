@@ -10,6 +10,7 @@
 #import "UIColor+WTF.h"
 #import "DataController.h"
 #import "NSManagedObjectContext+insert.h"
+#import "UIColor+WTF.h"
 
 @implementation WordListCell
 
@@ -17,7 +18,6 @@
 
 @synthesize wordSetController = _wordSetController;
 @synthesize ownerTable = _ownerTable;
-@synthesize rowIndex = _rowIndex;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -34,7 +34,7 @@
         [self addSubview:_markIcon];
         
         _spell = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, 114, CGRectGetHeight(rect))];
-        _spell.backgroundColor = [UIColor clearColor];
+        _spell.backgroundColor = [UIColor colorForTheme];
         _spell.adjustsFontSizeToFitWidth = YES;
         _spell.textColor = [UIColor colorForNormalText];
         _spell.font = [UIFont systemFontOfSize:18];
@@ -43,7 +43,7 @@
         [self addSubview:_spell];
         
         _translate = [[UILabel alloc] initWithFrame:CGRectMake(144, 0, CGRectGetWidth(rect)-144, CGRectGetHeight(rect))];
-        _translate.backgroundColor = [UIColor clearColor];
+        _translate.backgroundColor = [UIColor colorForTheme];
         _translate.adjustsFontSizeToFitWidth = NO;
         _translate.textColor = [UIColor colorForNormalText];
         _translate.font = [UIFont systemFontOfSize:18];
@@ -67,6 +67,20 @@
     [_spell release];
     [_translate release];
     [super dealloc];
+}
+
+- (void)setWord:(Word *)word
+{
+    if (_word != word)
+    {
+        if (_word != nil){
+            // turn word back into a fault
+            [[DataController sharedDataController].managedObjectContext refreshObject:_word mergeChanges:NO];
+            [_word release];
+        }
+        
+        _word = [word retain];
+    }
 }
 
 /*
@@ -93,8 +107,8 @@
     _spell.text = _word.spell;
     _translate.text = _word.translate;
     
-    //    const char *cstr = [_word.translate UTF8String];
-    //    _translate.text = [NSString stringWithCString:cstr encoding:NSUTF8StringEncoding];
+//    const char *cstr = [_word.translate UTF8String];
+//    _translate.text = [NSString stringWithCString:cstr encoding:NSUTF8StringEncoding];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

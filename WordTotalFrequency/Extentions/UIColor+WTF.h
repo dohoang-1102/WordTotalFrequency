@@ -17,7 +17,8 @@
 
 + (UIColor *)colorForNormalText;
 
-+ (UIColor *)colorForNormalText;
++ (UIColor *)colorForTheme;
+
 - (CGColorSpaceModel) colorSpaceModel;
 
 - (CGFloat) red;

@@ -11,7 +11,7 @@
 #import "Word.h"
 #import "DataController.h"
 #import "WordListCell.h"
-
+#import "UIColor+WTF.h"
 
 
 @implementation WordListController
@@ -67,7 +67,7 @@ static NSPredicate *searchPredicate;
 {
     if (_wordSetIndex > -1)
     {
-        self.tableView.backgroundColor = [UIColor clearColor];
+        self.tableView.backgroundColor = [UIColor colorForTheme];
         if (_listType == WordListTypeWordSet)
             [self.fetchedResultsController.fetchRequest
              setPredicate:[NSPredicate predicateWithFormat:@"category = %d", _wordSetIndex]];
@@ -228,7 +228,6 @@ static NSPredicate *searchPredicate;
     }
     
     cell.word = [_fetchedResultsController objectAtIndexPath:indexPath];    
-    cell.rowIndex = indexPath.row;
     
     return cell;
 }
