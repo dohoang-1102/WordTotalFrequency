@@ -129,10 +129,11 @@ static NSPredicate *searchPredicate;
 - (void)setSearchString:(NSString *)searchString
 {
     if (predicateString == nil){
-        predicateString = [[NSString stringWithFormat:@"spell contains[cd] $SEARCH_TEXT"] retain];
+        predicateString = [[NSString stringWithFormat:@"$SEARCH_TEXT <= spell AND spell < $SEARCH_TEXT_2"] retain];
         searchPredicate = [[NSPredicate predicateWithFormat:predicateString] retain];
     }
     
+    searchString = [searchString lowercaseString];
     if (_searchString != searchString)
     {
         [_searchString release];
@@ -146,7 +147,12 @@ static NSPredicate *searchPredicate;
         }
         else
         {
-            NSDictionary *variables = [NSDictionary dictionaryWithObject:searchString forKey:@"SEARCH_TEXT"];
+            unichar chr = [searchString characterAtIndex:[searchString length]-1];
+            NSString *searchString2 = [NSString stringWithFormat:@"%@%c", [searchString substringToIndex:[searchString length]-1], chr+1];
+            NSDictionary *variables = [NSDictionary
+                                       dictionaryWithObjects:[NSArray arrayWithObjects:searchString,
+                                                              searchString2, nil]
+                                       forKeys:[NSArray arrayWithObjects:@"SEARCH_TEXT", @"SEARCH_TEXT_2", nil]];
             NSPredicate *localPredicate = [searchPredicate predicateWithSubstitutionVariables:variables];
             [self.fetchedResultsController.fetchRequest setPredicate:localPredicate];
         }
