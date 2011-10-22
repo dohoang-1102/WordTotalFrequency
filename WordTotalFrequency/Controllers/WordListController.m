@@ -245,6 +245,7 @@ static NSPredicate *searchPredicate;
     controller.currentWordIndex = indexPath.row;
     controller.wordSetController = self.wordSetController;
     controller.wordListController = self;
+    controller.navigatable = (_listType != WordListTypeSearchResult);
     [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
     [controller release];
 }

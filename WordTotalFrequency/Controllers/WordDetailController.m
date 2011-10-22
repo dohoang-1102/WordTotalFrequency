@@ -31,11 +31,13 @@ typedef enum {
 @synthesize wordSetController = _wordSetController;
 @synthesize wordListController = _wordListController;
 @synthesize historyListDirty = _historyListDirty;
+@synthesize navigatable = _navigatable;
 
 #define MARK_ICON_TAG 1
 #define SPELL_LABEL_TAG 2
 #define PHONETIC_LABEL_TAG 3
 #define DETAIL_LABEL_TAG 4
+#define SEGMENT_BG_TAG 17
 
 #define kSegmentLabelTag 99
 #define kSegmentMarkTag 97
@@ -206,6 +208,7 @@ typedef enum {
     [recognizer release];
     
     UIImageView *segmentBg = [[UIImageView alloc] initWithFrame:CGRectMake(6, CGRectGetHeight(rect)-49, 309, 48)];
+    segmentBg.tag = SEGMENT_BG_TAG;
     segmentBg.image = [UIImage imageNamed:@"segment-bg"];
     [self.view addSubview:segmentBg];
     [segmentBg release];
@@ -221,13 +224,19 @@ typedef enum {
     [self.view addSubview:_segmentedControl];
 }
 
-/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (_navigatable == NO){
+        [_segmentedControl removeFromSuperview];
+        UIImageView *bg = (UIImageView *)[self.view viewWithTag:SEGMENT_BG_TAG];
+        [bg removeFromSuperview];
+        for (UIGestureRecognizer *recognizer in _containerView.gestureRecognizers) {
+            [_containerView removeGestureRecognizer:recognizer];
+        }
+    }
 }
-*/
 
 - (void)viewDidUnload
 {

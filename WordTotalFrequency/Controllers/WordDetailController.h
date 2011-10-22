@@ -24,6 +24,7 @@
 @property (nonatomic, assign) WordSetController *wordSetController;
 @property (nonatomic, assign) WordListController *wordListController;
 @property (nonatomic) BOOL historyListDirty;
+@property (nonatomic) BOOL navigatable;
 
 - (void)updateMarkOnSegmented;
 

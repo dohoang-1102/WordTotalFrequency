@@ -50,9 +50,6 @@
     CGColorSpaceRef rgbColorspace;
     size_t num_locations = 2;
     CGFloat locations[2] = {0.0, 1.0};
-//    NSLog(@"%f, %f, %f", [_arrowAreaColor red], [_arrowAreaColor green], [_arrowAreaColor blue]);
-//    CGFloat components[8] = {148.0/255, 185.0/255, 209.0/255, 0.8,  // Start color
-//        148.0/255, 185.0/255, 209.0/255, 0}; // End color
     CGFloat components[8] = {[_arrowAreaColor red], [_arrowAreaColor green], [_arrowAreaColor blue], 1,  // Start color
         [_arrowAreaColor red], [_arrowAreaColor green], [_arrowAreaColor blue], 1}; // End color
     
