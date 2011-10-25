@@ -134,7 +134,7 @@ static NSPredicate *searchPredicate;
     }
     
     searchString = [searchString lowercaseString];
-    if (_searchString != searchString)
+    if (YES /*_searchString != searchString*/)
     {
         [_searchString release];
         _searchString = [searchString copy];
@@ -142,7 +142,7 @@ static NSPredicate *searchPredicate;
         [NSFetchedResultsController deleteCacheWithName:nil];
         if ([searchString isEqualToString:@""])
         {
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"1 != -1"];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"1 = -1"];
             [self.fetchedResultsController.fetchRequest setPredicate:predicate];
         }
         else

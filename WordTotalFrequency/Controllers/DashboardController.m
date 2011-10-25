@@ -315,6 +315,9 @@
     {
         [_wordSetBrief performSelector:@selector(fadeSelectedBackground) withObject:nil afterDelay:0.15];
     }
+    
+    if (_searchBar.text != NULL)
+        _listController.searchString = _searchBar.text;
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
