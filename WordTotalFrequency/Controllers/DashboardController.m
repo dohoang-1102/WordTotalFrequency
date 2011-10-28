@@ -34,6 +34,7 @@
 
 #define SEARCH_BAR_HEIGHT 40
 #define WORDSETBRIEF_HEIGHT 115
+#define PIE_LABEL_TAG_BASE 11
 
 - (void)dealloc
 {
@@ -51,7 +52,7 @@
     [_listController release];
     
     [_barContainer release];
-    [_pieChart release];
+    [_pieView release];
     
     [super dealloc];
 }
@@ -259,9 +260,17 @@
     [_barContainer addSubview:_wordSetBrief];
     
     // pie chart
-    _pieChart = [[PieChart alloc] initWithFrame:CGRectMake(0, 120, 320, 360)];
-    _pieChart.backgroundColor = [UIColor clearColor];
-    [self.view insertSubview:_pieChart atIndex:1];
+    _pieView = [[OpenGLView alloc] initWithFrame:CGRectMake(0, 160, 320, 320)];
+    [self.view insertSubview:_pieView atIndex:1];
+    
+    // pie label
+    for (int i=0; i<5; i++) {
+        UIImageView *pieLabel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pieLabel"]];
+        pieLabel.tag = PIE_LABEL_TAG_BASE + i;
+        pieLabel.frame = CGRectMake(320, 480, pieLabel.image.size.width, pieLabel.image.size.height);
+        [self.view addSubview:pieLabel];
+        [pieLabel release];
+    }
     
     _listController = [[WordListController alloc] initWIthListType:WordListTypeSearchResult];
     _listController.delegate = self;
