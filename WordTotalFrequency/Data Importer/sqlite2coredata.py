@@ -26,7 +26,7 @@ for row in inCursor:
 	vals.append(1)					# Z_OPT
 	vals.append(0)					# ZMARKSTATUS
 	vals.append(row[3])				# ZRANK
-	vals.append(min(count/2700, 4)) # ZCATEGORY	row[11]
+	vals.append(min(count/2500, 4)) # ZCATEGORY	row[11]
 	vals.append(row[7])				# ZTRANSLATE
 	vals.append(row[8])				# ZTAGS
 	vals.append("")                 # ZMARKDATE
