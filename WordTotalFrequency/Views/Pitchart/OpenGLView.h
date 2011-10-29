@@ -49,25 +49,30 @@
     GLuint _shadowTexCoordSlot;
     
     GLuint _shadowProjectionUniform;
-    GLuint _shadowLightDirectionnUniform;
     GLuint _shadowTextureUniform;
     
-    GLuint _floorTexture;
+    GLuint _shadowTexture;
 
+    
     float _rotatePieX;
     float _rotatePieY;
     
     float _currentRotatePieX;
     float _currentRotatePieY;
     
-    
+    float _oldTouchX;
+    float _oldTouchY;
+    BOOL _isDragging;
 }
 - (void)setupLayer;
 - (void)setupContext;
 - (void)setupRenderBuffer;
+- (void)setupDisplayLink;
+
+- (void)setupPartData:(float *)partData;
 
 - (void)setupVBOs;
-- (void)setupLight;
+
 - (GLuint)setupTexture:(NSString *)fileName;
 
 - (void)render:(CADisplayLink*)displayLink;

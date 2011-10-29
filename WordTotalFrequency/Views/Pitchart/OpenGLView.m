@@ -13,115 +13,53 @@
 
 @implementation OpenGLView
 
-float lightDirection[3];
++(Class)layerClass{
+    return [CAEAGLLayer class];
+}
+
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        
+
+        [self setupLayer];        
+        [self setupContext];
+        [self setupRenderBuffer];
+        [self compileShaders];
+        
+        [self setupDisplayLink];
+        _shadowTexture = [self setupTexture:@"shadow.png"];
+        _rotatePieX = 30.0;
+    }
+    return self;
+}
+
+-(void)setupPartData:(float *)partData{
+    for (int i=0; i<PARTNUM; i++) {
+        partValue[i]    = partData[i];
+    }
+
+    buildModel();
+    [self setupVBOs];
+}
+
+-(void)setupLayer{
+    _eaglLayer  = (CAEAGLLayer*) self.layer;
+    _eaglLayer.opaque   = NO;
+}
+
 
 - (void)setupDisplayLink {
     CADisplayLink* displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
     [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];    
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        buildModel();
-        
-        [self setupLight];
-        [self setupLayer];        
-        [self setupContext];
-        [self setupRenderBuffer];
 
-        [self compileShaders];
-        
-        [self setupVBOs];
-        [self setupDisplayLink];
-        _floorTexture = [self setupTexture:@"shadow.png"];
-        
-        _rotatePieX = 30.0;
-    }
-    return self;
-}
 
-- (float)Determinant4f:(const float*) m
-{
-    return
-    m[12]*m[9]*m[6]*m[3]-
-    m[8]*m[13]*m[6]*m[3]-
-    m[12]*m[5]*m[10]*m[3]+
-    m[4]*m[13]*m[10]*m[3]+
-    m[8]*m[5]*m[14]*m[3]-
-    m[4]*m[9]*m[14]*m[3]-
-    m[12]*m[9]*m[2]*m[7]+
-    m[8]*m[13]*m[2]*m[7]+
-    m[12]*m[1]*m[10]*m[7]-
-    m[0]*m[13]*m[10]*m[7]-
-    m[8]*m[1]*m[14]*m[7]+
-    m[0]*m[9]*m[14]*m[7]+
-    m[12]*m[5]*m[2]*m[11]-
-    m[4]*m[13]*m[2]*m[11]-
-    m[12]*m[1]*m[6]*m[11]+
-    m[0]*m[13]*m[6]*m[11]+
-    m[4]*m[1]*m[14]*m[11]-
-    m[0]*m[5]*m[14]*m[11]-
-    m[8]*m[5]*m[2]*m[15]+
-    m[4]*m[9]*m[2]*m[15]+
-    m[8]*m[1]*m[6]*m[15]-
-    m[0]*m[9]*m[6]*m[15]-
-    m[4]*m[1]*m[10]*m[15]+
-    m[0]*m[5]*m[10]*m[15];
-}
 
-- (BOOL)GenerateInverseMatrix4f:(float*) i by: (const float*) m
-{
-    float x = [self Determinant4f:m];
-    if (x==0) return FALSE;
-    
-    i[0]= (-m[13]*m[10]*m[7] +m[9]*m[14]*m[7] +m[13]*m[6]*m[11]
-           -m[5]*m[14]*m[11] -m[9]*m[6]*m[15] +m[5]*m[10]*m[15])/x;
-    i[4]= ( m[12]*m[10]*m[7] -m[8]*m[14]*m[7] -m[12]*m[6]*m[11]
-           +m[4]*m[14]*m[11] +m[8]*m[6]*m[15] -m[4]*m[10]*m[15])/x;
-    i[8]= (-m[12]*m[9]* m[7] +m[8]*m[13]*m[7] +m[12]*m[5]*m[11]
-           -m[4]*m[13]*m[11] -m[8]*m[5]*m[15] +m[4]*m[9]* m[15])/x;
-    i[12]=( m[12]*m[9]* m[6] -m[8]*m[13]*m[6] -m[12]*m[5]*m[10]
-           +m[4]*m[13]*m[10] +m[8]*m[5]*m[14] -m[4]*m[9]* m[14])/x;
-    i[1]= ( m[13]*m[10]*m[3] -m[9]*m[14]*m[3] -m[13]*m[2]*m[11]
-           +m[1]*m[14]*m[11] +m[9]*m[2]*m[15] -m[1]*m[10]*m[15])/x;
-    i[5]= (-m[12]*m[10]*m[3] +m[8]*m[14]*m[3] +m[12]*m[2]*m[11]
-           -m[0]*m[14]*m[11] -m[8]*m[2]*m[15] +m[0]*m[10]*m[15])/x;
-    i[9]= ( m[12]*m[9]* m[3] -m[8]*m[13]*m[3] -m[12]*m[1]*m[11]
-           +m[0]*m[13]*m[11] +m[8]*m[1]*m[15] -m[0]*m[9]* m[15])/x;
-    i[13]=(-m[12]*m[9]* m[2] +m[8]*m[13]*m[2] +m[12]*m[1]*m[10]
-           -m[0]*m[13]*m[10] -m[8]*m[1]*m[14] +m[0]*m[9]* m[14])/x;
-    i[2]= (-m[13]*m[6]* m[3] +m[5]*m[14]*m[3] +m[13]*m[2]*m[7]
-           -m[1]*m[14]*m[7] -m[5]*m[2]*m[15] +m[1]*m[6]* m[15])/x;
-    i[6]= ( m[12]*m[6]* m[3] -m[4]*m[14]*m[3] -m[12]*m[2]*m[7]
-           +m[0]*m[14]*m[7] +m[4]*m[2]*m[15] -m[0]*m[6]* m[15])/x;
-    i[10]=(-m[12]*m[5]* m[3] +m[4]*m[13]*m[3] +m[12]*m[1]*m[7]
-           -m[0]*m[13]*m[7] -m[4]*m[1]*m[15] +m[0]*m[5]* m[15])/x;
-    i[14]=( m[12]*m[5]* m[2] -m[4]*m[13]*m[2] -m[12]*m[1]*m[6]
-           +m[0]*m[13]*m[6] +m[4]*m[1]*m[14] -m[0]*m[5]* m[14])/x;
-    i[3]= ( m[9]* m[6]* m[3] -m[5]*m[10]*m[3] -m[9]* m[2]*m[7]
-           +m[1]*m[10]*m[7] +m[5]*m[2]*m[11] -m[1]*m[6]* m[11])/x;
-    i[7]= (-m[8]* m[6]* m[3] +m[4]*m[10]*m[3] +m[8]* m[2]*m[7]
-           -m[0]*m[10]*m[7] -m[4]*m[2]*m[11] +m[0]*m[6]* m[11])/x;
-    i[11]=( m[8]* m[5]* m[3] -m[4]*m[9]* m[3] -m[8]* m[1]*m[7]
-           +m[0]*m[9]* m[7] +m[4]*m[1]*m[11] -m[0]*m[5]* m[11])/x;
-    i[15]=(-m[8]* m[5]* m[2] +m[4]*m[9]* m[2] +m[8]* m[1]*m[6]
-           -m[0]*m[9]* m[6] -m[4]*m[1]*m[10] +m[0]*m[5]* m[10])/x;
-    
-    return TRUE;
-} 
 
-+(Class)layerClass{
-    return [CAEAGLLayer class];
-}
-
--(void)setupLayer{
-    _eaglLayer  = (CAEAGLLayer*) self.layer;
-    _eaglLayer.opaque   = NO;
-    
-//    _eaglLayer.drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking, kEAGLColorFormatRGBA8, kEAGLDrawablePropertyColorFormat, nil]; 
-}
 
 -(void)setupContext{
     EAGLRenderingAPI api    = kEAGLRenderingAPIOpenGLES2;
@@ -136,11 +74,6 @@ float lightDirection[3];
     }
 }
 
--(void)setupLight{
-    lightDirection[0]   = -2;
-    lightDirection[1]   = 2;
-    lightDirection[2]   = 4.5;
-}
 
 - (GLuint)setupTexture:(NSString *)fileName {    
     
@@ -261,16 +194,12 @@ float lightDirection[3];
     glUseProgram(_pieProgramHandle);
     glUniformMatrix4fv(_pieProjectMtxUniform, 1, 0, projection.glMatrix);
     glUniformMatrix4fv(_pieModelViewMtxUniform,1, 0, modelView.glMatrix);
-    float invertModelView[16];
-    [self GenerateInverseMatrix4f:invertModelView by: modelView.glMatrix];
+
     CC3GLMatrix *normalMtx = [CC3GLMatrix matrix];
     [normalMtx populateIdentity];
     [normalMtx rotateByX:_currentRotatePieX];
     [normalMtx rotateByY:_currentRotatePieY];
-    
-    
-    
-    
+
     glUniformMatrix4fv(_pieNormalMtxUniform,1, 0, normalMtx.glMatrix);
 
     glUniform4f(_pieLightDirectionnUniform, lightDirection[0], lightDirection[1], lightDirection[2],1);
@@ -288,10 +217,8 @@ float lightDirection[3];
                           sizeof(Vertex), (GLvoid*) (sizeof(float) * 10));    
     
     glActiveTexture(GL_TEXTURE0); 
-    glBindTexture(GL_TEXTURE_2D, _floorTexture);
     glUniform1i(_pieTextureUniform, 0);
-    
-    
+
     glDrawElements(GL_TRIANGLES, sizeof(pieIndices)/sizeof(pieIndices[0]), 
                    GL_UNSIGNED_SHORT, 0);
     
@@ -301,7 +228,6 @@ float lightDirection[3];
     glUseProgram(_shadowProgramHandle);
     
     glUniformMatrix4fv(_shadowProjectionUniform, 1, 0, projection.glMatrix);
-    glUniform4f(_shadowLightDirectionnUniform, lightDirection[0], lightDirection[1], lightDirection[2],1);
     
     glBindBuffer(GL_ARRAY_BUFFER, _shadowVertexBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _shadowIndexBuffer);
@@ -317,7 +243,7 @@ float lightDirection[3];
                           sizeof(Vertex), (GLvoid*) (sizeof(float) * 10));    
     
     glActiveTexture(GL_TEXTURE0); 
-    glBindTexture(GL_TEXTURE_2D, _floorTexture);
+    glBindTexture(GL_TEXTURE_2D, _shadowTexture);
     glUniform1i(_shadowTextureUniform, 0);
     
     
@@ -451,15 +377,13 @@ float lightDirection[3];
     
     _shadowProjectionUniform      = glGetUniformLocation(_shadowProgramHandle, "Projection");
     _shadowTextureUniform         = glGetUniformLocation(_shadowProgramHandle, "Texture");
-    _shadowLightDirectionnUniform = glGetUniformLocation(_shadowProgramHandle, "LightIn");
 }
 
 
 
 
 
-float _oldTouchX, _oldTouchY;
-BOOL _isDragging;
+
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
@@ -473,9 +397,6 @@ BOOL _isDragging;
         _oldTouchY = touchLocation.y;
     }
 }
-
-
-
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     

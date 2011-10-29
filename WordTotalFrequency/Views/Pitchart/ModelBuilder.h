@@ -40,8 +40,12 @@ GLshort shadowIndices[6];
 
 Color color[PARTNUM];
 
+float lightDirection[3];
+
+
 void buildShadow();
 void buildModel();
+
 void makeADivide(int trianglePoint,float ang ,float sinAng, float cosAng,int partId,int divideCount, int dividetype,int isMakeTriangle);
 
 //Vertex pieVertices[(SUBDIVIDE+PARTNUM-1)*3+1+PARTNUM];

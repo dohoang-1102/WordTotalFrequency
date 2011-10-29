@@ -262,6 +262,8 @@
     // pie chart
     _pieView = [[OpenGLView alloc] initWithFrame:CGRectMake(0, 160, 320, 320)];
     [self.view insertSubview:_pieView atIndex:1];
+    float pieValue[] ={0.3,0.25,0.2,0.15,0.1};
+    [_pieView setupPartData:pieValue];
     
     // pie label
     for (int i=0; i<5; i++) {

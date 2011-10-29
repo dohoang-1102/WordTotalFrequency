@@ -123,7 +123,7 @@
 
 +(id) matrix {
 	if ( [self isSubclassOfClass: [CC3GLArrayMatrix class]] ) {
-		return [[self alloc] init] ;
+		return [[[self alloc] init] autorelease] ;
 	} else {
 		return [CC3GLArrayMatrix matrix];
 	}

@@ -14,8 +14,12 @@
 int divideCountInPart;
 int divideCompletePart;
 void buildModel(){
+    lightDirection[0]   = -2;
+    lightDirection[1]   = 2;
+    lightDirection[2]   = 4.5;
     
     buildShadow();
+    
     color[0].r  = 1;
     color[0].g  = .2;
     color[0].b  = .1;
@@ -56,11 +60,7 @@ void buildModel(){
         pieVertices[i].Normal[2]       = 0.0;
         
     }
-    partValue[0]    =0.3;
-    partValue[1]    =0.25;
-    partValue[2]    =0.2;
-    partValue[3]    =0.15;
-    partValue[4]    =0.1;
+    
     
     float thisDivideValue   = 0;
     float partEndValue      = 0;
