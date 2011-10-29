@@ -88,6 +88,8 @@ typedef enum {
     [_settingsView release];
     _settingsView = nil;
 
+    [_testingWords release];
+    _testingWords = nil;
     
     [_fetchRequest release];
     _fetchRequest = nil;

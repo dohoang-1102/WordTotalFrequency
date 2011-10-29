@@ -63,11 +63,14 @@
     float _oldTouchX;
     float _oldTouchY;
     BOOL _isDragging;
+    
+    CADisplayLink *_displayLink;
 }
 - (void)setupLayer;
 - (void)setupContext;
 - (void)setupRenderBuffer;
 - (void)setupDisplayLink;
+- (void)destroyDisplayLink;
 
 - (void)setupPartData:(float *)partData;
 

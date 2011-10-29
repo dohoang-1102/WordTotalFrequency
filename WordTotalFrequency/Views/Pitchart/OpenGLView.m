@@ -29,7 +29,6 @@
         [self setupRenderBuffer];
         [self compileShaders];
         
-        [self setupDisplayLink];
         _shadowTexture = [self setupTexture:@"shadow.png"];
         _rotatePieX = 30.0;
     }
@@ -52,14 +51,16 @@
 
 
 - (void)setupDisplayLink {
-    CADisplayLink* displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
-    [displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];    
+    _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
+    [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];    
 }
 
-
-
-
-
+- (void)destroyDisplayLink{
+    if (_displayLink != nil){
+        [_displayLink invalidate];
+        _displayLink = nil;
+    }
+}
 
 -(void)setupContext{
     EAGLRenderingAPI api    = kEAGLRenderingAPIOpenGLES2;
@@ -142,7 +143,6 @@
 
 
 - (void)setupVBOs {
-    
     glGenBuffers(1, &_pieVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, _pieVertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(pieVertices), pieVertices, GL_STATIC_DRAW);
@@ -164,8 +164,6 @@
 
 
 - (void)render:(CADisplayLink*)displayLink {
-    
-    
     glBindFramebuffer(GL_FRAMEBUFFER, _frameBuffer);
     glClearColor(0.0, 0.0, 0.0, 0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -435,5 +433,18 @@
     // Drawing code
 }
 */
+
+- (void)dealloc{
+    [self destroyDisplayLink];
+    
+    // tear down context
+	if ([EAGLContext currentContext] == _context)
+        [EAGLContext setCurrentContext:nil];
+	
+	[_context release];
+	_context = nil;
+    
+    [super dealloc];
+}
 
 @end

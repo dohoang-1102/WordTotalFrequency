@@ -329,6 +329,15 @@
     
     if (_searchBar.text != NULL)
         _listController.searchString = _searchBar.text;
+    
+    [_pieView setupDisplayLink];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    [_pieView destroyDisplayLink];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
