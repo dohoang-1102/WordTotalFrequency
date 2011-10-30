@@ -12,7 +12,6 @@
 @interface UnitIconView()
 
 - (void)drawPathWithArc:(CGFloat)arc;
-- (void)destroyDisplayLink;
 
 @end
 
@@ -69,6 +68,10 @@
                                            initWithTarget:self action:@selector(iconTapped:)];
         [self addGestureRecognizer:gesture];
         [gesture release];
+        
+        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updatePath:)];
+        _displayLink.paused = YES;
+        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     }
     return self;
 }
@@ -89,21 +92,9 @@
 
 - (void)addCADisplayLink
 {
+    _displayLink.paused = NO;
     _currentArc = -M_PI/2;
     [self drawPathWithArc:_currentArc];
-    
-    if (_displayLink == nil){
-        _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(updatePath:)];
-        [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
-    }
-}
-
-- (void)destroyDisplayLink
-{
-    if (_displayLink != nil){
-        [_displayLink invalidate];
-        _displayLink = nil;
-    }
 }
 
 - (void)drawPathWithArc:(CGFloat)arc
@@ -124,17 +115,17 @@
 }
 
 - (void)updatePath:(CADisplayLink *)displayLink {
-    CGFloat delta = (_percentArc - _currentArc) / 20;
+    CGFloat delta = (_percentArc + M_PI / 2) / 20;
     _currentArc = fminf(_currentArc + delta, _percentArc);
     [self drawPathWithArc:_currentArc];
     if (_currentArc >= _percentArc) {
-        [self destroyDisplayLink];
+        _displayLink.paused = YES;
     }
 }
 
 - (void)dealloc
 {
-    [self destroyDisplayLink];
+    [_displayLink invalidate];
     
     [_imagelayer release];
     [_circleLayer release];
@@ -170,8 +161,6 @@
     }
     else
     {
-        [self destroyDisplayLink];
-        
         CATransform3D currentTransform = _imagelayer.transform;
         CATransform3D scaled = CATransform3DScale(currentTransform, 1.43, 1.43, 1.43);
         _imagelayer.transform = scaled;

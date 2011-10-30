@@ -325,19 +325,20 @@
     if (_selectedIconIndex > -1)
     {
         [_wordSetBrief performSelector:@selector(fadeSelectedBackground) withObject:nil afterDelay:0.15];
+        [_wordSetBrief updateDisplay];
     }
     
     if (_searchBar.text != NULL)
         _listController.searchString = _searchBar.text;
     
-    [_pieView setupDisplayLink];
+    [_pieView setupTimer];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
     
-    [_pieView destroyDisplayLink];
+    [_pieView destroyTimer];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.

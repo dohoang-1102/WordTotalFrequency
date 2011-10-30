@@ -64,13 +64,13 @@
     float _oldTouchY;
     BOOL _isDragging;
     
-    CADisplayLink *_displayLink;
+    NSTimer *_timer;
 }
 - (void)setupLayer;
 - (void)setupContext;
 - (void)setupRenderBuffer;
-- (void)setupDisplayLink;
-- (void)destroyDisplayLink;
+- (void)setupTimer;
+- (void)destroyTimer;
 
 - (void)setupPartData:(float *)partData;
 

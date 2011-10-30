@@ -50,15 +50,18 @@
 }
 
 
-- (void)setupDisplayLink {
-    _displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(render:)];
-    [_displayLink addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];    
+- (void)setupTimer {
+    _timer = [NSTimer scheduledTimerWithTimeInterval:(NSTimeInterval)(1.0 / 60.0)
+                                              target:self
+                                            selector:@selector(render:)
+                                            userInfo:nil
+                                             repeats:TRUE];
 }
 
-- (void)destroyDisplayLink{
-    if (_displayLink != nil){
-        [_displayLink invalidate];
-        _displayLink = nil;
+- (void)destroyTimer{
+    if (_timer != nil){
+        [_timer invalidate];
+        _timer = nil;
     }
 }
 
@@ -435,7 +438,7 @@
 */
 
 - (void)dealloc{
-    [self destroyDisplayLink];
+    [self destroyTimer];
     
     // tear down context
 	if ([EAGLContext currentContext] == _context)
