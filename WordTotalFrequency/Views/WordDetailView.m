@@ -18,6 +18,7 @@
 #define DETAIL_LABEL_TAG 4
 #define SPEAKER_TAG 5
 #define SCROLLVIEW_TAG 6
+#define TAGS_CONTAINER_TAG 7
 
 @synthesize word = _word;
 @synthesize wordDetailController = _wordDetailController;
@@ -89,7 +90,12 @@
         [speaker addTarget:self action:@selector(speakAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:speaker];
         
-        UILabel *phonetic = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 300, 20)];
+        UIView *tags = [[UIView alloc] initWithFrame:CGRectMake(10, 70, 300, 0)];
+        tags.tag = TAGS_CONTAINER_TAG;
+        [self addSubview:tags];
+        [tags release];
+        
+        UILabel *phonetic = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 300, 0)];
         phonetic.backgroundColor = [UIColor clearColor];
         phonetic.textColor = [UIColor colorForNormalText];
         phonetic.tag = PHONETIC_LABEL_TAG;
@@ -98,7 +104,7 @@
         [self addSubview:phonetic];
         [phonetic release];
         
-        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 100, 300, 300)];
+        UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(10, 70, 300, 330)];
         scrollView.tag = SCROLLVIEW_TAG;
         [self addSubview:scrollView];
         
@@ -138,10 +144,41 @@
     [(UIButton *)[self viewWithTag:MARK_ICON_TAG] setBackgroundImage:image forState:UIControlStateNormal];
     
     [(UILabel *)[self viewWithTag:SPELL_LABEL_TAG] setText:_word.spell];
-    [(UILabel *)[self viewWithTag:PHONETIC_LABEL_TAG] setText:_word.phonetic];
+    
+    int offsetY = 0;
+    
+    if ([_word.tags length] > 0){
+        UIView *container = (UIView *)[self viewWithTag:TAGS_CONTAINER_TAG];
+        NSArray *tags = [_word.tags componentsSeparatedByString:@","];
+        CGRect rect = container.frame;
+        container.frame = CGRectMake(CGRectGetMinX(rect), CGRectGetMinY(rect), CGRectGetWidth(rect), 30);
+        int offsetX = 0;
+        for (NSString *tag in tags) {
+            UIImage *tagImage = [UIImage imageNamed:[NSString stringWithFormat:@"tag-%@", tag]];
+            UIImageView *tagView = [[UIImageView alloc] initWithImage:tagImage];
+            tagView.frame = CGRectMake(offsetX, 0, tagImage.size.width, tagImage.size.height);
+            [container addSubview:tagView];
+            offsetX += tagImage.size.width + 5;
+        }
+        offsetY += CGRectGetHeight(container.frame);
+    }
+    
+    if ([_word.phonetic length] > 0){
+        UILabel *phonetic = (UILabel *)[self viewWithTag:PHONETIC_LABEL_TAG];
+        phonetic.frame = CGRectMake(CGRectGetMinX(phonetic.frame),
+                                    CGRectGetMinY(phonetic.frame)+offsetY,
+                                    CGRectGetWidth(phonetic.frame),
+                                    20);
+        phonetic.text = _word.phonetic;
+        offsetY += 25;
+    }
     
     // detail translate
     UIScrollView *scrollView = (UIScrollView *)[self viewWithTag:SCROLLVIEW_TAG];
+    scrollView.frame = CGRectMake(CGRectGetMinX(scrollView.frame),
+                                CGRectGetMinY(scrollView.frame)+offsetY,
+                                CGRectGetWidth(scrollView.frame),
+                                400-CGRectGetMinY(scrollView.frame)-offsetY);
     UILabel *label = (UILabel *)[scrollView viewWithTag:DETAIL_LABEL_TAG];
     CGRect frame = label.frame;
     CGSize maximumSize = CGSizeMake(CGRectGetWidth(frame), 9999);

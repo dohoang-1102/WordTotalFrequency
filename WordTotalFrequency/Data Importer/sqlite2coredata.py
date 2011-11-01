@@ -28,8 +28,8 @@ for row in inCursor:
 	vals.append(row[3])				# ZRANK
 	vals.append(min(count/2500, 4)) # ZCATEGORY	row[11]
 	vals.append(row[7])				# ZTRANSLATE
-	vals.append(row[8])				# ZTAGS
 	vals.append("")                 # ZMARKDATE
+	vals.append(row[8])				# ZTAGS
 	vals.append(row[1])				# ZSPELL
 	vals.append(row[4])				# ZPHONETIC
 	vals.append(row[9])				# ZDETAIL
