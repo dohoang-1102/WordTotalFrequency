@@ -63,6 +63,7 @@
     
     NSDictionary *dict = [[DataController sharedDataController] settingsDictionary];
     NSArray *array = [dict objectForKey:@"WordSets"];
+    int totalOfAllSets = 0;
     for (NSDictionary *dict in array) {
         WordSet *set    = [[WordSet alloc] init];
         
@@ -91,6 +92,7 @@
         NSUInteger marked = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
         set.totalWordCount = total;
         set.markedWordCount = marked;
+        totalOfAllSets += total;
         
         UnitIconView *icon = [_unitIcons objectAtIndex:set.categoryId];
         [icon updateData];
@@ -98,6 +100,18 @@
         [_wordSets addObject:set];
         [set release];
     }
+    
+    
+    // setup pie chart
+    float pieValue[] = {};
+    for (int i=0; i<5; i++) {
+        UIImageView *pieLabel = (UIImageView *)[self.view viewWithTag:PIE_LABEL_TAG_BASE+i];
+        UILabel *label = (UILabel *)[pieLabel.subviews objectAtIndex:0];
+        label.text = [NSString stringWithFormat:@"%d", [[_wordSets objectAtIndex:i] totalWordCount]];
+        
+        pieValue[i] = [[_wordSets objectAtIndex:i] totalWordCount] * 1.0 / totalOfAllSets;
+    }
+    [_pieView setupPartData:pieValue];
 }
 
 - (void)dismissSearchResult:(BOOL)animated
@@ -262,14 +276,25 @@
     // pie chart
     _pieView = [[OpenGLView alloc] initWithFrame:CGRectMake(0, 160, 320, 320)];
     [self.view insertSubview:_pieView atIndex:1];
-    float pieValue[] ={0.3,0.25,0.2,0.15,0.1};
-    [_pieView setupPartData:pieValue];
     
     // pie label
     for (int i=0; i<5; i++) {
-        UIImageView *pieLabel = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"pieLabel"]];
+        UIImage *backImage = [[UIImage imageNamed:@"pieLabel"] stretchableImageWithLeftCapWidth:4 topCapHeight:4];
+        CGRect frame = CGRectMake(320, 480, backImage.size.width, backImage.size.height);
+        UIImageView *pieLabel = [[UIImageView alloc] initWithFrame:frame];
         pieLabel.tag = PIE_LABEL_TAG_BASE + i;
-        pieLabel.frame = CGRectMake(320, 480, pieLabel.image.size.width, pieLabel.image.size.height);
+        pieLabel.image = backImage;
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, backImage.size.width, 19)];
+        label.backgroundColor = [UIColor clearColor];
+        label.textAlignment = UITextAlignmentCenter;
+        label.textColor = [UIColor colorForNormalText];
+        label.font = [UIFont systemFontOfSize:14];
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(.5, 1);
+        [pieLabel addSubview:label];
+        [label release];
+        
         [self.view addSubview:pieLabel];
         [pieLabel release];
     }

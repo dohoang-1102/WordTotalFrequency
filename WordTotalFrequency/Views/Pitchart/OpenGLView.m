@@ -274,7 +274,7 @@
         labelPosition.y = .6;
         labelPosition.z = cosf(ang);
         CC3Vector labelProjPosition    = [projection transformLocation:labelPosition];
-        pieLabel.frame = CGRectMake(diffX+labelProjPosition.x*320-8, diffY-labelProjPosition.y*320-pieLabel.image.size.height/2, pieLabel.image.size.width/2, pieLabel.image.size.height/2);
+        pieLabel.frame = CGRectMake(diffX+labelProjPosition.x*320-8, diffY-labelProjPosition.y*320-pieLabel.image.size.height, pieLabel.image.size.width, pieLabel.image.size.height);
         
         startPartVal    += partValue[i];
     }

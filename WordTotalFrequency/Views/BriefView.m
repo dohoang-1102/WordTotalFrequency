@@ -19,6 +19,11 @@
     if (self) {
         CGFloat top = 10;
         
+        UIImageView *bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dashline-bg"]];
+        bg.frame = CGRectMake(1, -11, 318, 35);
+        [self addSubview:bg];
+        [bg release];
+        
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, top-2, 80, 48)];
         label.backgroundColor = [UIColor clearColor];
         label.font = [UIFont boldSystemFontOfSize:40];
