@@ -110,6 +110,7 @@
         
         UIButton *left = [[UIButton alloc] initWithFrame:CGRectMake(15, 15, 38, 38)];
         [left setImage:[UIImage imageNamed:@"arrow-left"] forState:UIControlStateNormal];
+        [left setImage:[UIImage imageNamed:@"arrow-left-pressed"] forState:UIControlStateHighlighted];
         [left addTarget:_wordTestView action:@selector(previousTestWord) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:left];
         [left release];
@@ -131,6 +132,7 @@
         
         UIButton *right = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame)-15-38, 15, 38, 38)];
         [right setImage:[UIImage imageNamed:@"arrow-right"] forState:UIControlStateNormal];
+        [right setImage:[UIImage imageNamed:@"arrow-right-pressed"] forState:UIControlStateHighlighted];
         [right addTarget:_wordTestView action:@selector(nextTestWord) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:right];
         [right release];

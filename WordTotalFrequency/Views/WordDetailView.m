@@ -89,7 +89,7 @@
         [speaker addTarget:self action:@selector(speakAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:speaker];
         
-        UILabel *phonetic = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 200, 20)];
+        UILabel *phonetic = [[UILabel alloc] initWithFrame:CGRectMake(10, 70, 300, 20)];
         phonetic.backgroundColor = [UIColor clearColor];
         phonetic.textColor = [UIColor colorForNormalText];
         phonetic.tag = PHONETIC_LABEL_TAG;
@@ -161,7 +161,6 @@
             stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if (file && [file length] > 0)
     {
-//        NSLog(@"mp3 file: %@", file);
 //        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:file ofType:@"mp3"]];
 //        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
 //        self.player = audioPlayer;
