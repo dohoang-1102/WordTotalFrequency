@@ -94,7 +94,7 @@ typedef enum {
 - (void)updateMarkOnTopBar
 {
     WordDetailView *view = (WordDetailView *)[_containerView.subviews objectAtIndex:0];
-    [view updateWordData];
+    [view markAction:nil];
 }
 
 - (void)previousWordDetail
@@ -282,8 +282,6 @@ typedef enum {
             [self previousWordDetail];
             break;
         case 1:
-            [[DataController sharedDataController] markWordToNextLevel:self.word];
-            [self updateMarkOnSegmented];
             [self updateMarkOnTopBar];
             [self setHistoryListDirty:YES];
             break;

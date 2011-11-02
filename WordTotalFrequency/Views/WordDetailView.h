@@ -19,5 +19,6 @@
 @property (nonatomic, retain) AVAudioPlayer *player;
 
 - (void)updateWordData;
+- (void)markAction:(UIGestureRecognizer *)gestureRecognizer;
 
 @end

@@ -28,12 +28,12 @@ typedef struct {
     float TexCoord[2];
 } Vertex;
 
-Vertex pieVertices[(SUBDIVIDE+(PARTNUM-1)*4)*3+1+PARTNUM];
-GLshort pieIndices[(SUBDIVIDE+(PARTNUM-1)*4)*15];
+Vertex pieVertices[(SUBDIVIDE+(PARTNUM-1)*4)*5+1+PARTNUM];
+GLshort pieIndices[(SUBDIVIDE+(PARTNUM-1)*4)*21];
 //Vertex pieVertices[SUBDIVIDE*3+1+PARTNUM];
 //GLshort pieIndices[SUBDIVIDE*15];
 float partValue[PARTNUM];
-
+float partCompleteValue[PARTNUM];
 
 Vertex shadowVertices[4];
 GLshort shadowIndices[6];

@@ -3,7 +3,7 @@
 //  WordTotalFrequency
 //
 //  Created by OCS on 11-7-21.
-//  Copyright 2011年 __MyCompanyName__. All rights reserved.
+//  Copyright 2011Âπ¥ __MyCompanyName__. All rights reserved.
 //
 
 #import "DataUtil.h"
@@ -104,6 +104,7 @@
     
     // setup pie chart
     float pieValue[] = {0.2, 0.2, 0.2, 0.2, 0.2};
+    float pieCompleteValue[] = {0.4, 0.5, 0.5, 0.6, 0.2};
     for (int i=0; i<5; i++) {
         UIImageView *pieLabel = (UIImageView *)[self.view viewWithTag:PIE_LABEL_TAG_BASE+i];
         UILabel *label = (UILabel *)[pieLabel.subviews objectAtIndex:0];
@@ -111,7 +112,7 @@
         
         //pieValue[i] = [[_wordSets objectAtIndex:i] totalWordCount] * 1.0 / totalOfAllSets;
     }
-    [_pieView setupPartData:pieValue];
+    [_pieView setupPartData:pieValue :pieCompleteValue];
 }
 
 - (void)dismissSearchResult:(BOOL)animated
@@ -200,7 +201,7 @@
 	int topWindow = [allWindows count] - 1;
 	UIWindow *keyboardWindow = [allWindows objectAtIndex:topWindow];
     [keyboardWindow addSubview:self.collapseButton];
-
+    
     [UIView transitionWithView:self.collapseButton duration:0.2
                        options:UIViewAnimationOptionCurveLinear
                     animations:^ {
@@ -265,7 +266,7 @@
     _briefView = [[BriefView alloc] 
                   initWithFrame:CGRectMake(10, 20, CGRectGetWidth([UIScreen mainScreen].applicationFrame)-20, 100)];
     [_barContainer addSubview:_briefView];
-
+    
     
     // word set brief
     _wordSetBrief = [[WordSetBriefView alloc]

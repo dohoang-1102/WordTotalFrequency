@@ -30,16 +30,18 @@
         [self compileShaders];
         
         _shadowTexture = [self setupTexture:@"shadow.png"];
-        _rotatePieX = 30.0;
+        _rotatePieX = 40.0;
     }
     return self;
 }
 
--(void)setupPartData:(float *)partData{
+-(void)setupPartData:(float *)partData :(float *)partCompleteData{
     for (int i=0; i<PARTNUM; i++) {
         partValue[i]    = partData[i];
     }
-
+    for (int i=0; i<PARTNUM; i++) {
+        partCompleteValue[i]    = partCompleteData[i];
+    }
     buildModel();
     [self setupVBOs];
 }
@@ -184,7 +186,7 @@
     [projection populateFromFrustumLeft:-1 andRight:1 andBottom:-1 andTop:1 andNear:2 andFar:8];
     
     CC3GLMatrix *modelView = [CC3GLMatrix matrix];
-    [modelView populateFromTranslation:CC3VectorMake(0, -.5, -6)];
+    [modelView populateFromTranslation:CC3VectorMake(0, 0, -6)];
     _currentRotatePieX  += (_rotatePieX-_currentRotatePieX)/4;
     _currentRotatePieY  += (_rotatePieY-_currentRotatePieY)/4;
     
@@ -271,7 +273,7 @@
         CC3Vector      labelPosition;
         float ang       = (startPartVal+endPartVal)/2 *PI2;
         labelPosition.x = sinf(ang);
-        labelPosition.y = .6;
+        labelPosition.y = .25;
         labelPosition.z = cosf(ang);
         CC3Vector labelProjPosition    = [projection transformLocation:labelPosition];
         pieLabel.frame = CGRectMake(diffX+labelProjPosition.x*320-8, diffY-labelProjPosition.y*320-pieLabel.image.size.height, pieLabel.image.size.width, pieLabel.image.size.height);
@@ -383,9 +385,6 @@
 
 
 
-
-
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
     UITouch *touch = [[event allTouches] anyObject];
@@ -398,6 +397,9 @@
         _oldTouchY = touchLocation.y;
     }
 }
+
+
+
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     
@@ -436,6 +438,9 @@
     // Drawing code
 }
 */
+
+
+
 
 - (void)dealloc{
     [self destroyTimer];

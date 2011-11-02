@@ -72,7 +72,7 @@
 - (void)setupTimer;
 - (void)destroyTimer;
 
-- (void)setupPartData:(float *)partData;
+- (void)setupPartData:(float *)partData :(float *)partCompleteData;
 
 - (void)setupVBOs;
 
