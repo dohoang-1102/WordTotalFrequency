@@ -4,3 +4,9 @@ How to import mysql data to Core Data:
 3.  run command: "./mysql2sqlite.sh -u root wtf_cn | sqlite3 mysql.sqlite"
     (note: if exception thrown, check if mysql.sqlite exists under Data Importer, delete it if it exists)
 4.  run command: "python sqlite2coredata.py"
+
+* how to include mp3 in build?
+1. uncomment lines 203-209 in WordDetailView.m
+2. goto project build settings -> EXCLUDED_SOURCE_FILE_NAMES, clear value "*.mp3"
+3. clean project by executing "Product->Clean" command
+4. build the project

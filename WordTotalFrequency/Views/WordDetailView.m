@@ -87,6 +87,7 @@
         speaker.frame = CGRectMake(255, 22, 47, 47);
         speaker.tag = SPEAKER_TAG;
         [speaker setBackgroundImage:[UIImage imageNamed:@"speaker"] forState:UIControlStateNormal];
+        [speaker setShowsTouchWhenHighlighted:YES];
         [speaker addTarget:self action:@selector(speakAction) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:speaker];
         
