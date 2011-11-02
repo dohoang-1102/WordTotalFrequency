@@ -158,6 +158,7 @@
             UIImageView *tagView = [[UIImageView alloc] initWithImage:tagImage];
             tagView.frame = CGRectMake(offsetX, 0, tagImage.size.width, tagImage.size.height);
             [container addSubview:tagView];
+            [tagView release];
             offsetX += tagImage.size.width + 5;
         }
         offsetY += CGRectGetHeight(container.frame);

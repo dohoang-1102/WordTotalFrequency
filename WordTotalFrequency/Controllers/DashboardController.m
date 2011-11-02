@@ -103,13 +103,13 @@
     
     
     // setup pie chart
-    float pieValue[] = {};
+    float pieValue[] = {0.2, 0.2, 0.2, 0.2, 0.2};
     for (int i=0; i<5; i++) {
         UIImageView *pieLabel = (UIImageView *)[self.view viewWithTag:PIE_LABEL_TAG_BASE+i];
         UILabel *label = (UILabel *)[pieLabel.subviews objectAtIndex:0];
         label.text = [NSString stringWithFormat:@"%d", [[_wordSets objectAtIndex:i] totalWordCount]];
         
-        pieValue[i] = [[_wordSets objectAtIndex:i] totalWordCount] * 1.0 / totalOfAllSets;
+        //pieValue[i] = [[_wordSets objectAtIndex:i] totalWordCount] * 1.0 / totalOfAllSets;
     }
     [_pieView setupPartData:pieValue];
 }
