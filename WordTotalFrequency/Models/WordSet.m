@@ -13,6 +13,8 @@
 
 @synthesize totalWordCount = _totalWordCount;
 @synthesize markedWordCount = _markedWordCount;
+@synthesize intermediateMarkedWordCount = _intermediateMarkedWordCount;
+@synthesize completeMarkedWordCount = _completeMarkedWordCount;
 @synthesize description = _description;
 @synthesize color = _color;
 @synthesize arrowColor = _arrowColor;

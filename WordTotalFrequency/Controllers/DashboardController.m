@@ -19,6 +19,7 @@
 
 @interface DashboardController()
 - (void)dismissSearchResult:(BOOL)animated;
+- (void)showInformation;
 @end
 
 @implementation DashboardController
@@ -104,8 +105,8 @@
     
     // setup pie chart
     float pieValue[] = {0.2, 0.2, 0.2, 0.2, 0.2};
-    float pieGreenValue[] = {0.4, 0.5, 0.5, 0.6, 0.2};
-    float pieYellowValue[] = {0.1, 0.25, 0.25, 0.2, 0.12};
+    float pieGreenValue[] = {0.2, 0.1, 0.01, 0.0, 0.0};
+    float pieYellowValue[] = {0.1, 0.01, 0.005, 0.2, 0.0};
     for (int i=0; i<5; i++) {
         UIImageView *pieLabel = (UIImageView *)[self.view viewWithTag:PIE_LABEL_TAG_BASE+i];
         UILabel *label = (UILabel *)[pieLabel.subviews objectAtIndex:0];
@@ -305,6 +306,23 @@
     _listController.delegate = self;
     [self.view addSubview:_listController.view];
     
+    // info button
+    UIImage *info = [UIImage imageNamed:@"info-bg"];
+    UIImageView *infoView = [[UIImageView alloc] initWithImage:info];
+    infoView.frame = CGRectMake(CGRectGetWidth(rect) - info.size.width,
+                                CGRectGetHeight(rect) - info.size.height,
+                                info.size.width,
+                                info.size.height);
+    [self.view addSubview:infoView];
+    [infoView release];
+    
+    UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    infoBtn.frame = CGRectMake(CGRectGetMinX(infoView.frame)+55, CGRectGetMinY(infoView.frame)+62, 44, 44);
+    [infoBtn setImage:[UIImage imageNamed:@"info-btn"] forState:UIControlStateNormal];
+    [infoBtn addTarget:self action:@selector(showInformation) forControlEvents:UIControlEventTouchUpInside];
+    [infoBtn setShowsTouchWhenHighlighted:YES];
+    [self.view addSubview:infoBtn];
+    
     // keyboard notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -384,13 +402,6 @@
     _selectedIconIndex = -1;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -461,5 +472,9 @@
     return _fetchRequest;
 }
 
+#pragma private messages
+- (void)showInformation
+{
+}
 
 @end

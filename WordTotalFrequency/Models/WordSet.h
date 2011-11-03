@@ -15,6 +15,8 @@
 
 @property (nonatomic) NSInteger totalWordCount;
 @property (nonatomic) NSInteger markedWordCount;
+@property (nonatomic) NSInteger intermediateMarkedWordCount;
+@property (nonatomic) NSInteger completeMarkedWordCount;
 @property (nonatomic, copy) NSString *description;
 @property (nonatomic, retain) UIColor *color;
 @property (nonatomic, retain) UIColor *arrowColor;
