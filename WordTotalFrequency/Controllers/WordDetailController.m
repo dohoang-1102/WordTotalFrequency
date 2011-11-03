@@ -193,7 +193,7 @@ typedef enum {
     view.wordDetailController = self;
     [_containerView addSubview:view];
     [view release];
-        
+    
     UISwipeGestureRecognizer *recognizer;
     recognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeAction:)];
     recognizer.direction = UISwipeGestureRecognizerDirectionLeft;
@@ -326,7 +326,7 @@ typedef enum {
     label.text = [titles objectAtIndex:segmentIndex];
     [button addSubview:label];
     [label release];
-
+    
     if (location == CapLeft)
     {
         UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"arrow-previous"]];

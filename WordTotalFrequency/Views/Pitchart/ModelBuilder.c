@@ -51,8 +51,8 @@ void buildModel(){
         pieVertices[i].Position[0]     = 0;
         pieVertices[i].Position[1]     = 0.6;
         pieVertices[i].Position[2]     = 0;
-        pieVertices[i].Color[0]        = color[i].r+.1;
-        pieVertices[i].Color[1]        = color[i].g+.1;
+        pieVertices[i].Color[0]        = color[i].r*.2;
+        pieVertices[i].Color[1]        = powf(color[i].g,.4)+.2;
         pieVertices[i].Color[2]        = color[i].b;
         pieVertices[i].Color[3]        = color[i].a;
         pieVertices[i].Normal[0]       = 0.0;
@@ -87,11 +87,11 @@ void buildModel(){
             float sinAng        = sinf(ang);
             float cosAng        = cosf(ang);
             
-            int trianglePoint   = divideCount*5+PARTNUM;
+            int trianglePoint   = divideCount*7+PARTNUM;
             if(partStartValue==thisDivideValue){
                 makeADivide(trianglePoint,ang,sinAng,cosAng,i,divideCount,1,1);
                 divideCount ++;
-                trianglePoint   = divideCount*5+PARTNUM;
+                trianglePoint   = divideCount*7+PARTNUM;
                 thisDivideValue += breakStep;
                 ang             = PI2*thisDivideValue;
                 sinAng          = sinf(ang);
@@ -113,7 +113,7 @@ void buildModel(){
         float ang           = PI2*partEndValue;
         float sinAng        = sinf(ang);
         float cosAng        = cosf(ang);
-        int trianglePoint   = divideCount*5+PARTNUM;
+        int trianglePoint   = divideCount*7+PARTNUM;
         makeADivide(trianglePoint,ang,sinAng,cosAng,i,divideCount,-1,0);
         divideCount ++;
     }
@@ -197,12 +197,12 @@ void makeADivide(int trianglePoint,float ang,float sinAng, float cosAng,int part
     rndColor.b  = color[partId].b;
     rndColor.a  = color[partId].a;
     
-    pieVertices[trianglePoint].Position[0]     = sinAng*r*partCompleteValue[partId];
+    pieVertices[trianglePoint].Position[0]     = sinAng*r*partMarkedGreenValue[partId];
     pieVertices[trianglePoint].Position[1]     = h;
-    pieVertices[trianglePoint].Position[2]     = cosAng*r*partCompleteValue[partId];
+    pieVertices[trianglePoint].Position[2]     = cosAng*r*partMarkedGreenValue[partId];
     
-    pieVertices[trianglePoint].Color[0]        = rndColor.r+.1;
-    pieVertices[trianglePoint].Color[1]        = rndColor.g+.1;
+    pieVertices[trianglePoint].Color[0]        = rndColor.r*.2;
+    pieVertices[trianglePoint].Color[1]        = powf(rndColor.g,.4)+.2;
     pieVertices[trianglePoint].Color[2]        = rndColor.b;
     pieVertices[trianglePoint].Color[3]        = rndColor.a;
     if(dividetype==0){
@@ -220,9 +220,56 @@ void makeADivide(int trianglePoint,float ang,float sinAng, float cosAng,int part
     
     trianglePoint+=1;
     
-    pieVertices[trianglePoint].Position[0]     = sinAng*r*partCompleteValue[partId];
+    
+    pieVertices[trianglePoint].Position[0]     = sinAng*r*partMarkedGreenValue[partId];
     pieVertices[trianglePoint].Position[1]     = h;
-    pieVertices[trianglePoint].Position[2]     = cosAng*r*partCompleteValue[partId];
+    pieVertices[trianglePoint].Position[2]     = cosAng*r*partMarkedGreenValue[partId];
+    
+    pieVertices[trianglePoint].Color[0]        = rndColor.r*.7;
+    pieVertices[trianglePoint].Color[1]        = powf(rndColor.g,.5)+.1;
+    pieVertices[trianglePoint].Color[2]        = rndColor.b;
+    pieVertices[trianglePoint].Color[3]        = rndColor.a;
+    if(dividetype==0){
+        pieVertices[trianglePoint].Normal[0]       = 0.0;
+        pieVertices[trianglePoint].Normal[1]       = 1.0;
+        pieVertices[trianglePoint].Normal[2]       = 0.0;
+    }else{
+        pieVertices[trianglePoint].Normal[0]       = sinAng;
+        pieVertices[trianglePoint].Normal[1]       = 1.0;
+        pieVertices[trianglePoint].Normal[2]       = cosAng;
+    }
+    pieVertices[trianglePoint].TexCoord[0]     = sinAng;
+    pieVertices[trianglePoint].TexCoord[1]     = cosAng;
+    
+    
+    trianglePoint+=1;
+    
+    pieVertices[trianglePoint].Position[0]     = sinAng*r*(partMarkedGreenValue[partId]+partMarkedYellowValue[partId]);
+    pieVertices[trianglePoint].Position[1]     = h;
+    pieVertices[trianglePoint].Position[2]     = cosAng*r*(partMarkedGreenValue[partId]+partMarkedYellowValue[partId]);
+    
+    pieVertices[trianglePoint].Color[0]        = rndColor.r*.7;
+    pieVertices[trianglePoint].Color[1]        = powf(rndColor.g,.5)+.1;
+    pieVertices[trianglePoint].Color[2]        = rndColor.b;
+    pieVertices[trianglePoint].Color[3]        = rndColor.a;
+    if(dividetype==0){
+        pieVertices[trianglePoint].Normal[0]       = 0.0;
+        pieVertices[trianglePoint].Normal[1]       = 1.0;
+        pieVertices[trianglePoint].Normal[2]       = 0.0;
+    }else{
+        pieVertices[trianglePoint].Normal[0]       = sinAng;
+        pieVertices[trianglePoint].Normal[1]       = 1.0;
+        pieVertices[trianglePoint].Normal[2]       = cosAng;
+    }
+    pieVertices[trianglePoint].TexCoord[0]     = sinAng;
+    pieVertices[trianglePoint].TexCoord[1]     = cosAng;
+    
+    
+    trianglePoint+=1;
+    
+    pieVertices[trianglePoint].Position[0]     = sinAng*r*(partMarkedGreenValue[partId]+partMarkedYellowValue[partId]);
+    pieVertices[trianglePoint].Position[1]     = h;
+    pieVertices[trianglePoint].Position[2]     = cosAng*r*(partMarkedGreenValue[partId]+partMarkedYellowValue[partId]);
     
     pieVertices[trianglePoint].Color[0]        = rndColor.r;
     pieVertices[trianglePoint].Color[1]        = rndColor.g;
@@ -239,7 +286,6 @@ void makeADivide(int trianglePoint,float ang,float sinAng, float cosAng,int part
     }
     pieVertices[trianglePoint].TexCoord[0]     = sinAng;
     pieVertices[trianglePoint].TexCoord[1]     = cosAng;
-    
     
     
     trianglePoint+=1;
@@ -332,36 +378,44 @@ void makeADivide(int trianglePoint,float ang,float sinAng, float cosAng,int part
     pieVertices[trianglePoint].TexCoord[1]     = cosAng;
     
     if(isMakeTriangle){
-        trianglePoint-=4;
-    int id  =divideCount*21;
+        trianglePoint-=6;
+    int id  =divideCount*27;
     
     pieIndices[id]     = partId;
     pieIndices[id+1]   = trianglePoint;
-    pieIndices[id+2]   = trianglePoint+5;
+    pieIndices[id+2]   = trianglePoint+7;
     
     pieIndices[id+3]   = trianglePoint+1;
     pieIndices[id+4]   = trianglePoint+2;
-    pieIndices[id+5]   = trianglePoint+7;
+    pieIndices[id+5]   = trianglePoint+9;
     
     pieIndices[id+6]   = trianglePoint+1;
-    pieIndices[id+7]   = trianglePoint+7;
-    pieIndices[id+8]   = trianglePoint+6;
+    pieIndices[id+7]   = trianglePoint+9;
+    pieIndices[id+8]   = trianglePoint+8;
     
-    pieIndices[id+9]   = trianglePoint+2;
-    pieIndices[id+10]  = trianglePoint+3;
-    pieIndices[id+11]  = trianglePoint+8;
+    pieIndices[id+9]   = trianglePoint+3;
+    pieIndices[id+10]  = trianglePoint+4;
+    pieIndices[id+11]  = trianglePoint+11;
     
-    pieIndices[id+12]  = trianglePoint+2;
-    pieIndices[id+13]  = trianglePoint+8;
-    pieIndices[id+14]  = trianglePoint+7;
+    pieIndices[id+12]  = trianglePoint+3;
+    pieIndices[id+13]  = trianglePoint+10;
+    pieIndices[id+14]  = trianglePoint+11;
         
-    pieIndices[id+15]  = trianglePoint+3;
-    pieIndices[id+16]  = trianglePoint+4;
-    pieIndices[id+17]  = trianglePoint+9;
+    pieIndices[id+15]  = trianglePoint+4;
+    pieIndices[id+16]  = trianglePoint+5;
+    pieIndices[id+17]  = trianglePoint+12;
         
-    pieIndices[id+18]  = trianglePoint+3;
-    pieIndices[id+19]  = trianglePoint+9;
-    pieIndices[id+20]  = trianglePoint+8;
+    pieIndices[id+18]  = trianglePoint+4;
+    pieIndices[id+19]  = trianglePoint+12;
+    pieIndices[id+20]  = trianglePoint+11;
+        
+    pieIndices[id+21]  = trianglePoint+5;
+    pieIndices[id+22]  = trianglePoint+6;
+    pieIndices[id+23]  = trianglePoint+13;
+        
+    pieIndices[id+24]  = trianglePoint+5;
+    pieIndices[id+25]  = trianglePoint+13;
+    pieIndices[id+26]  = trianglePoint+12;
     }
     divideCountInPart++;
 }

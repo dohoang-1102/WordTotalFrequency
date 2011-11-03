@@ -35,12 +35,15 @@
     return self;
 }
 
--(void)setupPartData:(float *)partData :(float *)partCompleteData{
+-(void)setupPartData:(float *)partData :(float *)partGreenData :(float *)partYellowData{
     for (int i=0; i<PARTNUM; i++) {
         partValue[i]    = partData[i];
     }
     for (int i=0; i<PARTNUM; i++) {
-        partCompleteValue[i]    = partCompleteData[i];
+        partMarkedGreenValue[i]    = partGreenData[i];
+    }
+    for (int i=0; i<PARTNUM; i++) {
+        partMarkedYellowValue[i]    = partYellowData[i];
     }
     buildModel();
     [self setupVBOs];
