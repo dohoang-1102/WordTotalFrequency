@@ -32,17 +32,97 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        CGRect rect = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
+//        CGRect rect = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
         
-        UITableView *table = [[UITableView alloc] initWithFrame:rect];
-        table.backgroundColor = [UIColor clearColor];
-        table.separatorColor = [UIColor colorWithWhite:1.f alpha:.5f];
-        table.allowsSelection = NO;
-        table.scrollEnabled = NO;
-        table.delegate = self;
-        table.dataSource = self;
-        [self addSubview:table];
-        [table release];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18, 37, 200, 26)];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont boldSystemFontOfSize:22];
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0.5, 1);
+        label.text = @"Setting";
+        label.textColor = [UIColor colorForNormalText];
+        [self addSubview:label];
+        [label release];
+        
+        // 1st setting
+        UIImageView *dot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+        dot.frame = CGRectMake(18, 81, 5, 5);
+        [self addSubview:dot];
+        [dot release];
+        
+        label = [[UILabel alloc] initWithFrame:CGRectMake(30, 68, 170, 50)];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:15];
+        label.numberOfLines = 0;
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0.5, 1);
+        label.text = @"Mark all words in this set as remembered";
+        label.textColor = [UIColor colorForNormalText];
+        [self addSubview:label];
+        [label release];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIImage *buttonBackground = [UIImage imageNamed:@"button-bg"];
+        UIImage *newImage = [buttonBackground stretchableImageWithLeftCapWidth:7.f topCapHeight:0.f];
+        [btn setBackgroundImage:newImage forState:UIControlStateNormal];
+        btn.frame = CGRectMake(210, 76, 94, 34);
+        [btn setTitle:@"Mark All" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(markAll:) forControlEvents:UIControlEventTouchUpInside];
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
+        [self addSubview:btn];
+        
+        // 2nd setting
+        dot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+        dot.frame = CGRectMake(18, 137, 5, 5);
+        [self addSubview:dot];
+        [dot release];
+        
+        label = [[UILabel alloc] initWithFrame:CGRectMake(30, 124, 174, 50)];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:15];
+        label.numberOfLines = 0;
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0.5, 1);
+        label.text = @"Clean testing and marking history in this set";
+        label.textColor = [UIColor colorForNormalText];
+        [self addSubview:label];
+        [label release];
+        
+        btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        buttonBackground = [UIImage imageNamed:@"button-bg"];
+        newImage = [buttonBackground stretchableImageWithLeftCapWidth:7.f topCapHeight:0.f];
+        [btn setBackgroundImage:newImage forState:UIControlStateNormal];
+        btn.frame = CGRectMake(210, 132, 94, 34);
+        [btn setTitle:@"Clean" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(unmarkAll:) forControlEvents:UIControlEventTouchUpInside];
+        btn.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
+        [self addSubview:btn];
+        
+        // 3rd setting
+        dot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+        dot.frame = CGRectMake(18, 193, 5, 5);
+        [self addSubview:dot];
+        [dot release];
+        
+        label = [[UILabel alloc] initWithFrame:CGRectMake(30, 180, 170, 50)];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:15];
+        label.numberOfLines = 0;
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0.5, 1);
+        label.text = @"Hide marked words during testing";
+        label.textColor = [UIColor colorForNormalText];
+        [self addSubview:label];
+        [label release];
+        
+        UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectMake(210, 188, 94, 30)];
+        NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSetController.wordSet.categoryId];
+        toggle.on = [[dict valueForKey:@"testMarked"] boolValue];
+        [toggle addTarget:self action:@selector(toggleMarkedOnly:) forControlEvents:UIControlEventValueChanged];
+        [self addSubview:toggle];
+        [toggle release];
     }
     return self;
 }
@@ -59,79 +139,6 @@
     
     
 }
-
-#pragma mark - table view datasource & delegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return 44.f;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"myCell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier] autorelease];
-        cell.textLabel.font = [UIFont systemFontOfSize:14.f];
-        cell.textLabel.textColor = [UIColor colorForNormalText];
-        cell.textLabel.shadowColor = [UIColor whiteColor];
-        cell.textLabel.shadowOffset = CGSizeMake(.5, 1);
-    }
-    
-    if (indexPath.row == 0){
-        cell.textLabel.text = @"Mark all words as remembered";
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        UIImage *buttonBackground = [UIImage imageNamed:@"button-bg"];
-        UIImage *newImage = [buttonBackground stretchableImageWithLeftCapWidth:7.f topCapHeight:0.f];
-        [btn setBackgroundImage:newImage forState:UIControlStateNormal];
-        
-        btn.frame = CGRectMake(200, 0, 94, 30);
-        [btn setTitle:@"Mark All" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(markAll:) forControlEvents:UIControlEventTouchUpInside];
-        btn.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
-        cell.accessoryView = btn;
-    }
-    else if (indexPath.row == 1){
-        cell.textLabel.text = @"Clean history of words";
-
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        btn.tag = BTN_CLEAN_HISTORY;
-        UIImage *buttonBackground = [UIImage imageNamed:@"button-bg"];
-        UIImage *newImage = [buttonBackground stretchableImageWithLeftCapWidth:7.f topCapHeight:0.f];
-        [btn setBackgroundImage:newImage forState:UIControlStateNormal];
-        
-        btn.frame = CGRectMake(200, 0, 94, 30);
-        [btn setTitle:@"Clean" forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(unmarkAll:) forControlEvents:UIControlEventTouchUpInside];
-        btn.titleLabel.font = [UIFont boldSystemFontOfSize:14.f];
-        cell.accessoryView = btn;
-    }
-    else if (indexPath.row == 2){
-        cell.textLabel.text = @"Only test unmarked words";
-        UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectMake(200, 0, 94, 30)];
-        NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSetController.wordSet.categoryId];
-        toggle.on = [[dict valueForKey:@"testMarked"] boolValue];
-        [toggle addTarget:self action:@selector(toggleMarkedOnly:) forControlEvents:UIControlEventValueChanged];
-        
-        cell.accessoryView = toggle;
-        [toggle release];
-    }
-    return cell;
-}
-
 
 #pragma mark - private message
 

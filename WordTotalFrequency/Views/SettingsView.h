@@ -10,7 +10,7 @@
 
 @class WordSetController;
 
-@interface SettingsView : UIView<UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate> {
+@interface SettingsView : UIView<UIAlertViewDelegate> {
 }
 
 @property (nonatomic, assign) WordSetController *wordSetController;

@@ -24,7 +24,7 @@
         [array addObject:word.translate];
         [[DataController sharedDataController].managedObjectContext refreshObject:word mergeChanges:NO];
     }
-
+    
     [array insertObject:answer atIndex:answerIndex];
     return [array autorelease];
 }
@@ -47,6 +47,12 @@
     else{
         _paperView = [[WordPaperView alloc] initWithFrame:_containerView.bounds];
         _paperView.backgroundColor = [UIColor whiteColor];
+        
+        UIImage *congratulation = [UIImage imageNamed:@"test-finished"];
+        UIImageView *view = [[UIImageView alloc] initWithImage:congratulation];
+        view.frame = CGRectMake(30, 0, congratulation.size.width, congratulation.size.height);
+        [_paperView addSubview:view];
+        [view release];
     }
 }
 
@@ -103,6 +109,8 @@
 
 - (void)swipeAction:(UISwipeGestureRecognizer *)recognizer
 {
+    if ([_wordSetController.testingWords count] == 0) return;
+    
     if (recognizer.direction == UISwipeGestureRecognizerDirectionLeft)
     {
         [self nextTestWord];
