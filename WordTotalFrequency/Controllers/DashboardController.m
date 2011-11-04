@@ -317,7 +317,7 @@
     [infoView release];
     
     UIButton *infoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    infoBtn.frame = CGRectMake(CGRectGetMinX(infoView.frame)+55, CGRectGetMinY(infoView.frame)+62, 44, 44);
+    infoBtn.frame = CGRectMake(CGRectGetMinX(infoView.frame)+16, CGRectGetMinY(infoView.frame)+22, 44, 44);
     [infoBtn setImage:[UIImage imageNamed:@"info-btn"] forState:UIControlStateNormal];
     [infoBtn addTarget:self action:@selector(showInformation) forControlEvents:UIControlEventTouchUpInside];
     [infoBtn setShowsTouchWhenHighlighted:YES];
@@ -400,6 +400,15 @@
     }
     
     _selectedIconIndex = -1;
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    NSLog(@"view unloadddd");
+    [_wordSets release];
+    [self.collapseButton removeTarget:self action:@selector(dismissKeyboard)  forControlEvents:UIControlEventTouchUpInside];
+    [_collapseButton release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

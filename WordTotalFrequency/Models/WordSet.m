@@ -27,6 +27,7 @@
     [_description release];
     [_color release];
     [_arrowColor release];
+    [_iconUrl release];
     [super dealloc];
 }
 
