@@ -12,7 +12,7 @@
 			<key>color</key>
 			<integer>16729600</integer>
 			<key>description</key>
-			<string>Master this word set you can read some short.</string>
+			<string>Basic vocabulary for beginners , user without any basis should start from here.</string>
 			<key>iconUrl</key>
 			<string>Unit-1</string>
 			<key>testMarked</key>
@@ -26,7 +26,7 @@
 			<key>color</key>
 			<integer>16737792</integer>
 			<key>description</key>
-			<string>Master this word set you can understand basic conversations.</string>
+			<string>Middle level vocabulary, these words are crucial to understand short articles and simple conversations.</string>
 			<key>iconUrl</key>
 			<string>Unit-2</string>
 			<key>testMarked</key>
@@ -40,7 +40,7 @@
 			<key>color</key>
 			<integer>16750592</integer>
 			<key>description</key>
-			<string>Master this word set you can adfasf asdfasdf werwer asfasdf.</string>
+			<string>Advanced vocabulary for middle level user, these words help understand the main idea of normal articles.</string>
 			<key>iconUrl</key>
 			<string>Unit-3</string>
 			<key>testMarked</key>
@@ -54,7 +54,7 @@
 			<key>color</key>
 			<integer>16759040</integer>
 			<key>description</key>
-			<string>Master this word set you can read some short article.</string>
+			<string>Advanced vocabulary for high level user, these words will help you read most articles and express your opinions.</string>
 			<key>iconUrl</key>
 			<string>Unit-4</string>
 			<key>testMarked</key>
@@ -68,7 +68,7 @@
 			<key>color</key>
 			<integer>16767488</integer>
 			<key>description</key>
-			<string>Master this word set you can read some short articles and have.</string>
+			<string>Rare used vocabulary , but they are important to read complex articles and enhance expression diversity.</string>
 			<key>iconUrl</key>
 			<string>Unit-5</string>
 			<key>testMarked</key>

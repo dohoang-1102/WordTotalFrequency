@@ -31,6 +31,11 @@
     [super dealloc];
 }
 
+-  (NSInteger)markedWordCount
+{
+    return _intermediateMarkedWordCount + _completeMarkedWordCount;
+}
+
 - (NSInteger)completePercentage
 {
     if (_totalWordCount <= 0)

@@ -34,7 +34,7 @@
 @synthesize fetchRequest = _fetchRequest;
 
 #define SEARCH_BAR_HEIGHT 40
-#define WORDSETBRIEF_HEIGHT 115
+#define WORDSETBRIEF_HEIGHT 124
 #define PIE_LABEL_TAG_BASE 11
 
 - (void)dealloc
@@ -86,14 +86,18 @@
         NSError *error;
         NSUInteger total = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
         
-        // marked count
-        predicate = [NSPredicate predicateWithFormat:@"category = %d and markStatus <> 0", set.categoryId];
-        [self.fetchRequest setPredicate:predicate];
-        
-        NSUInteger marked = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
         set.totalWordCount = total;
-        set.markedWordCount = marked;
         totalOfAllSets += total;
+
+        // marked count
+        predicate = [NSPredicate predicateWithFormat:@"category = %d and markStatus = 1", set.categoryId];
+        [self.fetchRequest setPredicate:predicate];
+        set.intermediateMarkedWordCount = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+        
+        predicate = [NSPredicate predicateWithFormat:@"category = %d and markStatus = 2", set.categoryId];
+        [self.fetchRequest setPredicate:predicate];
+        set.completeMarkedWordCount = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+        
         
         UnitIconView *icon = [_unitIcons objectAtIndex:set.categoryId];
         [icon updateData];
@@ -101,20 +105,6 @@
         [_wordSets addObject:set];
         [set release];
     }
-    
-    
-    // setup pie chart
-    float pieValue[] = {0.2, 0.2, 0.2, 0.2, 0.2};
-    float pieGreenValue[] = {0.2, 0.1, 0.01, 0.0, 0.0};
-    float pieYellowValue[] = {0.1, 0.01, 0.005, 0.2, 0.0};
-    for (int i=0; i<5; i++) {
-        UIImageView *pieLabel = (UIImageView *)[self.view viewWithTag:PIE_LABEL_TAG_BASE+i];
-        UILabel *label = (UILabel *)[pieLabel.subviews objectAtIndex:0];
-        label.text = [NSString stringWithFormat:@"%d", [[_wordSets objectAtIndex:i] totalWordCount]];
-        
-        //pieValue[i] = [[_wordSets objectAtIndex:i] totalWordCount] * 1.0 / totalOfAllSets;
-    }
-    [_pieView setupPartData:pieValue : pieGreenValue : pieYellowValue];
 }
 
 - (void)dismissSearchResult:(BOOL)animated
@@ -376,6 +366,24 @@
     if (_searchBar.text != NULL)
         _listController.searchString = _searchBar.text;
     
+    // setup pie chart
+    int totalOfAllSets = 0;
+    for (WordSet *wordSet in _wordSets) {
+        totalOfAllSets += wordSet.totalWordCount;
+    }
+    
+    float pieValue[5], pieGreenValue[5], pieYellowValue[5];
+    for (int i=0; i<5; i++) {
+        UIImageView *pieLabel = (UIImageView *)[self.view viewWithTag:PIE_LABEL_TAG_BASE+i];
+        UILabel *label = (UILabel *)[pieLabel.subviews objectAtIndex:0];
+        label.text = [NSString stringWithFormat:@"%d", [[_wordSets objectAtIndex:i] totalWordCount]];
+        
+        WordSet *wordSet = [_wordSets objectAtIndex:i];
+        pieValue[i] = wordSet.totalWordCount * 1.0 / totalOfAllSets;
+        pieGreenValue[i] = wordSet.completeMarkedWordCount * 1.0 / wordSet.totalWordCount;
+        pieYellowValue[i] = wordSet.intermediateMarkedWordCount * 1.0 / wordSet.totalWordCount;
+    }
+    [_pieView setupPartData:pieValue : pieGreenValue : pieYellowValue];
     [_pieView setupTimer];
 }
 

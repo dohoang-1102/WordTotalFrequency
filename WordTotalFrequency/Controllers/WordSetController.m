@@ -109,12 +109,19 @@ typedef enum {
 
 - (void)updateMarkedCount
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"category = %d and markStatus > 0", _wordSet.categoryId];
-    [self.fetchRequest setPredicate:predicate];
-    
+    NSPredicate *predicate;
     NSError *error;
-    NSUInteger count = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
-    _wordSet.markedWordCount = count;
+    NSUInteger count;
+
+    predicate = [NSPredicate predicateWithFormat:@"category = %d and markStatus = 1", _wordSet.categoryId];
+    [self.fetchRequest setPredicate:predicate];
+    count = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+    _wordSet.intermediateMarkedWordCount = count;
+    
+    predicate = [NSPredicate predicateWithFormat:@"category = %d and markStatus = 2", _wordSet.categoryId];
+    [self.fetchRequest setPredicate:predicate];
+    count = [[DataController sharedDataController].managedObjectContext countForFetchRequest:self.fetchRequest error:&error];
+    _wordSet.completeMarkedWordCount = count;
 
     // update control
     [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
@@ -260,7 +267,7 @@ typedef enum {
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];    
+    [super viewWillAppear:animated];
     [self updateMarkedCount];
 }
 

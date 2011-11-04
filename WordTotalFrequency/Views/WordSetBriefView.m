@@ -39,7 +39,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        CGFloat top = 15.f;
+        CGFloat top = 8.f;
         CGFloat margin = 10.f;
         
         // separator layer
@@ -67,7 +67,7 @@
         
         _countNoteLabel = [[MTLabel alloc] initWithFrame:CGRectZero];
         _countNoteLabel.backgroundColor = [UIColor clearColor];
-        _countNoteLabel.frame = CGRectMake(margin+80, top+4, 80, 60);
+        _countNoteLabel.frame = CGRectMake(margin+80, top+5, 80, 60);
         _countNoteLabel.font = [UIFont systemFontOfSize:12];
         _countNoteLabel.numberOfLines = 0;
         _countNoteLabel.text = @"words\nmarked as\nremembered";
@@ -90,7 +90,7 @@
         _progress = [[CustomProgress alloc] initWithFrame:CGRectMake(margin+160, top+30, 140, 13)];
         [self addSubview:_progress];
         
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(margin, top+46, 300, 70) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(margin, top+45, 300, 70) style:UITableViewStylePlain];
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.userInteractionEnabled = NO;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -114,16 +114,7 @@
     _arrowLayer.position = CGPointMake(_arrowLayer.position.x, CGRectGetHeight(frame)/2);
     [_arrowLayer setNeedsDisplay];
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
-
+ 
 - (WordSet *)wordSet
 {
     return _wordSet;
@@ -192,11 +183,11 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         
-        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        cell.textLabel.font = [UIFont systemFontOfSize:13.5];
         cell.textLabel.textColor = [UIColor colorForNormalText];
         cell.textLabel.numberOfLines = 0;
         cell.textLabel.backgroundColor = [UIColor yellowColor];
-        cell.textLabel.frame = CGRectMake(0, 0, 260, 70);
+        cell.textLabel.frame = CGRectMake(0, 0, 267, 70);
         cell.textLabel.lineBreakMode = UILineBreakModeWordWrap;
         cell.textLabel.shadowColor = [UIColor whiteColor];
         cell.textLabel.shadowOffset = CGSizeMake(.5, 1);
@@ -206,5 +197,4 @@
     cell.textLabel.text = _wordSet.description;        
     return cell;
 }
-
 @end
