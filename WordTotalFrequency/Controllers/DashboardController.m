@@ -19,6 +19,7 @@
 
 @interface DashboardController()
 - (void)dismissSearchResult:(BOOL)animated;
+- (void)collapseWordSetBrief;
 - (void)showInformation;
 @end
 
@@ -104,29 +105,6 @@
         
         [_wordSets addObject:set];
         [set release];
-    }
-}
-
-- (void)dismissSearchResult:(BOOL)animated
-{
-    if (animated)
-    {
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        [UIView beginAnimations:nil context:context];
-        
-        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [UIView setAnimationDuration:0.2];
-        CGRect rect = _listController.view.frame;
-        rect.origin.y = CGRectGetHeight(self.view.frame);
-        _listController.view.frame = rect;
-        
-        [UIView commitAnimations];
-    }
-    else
-    {
-        CGRect rect = _listController.view.frame;
-        rect.origin.y = CGRectGetHeight(self.view.frame);
-        _listController.view.frame = rect;
     }
 }
 
@@ -361,6 +339,7 @@
     {
         [_wordSetBrief performSelector:@selector(fadeSelectedBackground) withObject:nil afterDelay:0.15];
         [_wordSetBrief updateDisplay];
+        [self performSelector:@selector(collapseWordSetBrief) withObject:nil afterDelay:0.65];
     }
     
     if (_searchBar.text != NULL)
@@ -489,7 +468,36 @@
     return _fetchRequest;
 }
 
-#pragma private messages
+#pragma mark - private messages
+
+- (void)dismissSearchResult:(BOOL)animated
+{
+    if (animated)
+    {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        [UIView beginAnimations:nil context:context];
+        
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [UIView setAnimationDuration:0.2];
+        CGRect rect = _listController.view.frame;
+        rect.origin.y = CGRectGetHeight(self.view.frame);
+        _listController.view.frame = rect;
+        
+        [UIView commitAnimations];
+    }
+    else
+    {
+        CGRect rect = _listController.view.frame;
+        rect.origin.y = CGRectGetHeight(self.view.frame);
+        _listController.view.frame = rect;
+    }
+}
+
+- (void)collapseWordSetBrief
+{
+    self.selectedIconIndex = -1;
+}
+
 - (void)showInformation
 {
 }
