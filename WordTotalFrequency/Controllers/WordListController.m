@@ -114,6 +114,17 @@ static NSPredicate *searchPredicate;
                         
                         dispatch_sync(main_queue, ^{
                             [blockSelf.tableView reloadData];
+                            // load scroll index
+                            NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSetIndex];
+                            int topIndex = [[dict valueForKey:@"listTopWordIndex"] intValue];
+                            if (topIndex > 0){
+                                NSUInteger ii[2] = {0, topIndex};
+                                NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
+                                [blockSelf.tableView scrollToRowAtIndexPath:indexPath
+                                                           atScrollPosition:UITableViewScrollPositionTop
+                                                                   animated:YES];
+                            }
+                            
                             dispatch_release(request_queue);
                         });
                     });

@@ -74,6 +74,13 @@ typedef enum {
 
 - (void)dealloc
 {
+    // remember scroll position
+    WordListCell *cell = [[_listController.tableView visibleCells] objectAtIndex:0];
+    int topIndex = [_listController.tableView indexPathForCell:cell].row;
+    NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSet.categoryId];
+    [dict setValue:[NSNumber numberWithInt:topIndex] forKey:@"listTopWordIndex"];
+    [[DataController sharedDataController] saveSettingsDictionary];
+    
     [MANAGED_OBJECT_CONTEXT reset];
     [NSFetchedResultsController deleteCacheWithName:nil];
 
