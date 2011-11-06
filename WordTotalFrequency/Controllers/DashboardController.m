@@ -220,7 +220,7 @@
     for (int i=0; i<5; i++)
     {
         UnitIconView *icon = [[UnitIconView alloc]
-                              initWithFrame:CGRectMake(20 + i * 61, 50, 36, 36)
+                              initWithFrame:CGRectMake(20 + i * 57, 46, 44, 44)
                               image:[NSString stringWithFormat:@"Unit-%d", (i+1)]];
         icon.dashboard = self;
         icon.index = i;
@@ -392,7 +392,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    NSLog(@"view unloadddd");
     [_wordSets release];
     [self.collapseButton removeTarget:self action:@selector(dismissKeyboard)  forControlEvents:UIControlEventTouchUpInside];
     [_collapseButton release];

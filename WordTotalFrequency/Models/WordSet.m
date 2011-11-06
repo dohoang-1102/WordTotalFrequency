@@ -41,7 +41,7 @@
     if (_totalWordCount <= 0)
         return 0;
     else
-        return lround(_markedWordCount * 100.f / _totalWordCount);
+        return lround(self.markedWordCount * 100.f / _totalWordCount);
 }
 
 @end

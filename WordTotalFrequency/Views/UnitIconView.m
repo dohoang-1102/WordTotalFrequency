@@ -25,11 +25,14 @@
 @synthesize percentArc = _percentArc;
 @synthesize index = _index;
 
+const float INSET_OFFSET = 4;
+
 - (id)initWithFrame:(CGRect)frame image:(NSString *)image
 {
     self = [super initWithFrame:frame];
     if (self) {
         CGRect rect = CGRectMake(0, 0, CGRectGetWidth(frame), CGRectGetHeight(frame));
+        rect = CGRectInset(rect, INSET_OFFSET, INSET_OFFSET);
         
         _circleLayer = [[CAShapeLayer alloc] init];
         _circleLayer.bounds = rect;
@@ -99,14 +102,15 @@
 
 - (void)drawPathWithArc:(CGFloat)arc
 {
+    CGRect rect = CGRectInset(self.bounds, INSET_OFFSET, INSET_OFFSET);
     _percentLayer.path = nil;
     
     CGMutablePathRef thePath = CGPathCreateMutable();
     CGPathAddArc(thePath,
                  NULL,
-                 CGRectGetMidX(self.bounds),
-                 CGRectGetMidY(self.bounds),
-                 CGRectGetWidth(self.bounds)/2.0,
+                 CGRectGetMidX(rect),
+                 CGRectGetMidY(rect),
+                 CGRectGetWidth(rect)/2.0,
                  -M_PI/2,
                  arc,
                  NO);
