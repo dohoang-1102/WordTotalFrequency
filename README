@@ -23,3 +23,5 @@
 3. detail ending
     update word set detail = REPLACE(detail, "；\n", "\n") 
     update word set detail = REPLACE(detail, ";\n", "\n") 
+4. tags
+    update word set tags = CONCAT(tags, 'cet4,') where LOCATE('cet4', tags)=0 and spell in (select spell from cet4)

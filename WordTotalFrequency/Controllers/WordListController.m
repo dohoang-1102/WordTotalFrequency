@@ -117,7 +117,7 @@ static NSPredicate *searchPredicate;
                             // load scroll index
                             NSDictionary *dict = [[DataController sharedDataController] dictionaryForCategoryId:_wordSetIndex];
                             int topIndex = [[dict valueForKey:@"listTopWordIndex"] intValue];
-                            if (topIndex > 0){
+                            if (topIndex > 0 && _listType == WordListTypeWordSet){
                                 NSUInteger ii[2] = {0, topIndex};
                                 NSIndexPath* indexPath = [NSIndexPath indexPathWithIndexes:ii length:2];
                                 [blockSelf.tableView scrollToRowAtIndexPath:indexPath

@@ -81,13 +81,13 @@
     
     // get level
     NSString *level = @"I";
-    if (total > 12000)
+    if (total > 9200)
         level = @"V";
-    else if (total > 9000)
+    else if (total > 5500)
         level = @"IV";
-    else if (total > 6000)
+    else if (total > 2500)
         level = @"III";
-    else if (total > 3000)
+    else if (total > 1000)
         level = @"II";
     
     _levelLabel.text = level;

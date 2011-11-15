@@ -1,7 +1,20 @@
 import sqlite3;
 from datetime import datetime, date;
 import time
- 
+
+# return category id
+def getCategoryId(count):
+    if count < 1000:
+        return 0
+    elif count < 2500:
+        return 1
+    elif count < 5500:
+        return 2
+    elif count < 9200:
+        return 3
+    else:
+        return 4
+
 inConn = sqlite3.connect('mysql.sqlite')
 outConn = sqlite3.connect('WordTotalFrequency.sqlite')
  
@@ -21,19 +34,19 @@ for row in inCursor:
 	count = count + 1
 	# Create ZWORD entry
 	vals = []
-	vals.append(count+1)			# Z_PK	row[0]
-	vals.append(2)					# Z_ENT
-	vals.append(1)					# Z_OPT
-	vals.append(0)					# ZMARKSTATUS
-	vals.append(row[3])				# ZRANK
-	vals.append(min(count/2500, 4)) # ZCATEGORY	row[11]
-	vals.append(row[7])				# ZTRANSLATE
-	vals.append("")                 # ZMARKDATE
-	vals.append(row[8])				# ZTAGS
-	vals.append(row[1])				# ZSPELL
-	vals.append(row[4])				# ZPHONETIC
-	vals.append(row[9])				# ZDETAIL
-	vals.append(row[5])				# ZSOUNDFILE
+	vals.append(count+1)                # Z_PK	row[0]
+	vals.append(2)                      # Z_ENT
+	vals.append(1)                      # Z_OPT
+	vals.append(0)                      # ZMARKSTATUS
+	vals.append(row[3])                 # ZRANK
+	vals.append(getCategoryId(count))   # ZCATEGORY	row[11]
+	vals.append(row[7])                 # ZTRANSLATE
+	vals.append("")                     # ZMARKDATE
+	vals.append(row[8])                 # ZTAGS
+	vals.append(row[1])                 # ZSPELL
+	vals.append(row[4])                 # ZPHONETIC
+	vals.append(row[9])                 # ZDETAIL
+	vals.append(row[5])                 # ZSOUNDFILE
 	outConn.execute("insert into ZWORD values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", vals)
     
     

@@ -200,12 +200,12 @@
             stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if (file && [file length] > 0)
     {
-//        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:file ofType:@"mp3"]];
-//        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
-//        self.player = audioPlayer;
-//        [fileURL release];
-//        [audioPlayer release];
-//        [self.player prepareToPlay];
+        NSURL *fileURL = [[NSURL alloc] initFileURLWithPath: [[NSBundle mainBundle] pathForResource:file ofType:@"mp3"]];
+        AVAudioPlayer *audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:fileURL error:nil];
+        self.player = audioPlayer;
+        [fileURL release];
+        [audioPlayer release];
+        [self.player prepareToPlay];
     }
     else
     {
