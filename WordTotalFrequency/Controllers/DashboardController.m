@@ -339,7 +339,7 @@
     {
         [_wordSetBrief performSelector:@selector(fadeSelectedBackground) withObject:nil afterDelay:0.15];
         [_wordSetBrief updateDisplay];
-        [self performSelector:@selector(collapseWordSetBrief) withObject:nil afterDelay:0.65];
+//        [self performSelector:@selector(collapseWordSetBrief) withObject:nil afterDelay:0.65];
     }
     
     if (_searchBar.text != NULL)
