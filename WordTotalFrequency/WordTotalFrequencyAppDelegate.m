@@ -32,7 +32,22 @@
 //    [[DataController sharedDataController] saveFromSource:@"save data free sqlite"];
     
     [self.window makeKeyAndVisible];
+    
+    
+    application.applicationIconBadgeNumber = 0;
+    
+    // Handle launching from a notification
+    UILocalNotification *localNotif = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+    if (localNotif) {
+        NSLog(@"Recieved Notification %@",localNotif);
+    }
+    
     return YES;
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -40,6 +55,22 @@
     if ([[[DataController sharedDataController] managedObjectContext] hasChanges]) {
 		[[DataController sharedDataController] saveFromSource:@"application will terminate"];
 	}
+    
+    // local notification
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [[DataController sharedDataController] scheduleNextWord];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    application.applicationIconBadgeNumber = 0;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    // local notification
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    [[DataController sharedDataController] scheduleNextWord];
 }
 
 - (void)dealloc

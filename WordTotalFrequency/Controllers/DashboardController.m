@@ -16,6 +16,7 @@
 #import "WordSetBriefView.h"
 #import "UIColor+WTF.h"
 #import "DataController.h"
+#import "InfoScrollController.h"
 
 @interface DashboardController()
 - (void)dismissSearchResult:(BOOL)animated;
@@ -499,6 +500,9 @@
 
 - (void)showInformation
 {
+    InfoScrollController *controller = [[InfoScrollController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+    [controller release];
 }
 
 @end

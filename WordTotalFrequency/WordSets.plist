@@ -15,10 +15,10 @@
 			<string>Basic vocabulary for beginners , user without any basis should start from here.</string>
 			<key>iconUrl</key>
 			<string>Unit-1</string>
-			<key>testMarked</key>
-			<false/>
 			<key>listTopWordIndex</key>
 			<integer>0</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>arrowColor</key>
@@ -31,10 +31,10 @@
 			<string>Middle level vocabulary, these words are crucial to understand short articles and simple conversations.</string>
 			<key>iconUrl</key>
 			<string>Unit-2</string>
-			<key>testMarked</key>
-			<false/>
 			<key>listTopWordIndex</key>
 			<integer>0</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>arrowColor</key>
@@ -47,10 +47,10 @@
 			<string>Advanced vocabulary for middle level user, these words help understand the main idea of normal articles.</string>
 			<key>iconUrl</key>
 			<string>Unit-3</string>
-			<key>testMarked</key>
-			<false/>
 			<key>listTopWordIndex</key>
 			<integer>0</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>arrowColor</key>
@@ -63,10 +63,10 @@
 			<string>Advanced vocabulary for high level user, these words will help you read most articles and express your opinions.</string>
 			<key>iconUrl</key>
 			<string>Unit-4</string>
-			<key>testMarked</key>
-			<false/>
 			<key>listTopWordIndex</key>
 			<integer>0</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 		<dict>
 			<key>arrowColor</key>
@@ -79,11 +79,13 @@
 			<string>Rare used vocabulary , but they are important to read complex articles and enhance expression diversity.</string>
 			<key>iconUrl</key>
 			<string>Unit-5</string>
-			<key>testMarked</key>
-			<false/>
 			<key>listTopWordIndex</key>
 			<integer>0</integer>
+			<key>testMarked</key>
+			<false/>
 		</dict>
 	</array>
+	<key>NotificationOn</key>
+	<true/>
 </dict>
 </plist>

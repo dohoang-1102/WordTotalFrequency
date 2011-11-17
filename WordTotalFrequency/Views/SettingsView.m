@@ -123,6 +123,29 @@
         [toggle addTarget:self action:@selector(toggleMarkedOnly:) forControlEvents:UIControlEventValueChanged];
         [self addSubview:toggle];
         [toggle release];
+        
+        // 4th setting
+        dot = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"dot"]];
+        dot.frame = CGRectMake(18, 249, 5, 5);
+        [self addSubview:dot];
+        [dot release];
+        
+        label = [[UILabel alloc] initWithFrame:CGRectMake(30, 236, 170, 50)];
+        label.backgroundColor = [UIColor clearColor];
+        label.font = [UIFont systemFontOfSize:15];
+        label.numberOfLines = 0;
+        label.shadowColor = [UIColor whiteColor];
+        label.shadowOffset = CGSizeMake(0.5, 1);
+        label.text = @"Enable daily reminder for studying words";
+        label.textColor = [UIColor colorForNormalText];
+        [self addSubview:label];
+        [label release];
+        
+        toggle = [[UISwitch alloc] initWithFrame:CGRectMake(210, 244, 94, 30)];
+        toggle.on = [[DataController sharedDataController] isNoticationOn];
+        [toggle addTarget:self action:@selector(toggleNotification:) forControlEvents:UIControlEventValueChanged];
+        [self addSubview:toggle];
+        [toggle release];
     }
     return self;
 }
@@ -135,9 +158,6 @@
 - (void)setWordSetController:(WordSetController *)wordSetController
 {
     _wordSetController = wordSetController;
-    
-    
-    
 }
 
 #pragma mark - private message
@@ -168,7 +188,7 @@
 - (void)unmarkAll:(UIButton *)button
 {
     UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@""
-                                                     message:@"Are you sure you want to clean history?"
+                                                     message:@"Are you sure you want to clean all marks in history?"
                                                     delegate:self
                                            cancelButtonTitle:@"Yes, I'm Sure"
                                            otherButtonTitles:@"No, thanks", nil] autorelease];
@@ -182,6 +202,19 @@
     [[DataController sharedDataController] saveSettingsDictionary];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:TEST_SETTING_CHANGED_NOTIFICATION object:self];
+}
+
+- (void)toggleNotification:(UISwitch *)toggle
+{
+    if (toggle.on){
+        
+    }
+    else{
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    }
+    
+    [[DataController sharedDataController] setNotificationOn:toggle.on];
+    [[DataController sharedDataController] saveSettingsDictionary];
 }
 
 #pragma mark - UIAlertViewDelegate

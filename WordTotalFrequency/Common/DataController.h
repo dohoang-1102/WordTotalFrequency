@@ -28,6 +28,7 @@
 
 @property (nonatomic, readonly) NSDictionary *settingsDictionary;
 @property (nonatomic, readonly) NSString *dbPath;
+@property (nonatomic, getter = isNoticationOn) BOOL notificationOn;
 
 /**
  Print a log message and exit the application.  Called whenever a CoreData related method fails.
@@ -55,5 +56,7 @@
 
 - (NSDictionary *)dictionaryForCategoryId:(NSUInteger)categoryId;
 - (void)saveSettingsDictionary;
+
+- (void)scheduleNextWord;
 
 @end

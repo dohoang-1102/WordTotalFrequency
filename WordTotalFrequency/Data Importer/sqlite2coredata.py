@@ -4,13 +4,13 @@ import time
 
 # return category id
 def getCategoryId(count):
-    if count < 1000:
+    if count < 1251:
         return 0
-    elif count < 2500:
+    elif count < 2497:
         return 1
-    elif count < 5500:
+    elif count < 5520:
         return 2
-    elif count < 9200:
+    elif count < 9396:
         return 3
     else:
         return 4
