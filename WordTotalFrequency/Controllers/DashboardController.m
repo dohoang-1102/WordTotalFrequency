@@ -211,6 +211,7 @@
     
     _searchBar = [[CustomSearchBar alloc] init];
     _searchBar.keyboardType = UIKeyboardTypeASCIICapable;
+    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _searchBar.delegate = self;
     _searchBar.placeholder = @"type to search";
     [_searchBar sizeToFit];

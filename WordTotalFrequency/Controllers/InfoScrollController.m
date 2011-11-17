@@ -77,7 +77,7 @@ static NSUInteger kNumberOfPages = 4;
     [self loadScrollViewWithPage:1];
     
     // back button
-    _closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _closeButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
     _closeButton.frame = CGRectMake(280, -1, 44, 44);
     [_closeButton setImage:[UIImage imageNamed:@"close-btn"] forState:UIControlStateNormal];
     [_closeButton addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
