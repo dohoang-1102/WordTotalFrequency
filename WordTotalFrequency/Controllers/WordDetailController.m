@@ -245,9 +245,9 @@ typedef enum {
     // e.g. self.myOutlet = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
+    [super viewDidAppear:animated];
     
     WordDetailView *view =  [[_containerView subviews] objectAtIndex:0];
     view.word = _word;

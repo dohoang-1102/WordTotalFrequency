@@ -42,6 +42,8 @@
         NSLog(@"Recieved Notification %@",localNotif);
     }
     
+    [[DataController sharedDataController] incrementAppLoadedTimes];
+    
     return YES;
 }
 

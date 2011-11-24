@@ -132,6 +132,9 @@ typedef enum {
 
     // update control
     [(UILabel *)[self.view viewWithTag:PERCENT_LABEL_TAG] setText:[NSString stringWithFormat:@"%d / %d", _wordSet.markedWordCount, _wordSet.totalWordCount]];
+    CustomProgress *progress = (CustomProgress *)[self.view viewWithTag:PROGRESS_TAG];
+    progress.currentValue = _wordSet.completePercentage;
+
 }
 
 #pragma mark - notification handler

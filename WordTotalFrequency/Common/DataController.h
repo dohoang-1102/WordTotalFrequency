@@ -16,7 +16,7 @@
 #define MANAGED_OBJECT_CONTEXT [[DataController sharedDataController] managedObjectContext]
 #define SQL_DATABASE_NAME @"WordTotalFrequency"
 
-@interface DataController : NSObject {
+@interface DataController : NSObject<UIAlertViewDelegate> {
     NSManagedObjectModel *_managedObjectModel;
     NSManagedObjectContext *_managedObjectContext;	    
     NSPersistentStoreCoordinator *_persistentStoreCoordinator;
@@ -58,5 +58,7 @@
 - (void)saveSettingsDictionary;
 
 - (void)scheduleNextWord;
+
+- (void)incrementAppLoadedTimes;
 
 @end
