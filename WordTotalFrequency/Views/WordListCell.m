@@ -133,6 +133,28 @@
     }
 }
 
+// add touchesEnded to pair touch events specificly for iOS 5
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if (_wordSetController.selectedViewIndex == 2)
+    {
+        [self.nextResponder touchesEnded:touches withEvent:event];
+        return;
+    }
+    
+    CGSize size = [_spell.text sizeWithFont:_spell.font
+                          constrainedToSize:CGSizeMake(CGRectGetWidth(_spell.bounds), CGRectGetHeight(_spell.bounds))];
+    CGRect rect = CGRectMake(0, 0, 30+size.width, CGRectGetHeight(self.bounds));
+    if (CGRectContainsPoint(rect, _lastHitPoint))
+    {
+        // do nothing
+    }
+    else
+    {
+        [self.nextResponder touchesEnded:touches withEvent:event];
+    }
+}
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
     _lastHitPoint = point;

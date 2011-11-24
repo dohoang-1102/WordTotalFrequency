@@ -243,7 +243,6 @@
     // word set brief
     _wordSetBrief = [[WordSetBriefView alloc]
                      initWithFrame:CGRectMake(0, -WORDSETBRIEF_HEIGHT, CGRectGetWidth(rect), WORDSETBRIEF_HEIGHT)];
-    _wordSetBrief.dashboardController = self;
     [_barContainer addSubview:_wordSetBrief];
     
     // pie chart

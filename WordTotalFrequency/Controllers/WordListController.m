@@ -12,6 +12,7 @@
 #import "DataController.h"
 #import "WordListCell.h"
 #import "UIColor+WTF.h"
+#import "WordTotalFrequencyAppDelegate.h"
 
 
 @implementation WordListController
@@ -257,7 +258,9 @@ static NSPredicate *searchPredicate;
     controller.wordSetController = self.wordSetController;
     controller.wordListController = self;
     controller.navigatable = (_listType != WordListTypeSearchResult);
-    [(UINavigationController *)self.view.window.rootViewController pushViewController:controller animated:YES];
+    
+    WordTotalFrequencyAppDelegate *del = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    [del.navigationController pushViewController:controller animated:YES];
     [controller release];
 }
 

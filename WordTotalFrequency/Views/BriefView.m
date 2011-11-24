@@ -43,7 +43,7 @@
         note.text = @"words\nmarkedas\nremembered";
         [note setFontColor:[UIColor colorForNormalText]];
         [note setLineHeight:12];
-        note.textAlignment = UITextAlignmentLeft;
+        note.textAlignment = MTLabelTextAlignmentLeft;
         [self addSubview:note];
         [note release];
         

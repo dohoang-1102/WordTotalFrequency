@@ -26,7 +26,6 @@
 
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) WordSet *wordSet;
-@property (nonatomic, assign) DashboardController *dashboardController;
 
 - (void)centerArrowToX:(CGFloat)x;
 - (void)updateDisplay;

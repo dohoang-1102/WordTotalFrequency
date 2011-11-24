@@ -9,17 +9,20 @@
 #import "WordSetBriefView.h"
 #import "UIColor+WTF.h"
 #import "WordSetController.h"
+#import "WordTotalFrequencyAppDelegate.h"
+
 
 @implementation WordSetBriefView
 
 @synthesize tableView = _tableView;
-@synthesize dashboardController = _dashboardController;
 
 - (void)navigateToWordSetController
 {
     WordSetController *wsc = [[WordSetController alloc] init];
     wsc.wordSet = _wordSet;
-    [self.dashboardController.navigationController pushViewController:wsc animated:YES];
+    
+    WordTotalFrequencyAppDelegate *del = (WordTotalFrequencyAppDelegate *)[UIApplication sharedApplication].delegate;
+    [del.navigationController pushViewController:wsc animated:YES];
     [wsc release];
 }
 
@@ -73,7 +76,7 @@
         _countNoteLabel.text = @"words\nmarked as\nremembered";
         [_countNoteLabel setFontColor:[UIColor colorForNormalText]];
         [_countNoteLabel setLineHeight:12];
-        _countNoteLabel.textAlignment = UITextAlignmentLeft;
+        _countNoteLabel.textAlignment = MTLabelTextAlignmentLeft;
         [self addSubview:_countNoteLabel];
         
         _percentLabel = [[UILabel alloc] initWithFrame:CGRectZero];

@@ -272,16 +272,12 @@ typedef enum {
     [_viewContainer addSubview:_listController.view];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self updateMarkedCount];
-}
-
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
+    [self updateMarkedCount];
+
     if (_selectedViewIndex == 0)
         [_listController.tableView deselectRowAtIndexPath:[_listController.tableView indexPathForSelectedRow] animated:YES];
     else if (_selectedViewIndex == 2)
